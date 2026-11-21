@@ -1,0 +1,562 @@
+[
+ {
+  "id": "Q1-01",
+  "subject": "Dermatology",
+  "concept": "Lichen planus (Wickham's striae)",
+  "stem": "Itchy, purple, polygonal, flat-topped papules on the wrists with fine white lacy lines on their surface (Wickham's striae) are characteristic of:",
+  "options": {
+   "A": "Psoriasis",
+   "B": "Dermatitis herpetiformis",
+   "C": "Lichen planus",
+   "D": "Pemphigus vulgaris"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q1-02",
+  "subject": "Microbiology",
+  "concept": "Negri bodies",
+  "stem": "Negri bodies, eosinophilic intracytoplasmic inclusions in neurons of the hippocampus and cerebellar Purkinje cells, are pathognomonic of:",
+  "options": {
+   "A": "Rabies",
+   "B": "Molluscum contagiosum",
+   "C": "Herpes simplex encephalitis",
+   "D": "Cytomegalovirus infection"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q1-03",
+  "subject": "Biochemistry",
+  "concept": "Glycogen storage disease (Von Gierke)",
+  "stem": "An infant presents with fasting hypoglycaemia, massive hepatomegaly, lactic acidosis, hyperuricaemia and hyperlipidaemia. Which enzyme is deficient?",
+  "options": {
+   "A": "Debranching enzyme",
+   "B": "Muscle glycogen phosphorylase",
+   "C": "Acid maltase (α-1,4-glucosidase)",
+   "D": "Glucose-6-phosphatase"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q1-04",
+  "subject": "Medicine",
+  "concept": "Causes of Cushing syndrome",
+  "stem": "The most common cause of ENDOGENOUS Cushing syndrome is:",
+  "options": {
+   "A": "Adrenal adenoma",
+   "B": "ACTH-secreting pituitary adenoma (Cushing disease)",
+   "C": "Ectopic ACTH from small-cell lung cancer",
+   "D": "Adrenal carcinoma"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q1-05",
+  "subject": "Anatomy",
+  "concept": "Brachial plexus birth injury (Erb vs Klumpke)",
+  "stem": "A newborn delivered after difficult shoulder dystocia holds the arm adducted, medially rotated, with the forearm extended and pronated ('waiter's tip'). Which roots are injured?",
+  "options": {
+   "A": "C5 and C6 (upper trunk)",
+   "B": "C8 and T1 (lower trunk)",
+   "C": "C7 only",
+   "D": "C5 to T1 (all roots)"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q1-06",
+  "subject": "Pathology",
+  "concept": "Psammoma bodies",
+  "stem": "Psammoma bodies are characteristically seen in all of the following EXCEPT:",
+  "options": {
+   "A": "Papillary carcinoma of thyroid",
+   "B": "Meningioma",
+   "C": "Serous cystadenocarcinoma of ovary",
+   "D": "Follicular carcinoma of thyroid"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q1-07",
+  "subject": "Forensic Medicine",
+  "concept": "Post-mortem lividity colours",
+  "stem": "Cherry-red post-mortem lividity is characteristically seen in poisoning with:",
+  "options": {
+   "A": "Hydrogen sulphide",
+   "B": "Carbon monoxide",
+   "C": "Phosphorus",
+   "D": "Nitrites"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q1-08",
+  "subject": "Radiology",
+  "concept": "Radiosensitivity of cell cycle",
+  "stem": "Which phase of the cell cycle is MOST sensitive to radiation?",
+  "options": {
+   "A": "Late S phase",
+   "B": "G0 phase",
+   "C": "G2–M phase",
+   "D": "Early G1 phase"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q1-09",
+  "subject": "Forensic Medicine",
+  "concept": "Signs of IUFD (Spalding)",
+  "stem": "An X-ray of the pregnant abdomen shows overlapping of the fetal skull bones (Spalding sign). This indicates:",
+  "options": {
+   "A": "Normal engagement of the head",
+   "B": "Anencephaly",
+   "C": "Hydrocephalus",
+   "D": "Intrauterine fetal death"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q1-10",
+  "subject": "Ophthalmology",
+  "concept": "Kayser–Fleischer ring",
+  "stem": "The Kayser–Fleischer ring in Wilson disease is due to deposition of copper in:",
+  "options": {
+   "A": "Descemet's membrane",
+   "B": "Corneal epithelium",
+   "C": "Bowman's membrane",
+   "D": "Corneal stroma"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q1-11",
+  "subject": "Surgery",
+  "concept": "Hernia types (Richter's)",
+  "stem": "A hernia in which only part of the circumference of the bowel wall (antimesenteric border) is trapped in the sac, so strangulation can occur WITHOUT intestinal obstruction, is called:",
+  "options": {
+   "A": "Littre's hernia",
+   "B": "Richter's hernia",
+   "C": "Maydl's hernia",
+   "D": "Amyand's hernia"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q1-12",
+  "subject": "OBG",
+  "concept": "Ectopic pregnancy site",
+  "stem": "The most common site of tubal ectopic pregnancy is:",
+  "options": {
+   "A": "Ampulla",
+   "B": "Interstitial (cornual) part",
+   "C": "Fimbria",
+   "D": "Isthmus"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q1-13",
+  "subject": "PSM / Community Medicine",
+  "concept": "Chlorination – residual chlorine",
+  "stem": "In chlorination of drinking water, the recommended free residual chlorine at the end of a 1-hour contact period is:",
+  "options": {
+   "A": "0.2 mg/L",
+   "B": "2 mg/L",
+   "C": "0.5 mg/L",
+   "D": "1 mg/L"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q1-14",
+  "subject": "Physiology",
+  "concept": "Nephron segment Na⁺ reabsorption",
+  "stem": "The maximum fraction of filtered sodium is reabsorbed in which part of the nephron?",
+  "options": {
+   "A": "Proximal convoluted tubule",
+   "B": "Distal convoluted tubule",
+   "C": "Thick ascending limb of loop of Henle",
+   "D": "Collecting duct"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q1-15",
+  "subject": "PSM / Community Medicine",
+  "concept": "Vaccine heat sensitivity / cold chain",
+  "stem": "Which vaccine is the MOST sensitive to heat?",
+  "options": {
+   "A": "Hepatitis B vaccine",
+   "B": "Tetanus toxoid",
+   "C": "Oral polio vaccine (OPV)",
+   "D": "BCG (freeze-dried, unreconstituted)"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q1-16",
+  "subject": "Microbiology",
+  "concept": "Nagler reaction",
+  "stem": "The Nagler reaction is used for the identification of:",
+  "options": {
+   "A": "Clostridium botulinum",
+   "B": "Clostridium tetani",
+   "C": "Clostridioides (Clostridium) difficile",
+   "D": "Clostridium perfringens"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q1-17",
+  "subject": "PSM / Community Medicine",
+  "concept": "Screening test indices",
+  "stem": "The ability of a screening test to correctly identify those who HAVE the disease is called:",
+  "options": {
+   "A": "Positive predictive value",
+   "B": "Sensitivity",
+   "C": "Negative predictive value",
+   "D": "Specificity"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q1-18",
+  "subject": "Surgery",
+  "concept": "Parkland formula (burns)",
+  "stem": "A 60 kg adult has 40% TBSA burns. Using the Parkland formula, how much Ringer lactate should be given in the FIRST 8 hours from the time of burn?",
+  "options": {
+   "A": "9600 mL",
+   "B": "4800 mL",
+   "C": "7200 mL",
+   "D": "2400 mL"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q1-19",
+  "subject": "Medicine",
+  "concept": "ECG in hyperkalaemia",
+  "stem": "The EARLIEST ECG change seen in hyperkalaemia is:",
+  "options": {
+   "A": "ST depression",
+   "B": "Prominent U waves",
+   "C": "Prolonged QT interval",
+   "D": "Tall, peaked (tented) T waves"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q1-20",
+  "subject": "Surgery",
+  "concept": "Charcot's triad / cholangitis",
+  "stem": "A patient presents with fever with chills, jaundice and right upper quadrant pain. This triad (Charcot's triad) is classically seen in:",
+  "options": {
+   "A": "Acute cholecystitis",
+   "B": "Acute pancreatitis",
+   "C": "Carcinoma head of pancreas",
+   "D": "Acute (ascending) cholangitis"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q1-21",
+  "subject": "Pharmacology",
+  "concept": "Paracetamol poisoning antidote",
+  "stem": "The specific antidote used in paracetamol (acetaminophen) poisoning is:",
+  "options": {
+   "A": "Naloxone",
+   "B": "N-acetylcysteine",
+   "C": "Flumazenil",
+   "D": "Fomepizole"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q1-22",
+  "subject": "Pediatrics",
+  "concept": "Developmental milestones (gross motor)",
+  "stem": "At what age can a normally developing child ride a tricycle?",
+  "options": {
+   "A": "2 years",
+   "B": "5 years",
+   "C": "3 years",
+   "D": "4 years"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q1-23",
+  "subject": "Orthopedics",
+  "concept": "Bone tumours – osteosarcoma",
+  "stem": "A 15-year-old boy has pain and swelling around the knee. X-ray shows a lytic-sclerotic lesion in the distal femoral metaphysis with a Codman's triangle and sunray (sunburst) appearance. Diagnosis?",
+  "options": {
+   "A": "Ewing sarcoma",
+   "B": "Osteochondroma",
+   "C": "Giant cell tumour",
+   "D": "Osteosarcoma"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q1-24",
+  "subject": "Physiology",
+  "concept": "O2–Hb dissociation curve shifts",
+  "stem": "Which of the following shifts the oxygen–haemoglobin dissociation curve to the RIGHT?",
+  "options": {
+   "A": "Increased 2,3-BPG",
+   "B": "Fetal haemoglobin (HbF)",
+   "C": "Alkalosis",
+   "D": "Decreased temperature"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q1-25",
+  "subject": "Anesthesia",
+  "concept": "Malignant hyperthermia",
+  "stem": "During general anaesthesia with sevoflurane and succinylcholine, a patient develops masseter rigidity, rising end-tidal CO₂, tachycardia and hyperthermia. The drug of choice is:",
+  "options": {
+   "A": "Sugammadex",
+   "B": "Dantrolene",
+   "C": "Neostigmine",
+   "D": "Paracetamol (IV)"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q1-26",
+  "subject": "Ophthalmology",
+  "concept": "CRAO – cherry-red spot",
+  "stem": "A 65-year-old hypertensive has sudden painless loss of vision in one eye. Fundus shows a pale, opaque retina with a cherry-red spot at the macula. Diagnosis?",
+  "options": {
+   "A": "Rhegmatogenous retinal detachment",
+   "B": "Central retinal vein occlusion",
+   "C": "Central retinal artery occlusion",
+   "D": "Vitreous haemorrhage"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q1-27",
+  "subject": "Pharmacology",
+  "concept": "Red man syndrome",
+  "stem": "A patient receiving a rapid IV infusion of an antibiotic develops flushing and an erythematous rash over the face, neck and upper trunk with hypotension. The drug most likely responsible is:",
+  "options": {
+   "A": "Azithromycin",
+   "B": "Ceftriaxone",
+   "C": "Vancomycin",
+   "D": "Gentamicin"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q1-28",
+  "subject": "Pathology",
+  "concept": "Amyloid types (secondary amyloidosis)",
+  "stem": "A patient with long-standing rheumatoid arthritis develops nephrotic-range proteinuria. Renal biopsy shows Congo red–positive deposits. The amyloid protein is most likely:",
+  "options": {
+   "A": "AL (immunoglobulin light chain)",
+   "B": "ATTR (transthyretin)",
+   "C": "AA (serum amyloid A-derived)",
+   "D": "Aβ2-microglobulin"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q1-29",
+  "subject": "Psychiatry",
+  "concept": "Lithium teratogenicity",
+  "stem": "Use of lithium in the first trimester of pregnancy is classically associated with which fetal anomaly?",
+  "options": {
+   "A": "Phocomelia",
+   "B": "Ebstein anomaly",
+   "C": "Cleft lip and palate",
+   "D": "Neural tube defects"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q1-30",
+  "subject": "ENT",
+  "concept": "Epistaxis site",
+  "stem": "The most common site of epistaxis, especially in children and young adults, is:",
+  "options": {
+   "A": "Woodruff's plexus",
+   "B": "Little's area (anterior-inferior nasal septum)",
+   "C": "Roof of nasal cavity",
+   "D": "Superior turbinate"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q1-31",
+  "subject": "OBG",
+  "concept": "Meigs syndrome",
+  "stem": "A postmenopausal woman has a solid ovarian mass, ascites and a right-sided pleural effusion, all of which resolve after removal of the tumour. The tumour is most likely:",
+  "options": {
+   "A": "Ovarian fibroma",
+   "B": "Brenner tumour",
+   "C": "Dysgerminoma",
+   "D": "Granulosa cell tumour"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q1-32",
+  "subject": "Pediatrics",
+  "concept": "Bronchiolitis",
+  "stem": "A 6-month-old infant in winter has coryza, fever, tachypnoea, wheeze and bilateral fine crackles with hyperinflated lungs. The most common causative organism is:",
+  "options": {
+   "A": "Streptococcus pneumoniae",
+   "B": "Respiratory syncytial virus (RSV)",
+   "C": "Parainfluenza virus",
+   "D": "Adenovirus"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q1-33",
+  "subject": "Orthopedics",
+  "concept": "Garden classification",
+  "stem": "The Garden classification is used for fractures of the:",
+  "options": {
+   "A": "Intertrochanteric region of femur",
+   "B": "Tibial plateau",
+   "C": "Neck of femur",
+   "D": "Ankle"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q1-34",
+  "subject": "Pharmacology",
+  "concept": "ATT adverse effects (optic neuritis)",
+  "stem": "A patient on anti-tubercular therapy complains of blurred vision and difficulty distinguishing red from green. The drug responsible is:",
+  "options": {
+   "A": "Ethambutol",
+   "B": "Isoniazid",
+   "C": "Pyrazinamide",
+   "D": "Rifampicin"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q1-35",
+  "subject": "Medicine",
+  "concept": "Light's criteria (pleural effusion)",
+  "stem": "According to Light's criteria, a pleural effusion is classified as an exudate if the ratio of pleural fluid protein to serum protein is greater than:",
+  "options": {
+   "A": "0.8",
+   "B": "0.3",
+   "C": "0.5",
+   "D": "0.6"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q1-36",
+  "subject": "ENT",
+  "concept": "Complications of CSOM (Gradenigo)",
+  "stem": "A patient with chronic otitis media develops diplopia due to lateral rectus palsy and deep retro-orbital pain along with ear discharge. The most likely diagnosis is:",
+  "options": {
+   "A": "Petrositis (Gradenigo syndrome)",
+   "B": "Bezold abscess",
+   "C": "Labyrinthitis",
+   "D": "Lateral sinus thrombosis"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q1-37",
+  "subject": "Anatomy",
+  "concept": "Nerve injuries with humerus fractures",
+  "stem": "A 45-year-old falls on an outstretched hand and sustains a fracture of the surgical neck of the humerus. Which nerve is most likely injured?",
+  "options": {
+   "A": "Musculocutaneous nerve",
+   "B": "Ulnar nerve",
+   "C": "Radial nerve",
+   "D": "Axillary nerve"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q1-38",
+  "subject": "Biochemistry",
+  "concept": "Lesch–Nyhan syndrome (purine salvage)",
+  "stem": "A boy with self-mutilation (lip and finger biting), choreoathetosis, intellectual disability and hyperuricaemia most likely has a deficiency of:",
+  "options": {
+   "A": "HGPRT",
+   "B": "PRPP synthetase",
+   "C": "Adenosine deaminase",
+   "D": "Xanthine oxidase"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q1-39",
+  "subject": "OBG",
+  "concept": "Magnesium sulphate toxicity",
+  "stem": "A woman with eclampsia is on magnesium sulphate. The EARLIEST sign of magnesium toxicity is:",
+  "options": {
+   "A": "Cardiac arrest",
+   "B": "Oliguria",
+   "C": "Respiratory depression",
+   "D": "Loss of patellar (deep tendon) reflex"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q1-40",
+  "subject": "Pathology",
+  "concept": "Reed–Sternberg cell markers",
+  "stem": "Classical Reed–Sternberg cells of Hodgkin lymphoma are typically positive for:",
+  "options": {
+   "A": "CD3 and CD4",
+   "B": "CD34 and CD117",
+   "C": "CD20 and CD45",
+   "D": "CD15 and CD30"
+  },
+  "correct": "D",
+  "image": null
+ }
+]

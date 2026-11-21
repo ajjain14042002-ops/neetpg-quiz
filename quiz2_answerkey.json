@@ -1,0 +1,562 @@
+[
+ {
+  "id": "Q2-01",
+  "subject": "Surgery",
+  "concept": "Boerhaave syndrome – site of rupture",
+  "stem": "After an episode of forceful vomiting following a heavy meal and alcohol, a man develops severe chest pain and subcutaneous emphysema in the neck. The MOST common site of oesophageal rupture is:",
+  "options": {
+   "A": "Right lateral wall of the mid-thoracic oesophagus",
+   "B": "Anterior wall of the abdominal oesophagus",
+   "C": "Left posterolateral wall of the lower thoracic oesophagus",
+   "D": "Cervical oesophagus at Killian's dehiscence"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q2-02",
+  "subject": "OBG",
+  "concept": "FIGO 2018 staging of carcinoma cervix",
+  "stem": "A woman with carcinoma cervix has para-aortic lymph node metastasis confirmed on imaging, with no other distant spread. Her FIGO (2018) stage is:",
+  "options": {
+   "A": "IVB",
+   "B": "IVA",
+   "C": "IIIC1",
+   "D": "IIIC2"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q2-03",
+  "subject": "Surgery",
+  "concept": "Gallstone pancreatitis – timing of cholecystectomy",
+  "stem": "A patient recovers from MILD acute gallstone pancreatitis. The recommended timing of cholecystectomy is:",
+  "options": {
+   "A": "After 6–8 weeks, once inflammation has fully subsided",
+   "B": "During the same admission, once the pancreatitis has settled",
+   "C": "Emergency cholecystectomy within 24 hours of admission",
+   "D": "Only if a second attack of pancreatitis occurs"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q2-04",
+  "subject": "PSM / Community Medicine",
+  "concept": "Attributable risk (percent)",
+  "stem": "The incidence of lung cancer is 40 per 1000 among smokers and 10 per 1000 among non-smokers. The attributable risk (as a percentage) is:",
+  "options": {
+   "A": "75%",
+   "B": "4",
+   "C": "30%",
+   "D": "25%"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q2-05",
+  "subject": "OBG",
+  "concept": "Anti-D immunoglobulin dosing",
+  "stem": "A Rh-negative, unsensitised mother delivers a Rh-positive baby. A standard 300 µg dose of anti-D immunoglobulin protects against fetomaternal haemorrhage of up to:",
+  "options": {
+   "A": "300 mL of fetal whole blood",
+   "B": "30 mL of fetal whole blood (about 15 mL fetal red cells)",
+   "C": "5 mL of fetal whole blood",
+   "D": "15 mL of fetal whole blood"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q2-06",
+  "subject": "Pediatrics",
+  "concept": "Measles – infectivity, Koplik spots, vitamin A",
+  "stem": "IMAGE-BASED: A 3-year-old has had fever, cough, coryza and red watery eyes for 3 days. The buccal mucosa opposite the lower molars is shown. Which statement about this illness is CORRECT?",
+  "options": {
+   "A": "These spots typically appear only after the rash has spread to the trunk",
+   "B": "The commonest cause of death is subacute sclerosing panencephalitis (SSPE)",
+   "C": "Vitamin A is indicated only if the child has signs of xerophthalmia",
+   "D": "The child is infectious from about 4 days before to 4 days after the rash appears"
+  },
+  "correct": "D",
+  "image": "koplik"
+ },
+ {
+  "id": "Q2-07",
+  "subject": "Medicine",
+  "concept": "Heparin-induced thrombocytopenia – management",
+  "stem": "On day 7 of unfractionated heparin, a patient's platelet count falls by 55% and a new DVT develops. The most appropriate next step is:",
+  "options": {
+   "A": "Stop heparin and start warfarin immediately",
+   "B": "Switch to low-molecular-weight heparin (enoxaparin)",
+   "C": "Transfuse platelets",
+   "D": "Stop all heparin and start a non-heparin anticoagulant (e.g. argatroban or fondaparinux)"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q2-08",
+  "subject": "Psychiatry",
+  "concept": "Alcohol withdrawal timeline",
+  "stem": "A man admitted for surgery had his last drink of alcohol on Monday morning. Delirium tremens is most likely to begin:",
+  "options": {
+   "A": "6–12 hours after the last drink",
+   "B": "12–48 hours after the last drink",
+   "C": "48–72 hours after the last drink",
+   "D": "7–10 days after the last drink"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q2-09",
+  "subject": "Microbiology",
+  "concept": "Sterilisation – prions resist autoclaving",
+  "stem": "Which of the following is NOT reliably destroyed by standard autoclaving at 121 °C for 15 minutes?",
+  "options": {
+   "A": "Prions",
+   "B": "Spores of Clostridium tetani",
+   "C": "Hepatitis B virus",
+   "D": "Spores of Geobacillus stearothermophilus"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q2-10",
+  "subject": "Pathology",
+  "concept": "Reversible vs irreversible cell injury (EM)",
+  "stem": "Which electron-microscopic finding indicates IRREVERSIBLE cell injury?",
+  "options": {
+   "A": "Generalised cellular swelling (hydropic change)",
+   "B": "Myelin figures",
+   "C": "Plasma membrane blebbing",
+   "D": "Large, flocculent, amorphous densities in mitochondria"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q2-11",
+  "subject": "Microbiology",
+  "concept": "Dengue – test according to day of illness",
+  "stem": "A patient presents on day 2 of high fever, headache, retro-orbital pain and myalgia during a dengue outbreak. The MOST appropriate test to confirm dengue now is:",
+  "options": {
+   "A": "IgG ELISA",
+   "B": "Positive tourniquet test",
+   "C": "NS1 antigen ELISA",
+   "D": "IgM capture ELISA"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q2-12",
+  "subject": "OBG",
+  "concept": "Ovarian tumour most prone to torsion",
+  "stem": "Which ovarian tumour is MOST likely to undergo torsion?",
+  "options": {
+   "A": "Ovarian fibroma",
+   "B": "Mucinous cystadenoma",
+   "C": "Mature cystic teratoma (dermoid cyst)",
+   "D": "Serous cystadenoma"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q2-13",
+  "subject": "Orthopedics",
+  "concept": "Monteggia fracture-dislocation – nerve injury",
+  "stem": "A child falls on an outstretched hand. X-ray shows a fracture of the proximal third of the ulna with anterior dislocation of the radial head. The nerve MOST commonly injured is:",
+  "options": {
+   "A": "Anterior interosseous nerve",
+   "B": "Median nerve",
+   "C": "Posterior interosseous nerve",
+   "D": "Ulnar nerve"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q2-14",
+  "subject": "Microbiology",
+  "concept": "Hepatitis B serology – window period",
+  "stem": "A patient has: HBsAg negative, anti-HBs negative, IgM anti-HBc positive. The MOST likely interpretation is:",
+  "options": {
+   "A": "Immunity due to hepatitis B vaccination",
+   "B": "Window period of acute hepatitis B",
+   "C": "Chronic hepatitis B carrier",
+   "D": "Past infection with recovery"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q2-15",
+  "subject": "Pediatrics",
+  "concept": "Physiological vs pathological neonatal jaundice",
+  "stem": "Which ONE of the following types of neonatal jaundice is ALWAYS pathological?",
+  "options": {
+   "A": "Clinically visible jaundice appearing within the first 24 hours of life",
+   "B": "Breast-milk jaundice continuing into the 3rd week in a thriving, breastfed baby",
+   "C": "Jaundice persisting till day 10 in a well preterm baby",
+   "D": "Jaundice first visible on day 3 in a well term baby"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q2-16",
+  "subject": "Medicine",
+  "concept": "Sick euthyroid (non-thyroidal illness) syndrome",
+  "stem": "In a critically ill ICU patient with no thyroid disease, the EARLIEST and most common thyroid function abnormality is:",
+  "options": {
+   "A": "Raised T3 with low reverse T3",
+   "B": "Low TSH with raised free T4",
+   "C": "Low total and free T3 with raised reverse T3",
+   "D": "Raised TSH with low free T4"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q2-17",
+  "subject": "Pediatrics",
+  "concept": "Tetralogy of Fallot – hypercyanotic (Tet) spell",
+  "stem": "A 9-month-old with tetralogy of Fallot becomes deeply cyanosed, irritable and hyperpnoeic, and the murmur becomes softer. Which drug is CONTRAINDICATED in this situation?",
+  "options": {
+   "A": "Isoprenaline (isoproterenol) infusion",
+   "B": "Morphine",
+   "C": "Phenylephrine",
+   "D": "Propranolol"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q2-18",
+  "subject": "Microbiology",
+  "concept": "Cryptococcal meningitis – diagnosis",
+  "stem": "IMAGE-BASED: A man with HIV (CD4 count 50/µL) has headache and fever for 2 weeks. The CSF preparation is shown. Which is the MOST sensitive rapid diagnostic test for this infection?",
+  "options": {
+   "A": "India ink preparation",
+   "B": "Cryptococcal antigen (CrAg) lateral flow assay",
+   "C": "Mucicarmine stain of CSF",
+   "D": "Germ tube test"
+  },
+  "correct": "B",
+  "image": "crypto"
+ },
+ {
+  "id": "Q2-19",
+  "subject": "Pharmacology",
+  "concept": "Absence seizures – drug of choice",
+  "stem": "A 7-year-old girl has frequent staring spells lasting a few seconds; the EEG shows 3 Hz spike-and-wave discharges and she has no other seizure types. The drug of choice is:",
+  "options": {
+   "A": "Ethosuximide",
+   "B": "Carbamazepine",
+   "C": "Phenytoin",
+   "D": "Sodium valproate"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q2-20",
+  "subject": "OBG",
+  "concept": "Complete vs partial hydatidiform mole",
+  "stem": "IMAGE-BASED: A 20-year-old at 10 weeks' amenorrhoea has vaginal bleeding, a uterus larger than dates and a very high β-hCG. The transvaginal scan is shown. Which statement is CORRECT?",
+  "options": {
+   "A": "A complete mole is usually 46,XX with all chromosomes of paternal origin",
+   "B": "A complete mole has a LOWER risk of persistent GTN than a partial mole",
+   "C": "Hysterectomy is the treatment of choice in a young woman who wants children",
+   "D": "A partial mole is diploid and has no fetal parts"
+  },
+  "correct": "A",
+  "image": "mole"
+ },
+ {
+  "id": "Q2-21",
+  "subject": "Psychiatry",
+  "concept": "Serotonin syndrome vs NMS",
+  "stem": "Which clinical feature BEST favours serotonin syndrome over neuroleptic malignant syndrome (NMS)?",
+  "options": {
+   "A": "Inducible clonus and hyperreflexia, with onset within 24 hours",
+   "B": "High fever with autonomic instability",
+   "C": "Markedly raised creatine kinase",
+   "D": "Lead-pipe rigidity"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q2-22",
+  "subject": "PSM / Community Medicine",
+  "concept": "Open vial policy (India)",
+  "stem": "Under India's open vial policy, which vaccine vial, once opened, can be used in subsequent sessions for up to 4 weeks if all conditions are met?",
+  "options": {
+   "A": "Oral polio vaccine (OPV)",
+   "B": "BCG",
+   "C": "Measles–rubella (MR)",
+   "D": "JE vaccine"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q2-23",
+  "subject": "Pediatrics",
+  "concept": "Croup – steeple sign and management",
+  "stem": "IMAGE-BASED: A 2-year-old has a barking cough and inspiratory stridor that is worse at night, after 2 days of coryza and low-grade fever. A neck X-ray (AP view) is shown. Best initial treatment for moderate disease (stridor at rest)?",
+  "options": {
+   "A": "Examine the throat with a tongue depressor first to see the epiglottis",
+   "B": "Nebulised salbutamol every 20 minutes",
+   "C": "IV ceftriaxone, because the steeple sign indicates a bacterial cause",
+   "D": "Single dose of dexamethasone plus nebulised adrenaline (epinephrine)"
+  },
+  "correct": "D",
+  "image": "croup"
+ },
+ {
+  "id": "Q2-24",
+  "subject": "Surgery",
+  "concept": "Tension pneumothorax – decompression site (ATLS 10)",
+  "stem": "According to ATLS (10th edition), the recommended site for needle decompression of a tension pneumothorax in an ADULT is:",
+  "options": {
+   "A": "7th intercostal space, posterior axillary line",
+   "B": "4th intercostal space, parasternal line",
+   "C": "5th intercostal space, just anterior to the mid-axillary line",
+   "D": "2nd intercostal space, mid-clavicular line"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q2-25",
+  "subject": "Pediatrics",
+  "concept": "Nephrotic syndrome – spontaneous peritonitis organism",
+  "stem": "A 5-year-old with relapse of steroid-sensitive nephrotic syndrome and gross ascites develops fever, diffuse abdominal pain and rebound tenderness. The MOST likely causative organism is:",
+  "options": {
+   "A": "Escherichia coli",
+   "B": "Streptococcus pneumoniae",
+   "C": "Mycobacterium tuberculosis",
+   "D": "Staphylococcus aureus"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q2-26",
+  "subject": "OBG",
+  "concept": "PPH – uterotonic contraindications",
+  "stem": "A woman with severe pre-eclampsia (BP 170/110 mmHg) has atonic postpartum haemorrhage. Which uterotonic must be AVOIDED?",
+  "options": {
+   "A": "Oxytocin infusion",
+   "B": "Methylergometrine",
+   "C": "Misoprostol",
+   "D": "Carboprost (15-methyl PGF2α)"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q2-27",
+  "subject": "Surgery",
+  "concept": "MEN 2 – sequence of surgery",
+  "stem": "A 30-year-old with medullary carcinoma of the thyroid has a RET mutation (MEN 2A). Before thyroidectomy, which condition must be excluded and, if present, treated FIRST?",
+  "options": {
+   "A": "Pancreatic neuroendocrine tumour",
+   "B": "Phaeochromocytoma",
+   "C": "Pituitary adenoma",
+   "D": "Primary hyperparathyroidism"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q2-28",
+  "subject": "PSM / Community Medicine",
+  "concept": "Vitamin A prophylaxis schedule",
+  "stem": "Under the national vitamin A prophylaxis programme, how many doses does a child receive between 9 months and 5 years of age?",
+  "options": {
+   "A": "5 doses (total 10 lakh IU)",
+   "B": "10 doses (total 20 lakh IU)",
+   "C": "9 doses (total 17 lakh IU)",
+   "D": "8 doses (total 16 lakh IU)"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q2-29",
+  "subject": "Orthopedics",
+  "concept": "Slipped capital femoral epiphysis",
+  "stem": "IMAGE-BASED: A 13-year-old obese boy has had knee pain and a limp for 6 weeks. His hip X-ray is shown (marked area). Which statement is CORRECT?",
+  "options": {
+   "A": "On flexing the hip, the thigh rolls into internal rotation",
+   "B": "It is commonest in thin girls aged 4–8 years",
+   "C": "Klein's (Trethowan's) line cuts a larger part of the epiphysis than on the normal side",
+   "D": "Treatment is in-situ fixation with a single cannulated screw, without forceful reduction"
+  },
+  "correct": "D",
+  "image": "scfe"
+ },
+ {
+  "id": "Q2-30",
+  "subject": "Physiology",
+  "concept": "Hormone receptor signalling – JAK-STAT",
+  "stem": "Which hormone acts through a receptor linked to the JAK–STAT pathway?",
+  "options": {
+   "A": "Growth hormone",
+   "B": "Glucagon",
+   "C": "Aldosterone",
+   "D": "Insulin"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q2-31",
+  "subject": "Orthopedics",
+  "concept": "Epiphyseal bone tumours – age of physis",
+  "stem": "A 28-year-old has knee pain. X-ray shows an eccentric, lytic, expansile 'soap-bubble' lesion in the distal femoral epiphysis extending to the subchondral bone, with no matrix calcification. The physis is fused. Most likely diagnosis:",
+  "options": {
+   "A": "Chondroblastoma",
+   "B": "Giant cell tumour (osteoclastoma)",
+   "C": "Osteosarcoma",
+   "D": "Ewing sarcoma"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q2-32",
+  "subject": "Psychiatry",
+  "concept": "Rapid-cycling bipolar disorder – drug choice",
+  "stem": "A patient with bipolar disorder has had 5 mood episodes (mania and depression) in the past year. The mood stabiliser of choice is:",
+  "options": {
+   "A": "Sodium valproate",
+   "B": "Venlafaxine",
+   "C": "Lithium carbonate",
+   "D": "Imipramine"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q2-33",
+  "subject": "Medicine",
+  "concept": "Metabolic alkalosis – chloride-responsive vs resistant",
+  "stem": "A 40-year-old has BP 170/100 mmHg, serum K⁺ 2.9 mEq/L, metabolic alkalosis and urine chloride 45 mEq/L. The most likely cause is:",
+  "options": {
+   "A": "Bartter syndrome",
+   "B": "Recurrent vomiting",
+   "C": "Post-hypercapnic alkalosis",
+   "D": "Primary hyperaldosteronism (Conn syndrome)"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q2-34",
+  "subject": "Orthopedics",
+  "concept": "Acute compartment syndrome – earliest sign",
+  "stem": "A young man with a closed tibial shaft fracture in an above-knee cast complains of increasing pain despite opioids. The EARLIEST and most reliable sign of acute compartment syndrome is:",
+  "options": {
+   "A": "Pallor of the foot",
+   "B": "Paralysis of toe dorsiflexion",
+   "C": "Absent dorsalis pedis pulse",
+   "D": "Pain on passive stretching of the muscles of the compartment"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q2-35",
+  "subject": "OBG",
+  "concept": "GDM screening – DIPSI (Govt of India)",
+  "stem": "As per the Government of India (DIPSI) guideline, gestational diabetes is diagnosed by:",
+  "options": {
+   "A": "50 g glucose challenge; 1-hour plasma glucose ≥140 mg/dL",
+   "B": "100 g OGTT after an overnight fast with 2 or more abnormal values",
+   "C": "75 g oral glucose irrespective of the last meal; 2-hour plasma glucose ≥140 mg/dL",
+   "D": "75 g OGTT after fasting; 2-hour plasma glucose ≥200 mg/dL"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q2-36",
+  "subject": "Medicine",
+  "concept": "WPW – pre-excited AF, drugs to avoid",
+  "stem": "IMAGE-BASED: A 24-year-old with recurrent palpitations has this resting ECG. He later presents with an irregular, broad-complex tachycardia at about 240/min (pre-excited AF) but is haemodynamically stable. Which drug is CONTRAINDICATED?",
+  "options": {
+   "A": "Synchronised DC cardioversion",
+   "B": "IV procainamide",
+   "C": "IV ibutilide",
+   "D": "IV verapamil"
+  },
+  "correct": "D",
+  "image": "wpw"
+ },
+ {
+  "id": "Q2-37",
+  "subject": "PSM / Community Medicine",
+  "concept": "Effect of prevalence on predictive values",
+  "stem": "A screening test with fixed sensitivity and specificity is used in a population where the prevalence of the disease INCREASES. What happens?",
+  "options": {
+   "A": "NPV increases",
+   "B": "Specificity decreases",
+   "C": "PPV increases; sensitivity and specificity remain unchanged",
+   "D": "Sensitivity increases"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q2-38",
+  "subject": "Medicine",
+  "concept": "Cerebral salt wasting vs SIADH",
+  "stem": "Five days after subarachnoid haemorrhage, a patient has serum Na⁺ 126 mEq/L, high urine sodium, postural hypotension, a rising haematocrit and weight loss. The most appropriate management is:",
+  "options": {
+   "A": "Oral tolvaptan",
+   "B": "Fluid restriction to 800 mL/day",
+   "C": "Demeclocycline",
+   "D": "Volume and sodium replacement with isotonic/hypertonic saline (± fludrocortisone)"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q2-39",
+  "subject": "Pediatrics",
+  "concept": "WHO Plan C – severe dehydration rate by age",
+  "stem": "An 8-month-old infant has severe dehydration from acute diarrhoea and IV access is obtained. As per WHO Plan C, Ringer lactate should be given as:",
+  "options": {
+   "A": "75 mL/kg of ORS over 4 hours",
+   "B": "30 mL/kg in 1 hour, then 70 mL/kg in the next 5 hours",
+   "C": "20 mL/kg boluses over 15 minutes, repeated up to 60 mL/kg",
+   "D": "30 mL/kg in 30 minutes, then 70 mL/kg in the next 2½ hours"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q2-40",
+  "subject": "Psychiatry",
+  "concept": "Lithium – drug interactions raising levels",
+  "stem": "A patient stable on lithium develops coarse tremor, vomiting and ataxia shortly after a new drug is added. Which drug is the MOST likely cause?",
+  "options": {
+   "A": "Theophylline",
+   "B": "Hydrochlorothiazide",
+   "C": "Mannitol",
+   "D": "Acetazolamide"
+  },
+  "correct": "B",
+  "image": null
+ }
+]
