@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Flashcards 1 – 30 min Weak Areas</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--text:#1b2233;--muted:#667085;--border:#e3e7ef;--accent:#4f46e5;--accent2:#eef0ff;
+--ok:#16a34a;--okbg:#e8f8ee;--bad:#dc2626;--badbg:#fdecec;--chip:#f0f2f7;--warn:#b45309;--warnbg:#fff7ed}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1420;--card:#171d2b;--text:#e7eaf2;--muted:#98a2b3;--border:#2a3245;--accent:#818cf8;--accent2:#232a45;
+--ok:#22c55e;--okbg:#10291b;--bad:#f87171;--badbg:#341618;--chip:#202838;--warn:#fbbf24;--warnbg:#2a2110}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif}
+form{max-width:720px;margin:0 auto;padding:0 14px calc(28px + env(safe-area-inset-bottom))}
+.hd{padding:10px 0 4px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.title{font-weight:700;font-size:15px}
+.title a{color:inherit;text-decoration:none}
+.score{font-size:13px;color:var(--muted);white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:10px;padding:10px 14px;font:600 15px/1.2 inherit;cursor:pointer;min-height:46px;text-align:center;user-select:none;width:100%}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.btn.warn{background:var(--card);border-color:var(--warn);color:var(--warn)}
+.btn.danger{background:var(--bad);border-color:var(--bad);color:#fff}
+.btn.small{padding:6px 10px;min-height:38px;font-size:13px;width:auto}
+.btn:disabled,.btn.dis{opacity:.4;cursor:default}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.row>.btn{flex:1 1 120px}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0}
+.tag{display:inline-block;background:var(--accent2);color:var(--accent);font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px}
+.qno{font-size:13px;color:var(--muted);font-weight:600}
+.bar{height:6px;background:var(--chip);border-radius:99px;overflow:hidden;margin:8px 0 4px}
+.bar>i{display:block;height:100%;background:var(--ok);width:0;transition:width .25s}
+.stage{perspective:1400px;margin-top:6px}
+.flip{position:relative;min-height:280px;transform-style:preserve-3d;transition:transform .45s ease;cursor:pointer;outline:none}
+.flip.is-flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 18px;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:auto;-webkit-overflow-scrolling:touch}
+.face.back{transform:rotateY(180deg);background:linear-gradient(180deg,var(--okbg),var(--card) 42%)}
+.kicker{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.front .prompt{font-size:20px;font-weight:650;line-height:1.4;margin:0}
+.ans{font-size:18px;font-weight:750;line-height:1.4;margin:0 0 10px}
+.why{font-size:16px;line-height:1.5;margin:0;color:var(--text)}
+.hint{text-align:center;font-size:13px;color:var(--muted);margin:8px 0 0}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-top:14px}
+.panel b{display:block;margin-bottom:4px}
+.note{font-size:13px;color:var(--muted);margin:4px 0 8px}
+.sent-ok{display:none;color:var(--ok);font-weight:700;margin-top:8px}
+.sent-err{display:none;color:var(--bad);font-weight:700;margin-top:8px}
+.done{display:none;text-align:center;padding:28px 16px}
+.done h2{font-size:22px;margin:8px 0}
+.njs{display:none;padding:20px}
+noscript .njs{display:block}
+.hidden{display:none !important}
+#rcbox{display:none;margin-top:10px}
+#rcbox.open{display:block}
+</style>
+</head>
+<body>
+<form id="flash" autocomplete="off" action="https://formsubmit.co/ad00935d28258f1287be438f3a666fd7" method="POST" accept-charset="UTF-8">
+<input type="hidden" name="_subject" value="NEET PG Flashcards 1 – missed cards">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_next" value="https://ajjain14042002-ops.github.io/neetpg-quiz/flashcards1.html?sent=1">
+<input type="text" name="_honey" style="display:none" tabindex="-1" aria-hidden="true">
+<input type="hidden" name="deck" value="Flashcards 1 (30 min Weak Areas, 60 cards)">
+<input type="hidden" name="submitted_at" id="f_ts" value="(no-JS submit – see email timestamp)">
+<input type="hidden" name="progress" id="f_progress" value="">
+<input type="hidden" name="missed_cards" id="f_miss" value="">
+<input type="hidden" name="got_it_ids" id="f_got" value="">
+<input type="hidden" name="remaining_ids" id="f_left" value="">
+
+<div class="hd">
+  <div class="top">
+    <div class="title"><a href="./">‹ Menu</a> · Flashcards 1</div>
+    <div class="score">Not timed · 60 cards</div>
+  </div>
+  <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+  <div class="meta">
+    <span class="tag" id="tag">—</span>
+    <span class="qno" id="prog">Got it 0 / 60</span>
+  </div>
+</div>
+
+<noscript><div class="panel njs"><b>JavaScript is needed for this flashcard set</b><div class="note">Turn on JavaScript (Safari default is on) and reload. Your progress will then be saved on this phone.</div></div></noscript>
+
+<div id="play">
+  <div class="stage">
+    <div class="flip" id="flip" tabindex="0" role="button" aria-label="Flashcard, tap to flip">
+      <div class="face front">
+        <p class="kicker">Question</p>
+        <p class="prompt" id="front"></p>
+      </div>
+      <div class="face back">
+        <p class="kicker">Answer</p>
+        <p class="ans" id="answer"></p>
+        <p class="why" id="why"></p>
+      </div>
+    </div>
+  </div>
+  <p class="hint" id="hint">Tap the card to flip</p>
+  <div class="row">
+    <button type="button" class="btn" id="prevBtn">‹ Prev</button>
+    <button type="button" class="btn" id="flipBtn">Flip</button>
+    <button type="button" class="btn" id="nextBtn">Next ›</button>
+  </div>
+  <div class="row">
+    <button type="button" class="btn warn" id="missBtn">Review again</button>
+    <button type="button" class="btn ok" id="gotBtn">Got it</button>
+  </div>
+</div>
+
+<div class="done" id="done">
+  <h2>Deck complete</h2>
+  <p id="doneMsg"></p>
+  <div class="row">
+    <button type="button" class="btn primary" id="reviewMissedBtn">Review flagged cards</button>
+    <button type="button" class="btn" id="restartBtn">Start again</button>
+  </div>
+</div>
+
+<div class="panel" id="sendBox">
+  <b>Send my missed cards to Grok Bot</b>
+  <div class="note">Sends every card you marked “Review again”, plus your Got-it count, so weak concepts can be analysed. You can send again any time; progress on this phone is kept.</div>
+  <button type="submit" class="btn primary" id="sendBtn">📤 Send my missed cards</button>
+  <div class="sent-ok" id="sentOk">✓ Missed cards sent. Grok Bot can now see them.</div>
+  <div class="sent-err" id="sentErr">Couldn't send – check your internet and tap again.</div>
+</div>
+
+<div class="panel">
+  <b>Reset progress?</b>
+  <div class="note">Clears Got-it and Review-again marks on this phone and starts the 60-card deck again.</div>
+  <button type="button" class="btn small" id="rcOpen">Reset flashcards</button>
+  <div id="rcbox">
+    <div class="row">
+      <button type="button" class="btn danger" id="rcYes">Yes, reset</button>
+      <button type="button" class="btn" id="rcNo">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<p class="note">Conceptual high-yield cards for NEET PG (and useful for AMC). Facts follow standard textbooks (Ghai/Nelson, Dutta/Williams, Harrison, Bailey &amp; Love, Park, Ananthanarayan, Maheshwari, KDT). Not verbatim previous-year questions.</p>
+</form>
+
+<script>
+var CARDS = [
+  {
+    "id": "P01",
+    "subject": "Pediatrics",
+    "front": "A toddler has fever and a barking cough. Which features point to epiglottitis rather than viral croup — and how does that change the next step?",
+    "answer": "Toxic, drooling, sitting forward, muffled voice, little or no cough.",
+    "why": "Do not agitate or inspect the throat; secure the airway in a controlled setting, then IV antibiotics. Croup is gradual, with a barking cough; treat with dexamethasone ± nebulised adrenaline. Trap: examining the throat or sending a toxic child for a ‘steeple-sign’ X-ray."
+  },
+  {
+    "id": "O01",
+    "subject": "OBG",
+    "front": "What is the commonest cause of a sporadic first-trimester miscarriage, and when do you start a recurrent-loss work-up?",
+    "answer": "Chromosomal abnormality (often autosomal trisomy, e.g. 16). Work-up after ≥3 consecutive losses classically (many centres start after 2).",
+    "why": "Typical tests: antiphospholipid antibodies, uterine cavity (HSG/SIS/hysteroscopy), selected parental karyotype. Trap: a full RPL panel after one miscarriage, or calling luteal-phase defect the commonest cause."
+  },
+  {
+    "id": "Y01",
+    "subject": "Psychiatry",
+    "front": "Which is NOT a Schneider first-rank symptom: voices commenting, thought broadcast, made volition, or visual hallucinations?",
+    "answer": "Visual hallucinations are not first-rank.",
+    "why": "FRS: thought echo, voices arguing or commenting, thought withdrawal/insertion/broadcast, made feelings/impulses/volition, delusional perception, somatic passivity. Trap: calling any hallucination first-rank. FRS are not pathognomonic of schizophrenia."
+  },
+  {
+    "id": "M01",
+    "subject": "Microbiology",
+    "front": "Encapsulated yeasts on India-ink (or mucicarmine-positive) CSF in a patient with AIDS — organism, key virulence factor, and usual induction therapy?",
+    "answer": "Cryptococcus neoformans. Capsule is the main virulence factor. Induction: amphotericin B + flucytosine, then fluconazole.",
+    "why": "Trap: starting fluconazole alone as induction for meningitis, or calling the yeast Candida (Candida is not an encapsulated India-ink organism)."
+  },
+  {
+    "id": "R01",
+    "subject": "Orthopedics",
+    "front": "Obese adolescent with a limp: how do you distinguish SCFE from Perthes, and which X-ray view must you not skip?",
+    "answer": "SCFE: 10–16 y, often obese, may be bilateral; Klein’s line (Trethowan). Get a frog-lateral — AP alone can miss a mild slip.",
+    "why": "Perthes: 4–8 y, usually boys, often unilateral AVN of the femoral head (crescent sign). Trap: only an AP pelvis in a limping adolescent, or treating SCFE as a ‘pulled muscle’."
+  },
+  {
+    "id": "C01",
+    "subject": "PSM",
+    "front": "In a rare disease, which falls — sensitivity, specificity or PPV — and why is a highly sensitive test used to rule out?",
+    "answer": "PPV falls when prevalence is low (NPV rises). Sensitivity and specificity do not depend on prevalence.",
+    "why": "High sensitivity → few false negatives → a negative test almost rules out (SnNOut). High specificity → a positive test rules in (SpPIn). Trap: saying sensitivity changes with prevalence."
+  },
+  {
+    "id": "S01",
+    "subject": "Surgery",
+    "front": "Courvoisier’s law: what does a painless palpable gallbladder in a jaundiced patient suggest, and what is the classic exception?",
+    "answer": "The jaundice is unlikely to be from a stone (usually malignant distal obstruction, e.g. Ca head of pancreas / periampullary).",
+    "why": "Exception: double impaction (CBD stone + stone in cystic duct/Hartmann’s). Trap: applying the law to a tender GB in acute cholecystitis — that is not the painless-jaundice setting."
+  },
+  {
+    "id": "P02",
+    "subject": "Pediatrics",
+    "front": "Commonest cause of idiopathic nephrotic syndrome in a young child vs the immunofluorescence finding in minimal-change disease?",
+    "answer": "Minimal-change disease. IF is negative (nil deposits); EM shows diffuse foot-process effacement.",
+    "why": "Trap: confusing with MPGN (tram tracks, low C3) or assuming every child with nephrotic syndrome needs a biopsy. First-line is corticosteroids in the typical 1–8-year-old with pure nephrotic syndrome."
+  },
+  {
+    "id": "O02",
+    "subject": "OBG",
+    "front": "In suspected placenta previa, which examination is contraindicated, and what is the most reliable way to confirm the diagnosis?",
+    "answer": "Do not do a digital vaginal examination. Transvaginal (or good transabdominal) ultrasound is the diagnostic test — TVS is safe and more accurate than TAS.",
+    "why": "Classic story: painless, causeless, recurrent late-pregnancy bleeding. Trap: doing a PV ‘to assess the os’, or thinking TVS is contraindicated in previa."
+  },
+  {
+    "id": "D01",
+    "subject": "Medicine",
+    "front": "STEMI vs NSTEMI vs unstable angina — who has a raised troponin? In ST elevation in II, III, aVF, which finding makes you withhold nitrates and give fluids?",
+    "answer": "Troponin is raised in STEMI and NSTEMI, not in unstable angina. Inferior MI plus RV infarction (ST elevation in V4R, clear lungs, raised JVP, hypotension) → no nitrates/diuretics; cautious fluids.",
+    "why": "Trap: giving a nitrate for ‘ischaemic chest pain’ in RV infarct and precipitating shock. Always record V4R in inferior STEMI."
+  },
+  {
+    "id": "P03",
+    "subject": "Pediatrics",
+    "front": "A 3-week-old has projectile non-bilious vomiting. What is the classic electrolyte pattern, and what is the ‘paradoxical’ urine finding?",
+    "answer": "Hypochloraemic, hypokalaemic metabolic alkalosis. Paradoxical aciduria.",
+    "why": "Aldosterone and the need to conserve Na+/K+ make the kidney dump H+ despite systemic alkalosis. Olive mass and string sign support pyloric stenosis. Trap: expecting alkaline urine because the baby is alkalotic."
+  },
+  {
+    "id": "O03",
+    "subject": "OBG",
+    "front": "Shoulder dystocia: which manoeuvre comes first, and which manoeuvre must you not use as an early step?",
+    "answer": "Call for help, then McRoberts plus suprapubic pressure. Do not apply fundal pressure.",
+    "why": "Fundal pressure worsens impaction and risks uterine injury. Next: Woods screw, delivery of the posterior arm, Gaskin; last-resort Zavanelli/cleidotomy/symphysiotomy. Trap: downward traction or fundal pressure → brachial plexus injury."
+  },
+  {
+    "id": "Y02",
+    "subject": "Psychiatry",
+    "front": "Serotonin syndrome vs NMS: which has hyperreflexia and clonus, which has lead-pipe rigidity, and how does time of onset differ?",
+    "answer": "Serotonin syndrome: hyperreflexia, clonus, myoclonus, diarrhoea, mydriasis; onset in hours after a serotonergic drug (or MAOI + SSRI). NMS: lead-pipe rigidity, bradyreflexia, high CK; onset over days after an antipsychotic.",
+    "why": "SS: stop the agent, benzos, cyproheptadine. NMS: stop the antipsychotic, supportive care, consider bromocriptine/dantrolene/ECT. Trap: treating SS as NMS (or giving a serotonergic antiemetic in SS)."
+  },
+  {
+    "id": "M02",
+    "subject": "Microbiology",
+    "front": "Why is a single Widal ‘TO 1:80’ not diagnostic in an endemic area, and which antibody rises earlier?",
+    "answer": "A single titre is unreliable where typhoid is endemic — use paired sera (rising titre) or a locally validated high cut-off. O (TO) antibodies rise earlier and suggest acute infection; H (TH) persist longer (past infection or vaccination).",
+    "why": "Trap: starting treatment on a single low-titre Widal, or thinking H is more specific for acute disease. Blood culture remains the preferred early test."
+  },
+  {
+    "id": "R02",
+    "subject": "Orthopedics",
+    "front": "Fat embolism vs pulmonary thromboembolism after a long-bone fracture: typical time of onset, and which triad points to fat embolism?",
+    "answer": "Fat-embolism syndrome usually at 24–72 h: respiratory distress + neurological change + petechiae (upper body, axilla, conjunctiva).",
+    "why": "PTE may occur later and has no petechial rash. Trap: calling immediate intra-operative hypoxia the classic delayed fat-embolism syndrome, or waiting for petechiae to start respiratory support."
+  },
+  {
+    "id": "C02",
+    "subject": "PSM",
+    "front": "Case-control vs cohort: which can give incidence and relative risk, and when does an odds ratio approximate RR?",
+    "answer": "Cohort (and RCTs) measure incidence and give relative risk. Case-control starts from disease and gives an odds ratio. OR ≈ RR when the disease is rare.",
+    "why": "Trap: calculating RR directly from a case-control table, or claiming case-control measures incidence."
+  },
+  {
+    "id": "S02",
+    "subject": "Surgery",
+    "front": "What is the commonest hernia in women? Which hernia has the highest risk of strangulation?",
+    "answer": "Inguinal hernia is still the commonest hernia in women (not femoral). Femoral hernia has the highest strangulation risk.",
+    "why": "Indirect inguinal is the commonest hernia overall. Trap: answering ‘femoral’ as the commonest hernia in females — it is more frequent relative to men, but inguinal still outnumbers femoral."
+  },
+  {
+    "id": "P04",
+    "subject": "Pediatrics",
+    "front": "Which single feature makes neonatal jaundice pathological even if the baby looks well?",
+    "answer": "Any of: onset in the first 24 hours; rapid rise (about >5 mg/dL/day or >0.3 mg/dL/h); raised conjugated/direct bilirubin; persistence >2 weeks in a term baby (>3 weeks if preterm); or a level at the phototherapy/exchange threshold.",
+    "why": "Trap: calling day-3 jaundice ‘physiological’ without checking rate of rise and the conjugated fraction. Visible jaundice on day 1 is never ‘just physiological’."
+  },
+  {
+    "id": "O04",
+    "subject": "OBG",
+    "front": "MgSO4 for eclampsia: standard Pritchard loading and maintenance, the first clinical warning of toxicity, and the antidote?",
+    "answer": "Load 4 g IV over 10–15 min plus 10 g IM; maintain 5 g IM every 4 hours (or IV 1 g/h after a 4 g IV load). First warning: loss of deep tendon reflexes. Antidote: 10 mL of 10% calcium gluconate IV.",
+    "why": "Also watch respiratory rate and urine output. Therapeutic range is about 4–7 mEq/L. Trap: giving calcium as the first-line anticonvulsant, or stopping MgSO4 after the first fit."
+  },
+  {
+    "id": "Y03",
+    "subject": "Psychiatry",
+    "front": "Lithium toxicity is more likely if which common antihypertensive class is started? Target level in acute mania vs prophylaxis, and when is the sample drawn?",
+    "answer": "Thiazides (also ACEI/ARBs and NSAIDs) raise lithium. Acute mania often 0.8–1.2 mEq/L; maintenance typically 0.6–1.0 (many use 0.6–0.8). Draw a 12-hour trough.",
+    "why": "Trap: adding a thiazide without checking a level, or sampling at peak. Loop diuretics affect lithium less than thiazides."
+  },
+  {
+    "id": "M03",
+    "subject": "Microbiology",
+    "front": "Which mycobacteria are rapid growers, and which causes swimming-pool / fish-tank granuloma? What stain and conventional medium are used for M. tuberculosis?",
+    "answer": "Rapid growers: M. fortuitum, chelonae, abscessus (colonies in <7 days). Fish-tank/swimming-pool: M. marinum. MTB: acid-fast (ZN, 20% H2SO4), Löwenstein–Jensen (4–8 weeks); also liquid MGIT.",
+    "why": "Trap: grouping MAC (M. avium–intracellulare) with rapid growers — MAC is slow-growing."
+  },
+  {
+    "id": "R03",
+    "subject": "Orthopedics",
+    "front": "Colles vs Smith vs Barton: which is the dinner-fork fracture, and which involves the joint and often needs ORIF?",
+    "answer": "Colles: classic extra-articular distal radius with dorsal angulation — dinner-fork (FOOSH, elderly, osteoporotic). Smith: volar angulation (‘reverse Colles’, garden-spade). Barton: intra-articular fracture–dislocation, often needs ORIF.",
+    "why": "Trap: calling every distal-radius fracture a Colles, or treating Barton in plaster as if it were Colles."
+  },
+  {
+    "id": "C03",
+    "subject": "PSM",
+    "front": "Indian UIP at birth: which vaccines are given? If two live injectable vaccines are not given on the same day, what is the minimum interval?",
+    "answer": "At birth: BCG, OPV-0 and HepB-0. If two live injectables (e.g. MMR and varicella) are not given together, wait at least 4 weeks.",
+    "why": "Oral live vaccines (OPV, rotavirus) do not need that 4-week gap from injectable live vaccines. Trap: delaying OPV because MMR was given yesterday, or forgetting the birth HepB dose."
+  },
+  {
+    "id": "S03",
+    "subject": "Surgery",
+    "front": "Thyroid cancer: which type spreads by lymphatics, which by blood, which has the best and worst prognosis, and which makes amyloid and calcitonin?",
+    "answer": "Papillary (best prognosis): lymphatic spread, Orphan Annie nuclei, psammoma bodies. Follicular: haematogenous (bone/lung) — FNAC cannot distinguish adenoma from carcinoma (needs capsular/vascular invasion). Medullary: C cells, amyloid, calcitonin, MEN2 (RET). Anaplastic: elderly, worst, local invasion.",
+    "why": "Trap: diagnosing ‘follicular carcinoma’ on FNAC alone, or thinking medullary arises from follicular cells."
+  },
+  {
+    "id": "P05",
+    "subject": "Pediatrics",
+    "front": "In acute rheumatic fever, which is more specific — migratory polyarthritis or carditis? Which valve is involved first?",
+    "answer": "Carditis (valvulitis) is more specific than arthritis. The mitral valve is involved first and most often (acute MR; MS is a later sequela).",
+    "why": "Arthritis is the commonest major Jones criterion but the least specific. Evidence of preceding streptococcal infection is still required. Trap: diagnosing ARF from fever plus a raised ASO titre alone, or saying the aortic valve is first."
+  },
+  {
+    "id": "O05",
+    "subject": "OBG",
+    "front": "Name the important absolute contraindications to a trial of labour after one previous CS. Is a single lower-segment scar itself a contraindication?",
+    "answer": "Previous classical / high vertical / T-incision, previous uterine rupture, placenta previa, and no facility for immediate CS. A single previous lower-segment scar is not itself a contraindication — counsel for a possible VBAC.",
+    "why": "Trap: ‘once a CS, always a CS’ as automatic policy in an otherwise suitable woman at a equipped centre."
+  },
+  {
+    "id": "Y04",
+    "subject": "Psychiatry",
+    "front": "In major depression with psychotic features, why is starting an SSRI alone the wrong first plan?",
+    "answer": "Psychotic depression needs an antidepressant plus an antipsychotic, or ECT (especially if suicidal, catatonic, or not eating). SSRI monotherapy is inadequate.",
+    "why": "Trap: ‘start sertraline and review in 4 weeks’ in a patient with delusions or hallucinations."
+  },
+  {
+    "id": "M04",
+    "subject": "Microbiology",
+    "front": "Match the clostridial toxin mechanisms: C. difficile, C. perfringens (gas gangrene), C. botulinum, C. tetani. Which antibiotics are classically linked to C. difficile?",
+    "answer": "C. diff: toxins A (enterotoxin) and B (cytotoxin) glucosylate Rho GTPases. C. perfringens: α-toxin (lecithinase). C. botulinum: blocks ACh release at the NMJ (flaccid). C. tetani: tetanospasmin blocks inhibitory GABA/glycine release (spastic).",
+    "why": "C. diff is classically linked to clindamycin; cephalosporins and fluoroquinolones are also major drivers. Trap: calling tetanus a flaccid paralysis, or attributing food-borne botulism only to wound spores."
+  },
+  {
+    "id": "R04",
+    "subject": "Orthopedics",
+    "front": "Osteosarcoma vs Ewing vs giant-cell tumour: typical age, site (meta/dia/epiphysis), and classic X-ray for each?",
+    "answer": "Osteosarcoma: 10–20 y, metaphysis (distal femur/proximal tibia), sunburst ± Codman triangle (Codman is not specific). Ewing: children/adolescents, classically diaphysis or flat bones, onion-skin, t(11;22) EWSR1–FLI1, CD99+. GCT: 20–40 y after physeal closure, epiphysis, soap-bubble.",
+    "why": "Trap: putting Ewing in the metaphysis as the default, or diagnosing GCT in a 10-year-old with an open physis."
+  },
+  {
+    "id": "C04",
+    "subject": "PSM",
+    "front": "Define neonatal, early neonatal, late neonatal, infant and under-5 mortality. What is the usual Indian/Park definition of perinatal mortality?",
+    "answer": "NMR: deaths in the first 28 days (0–27) per 1000 live births. Early: 0–6 days; late: 7–27 days. IMR: first year. Under-5: first 5 years.",
+    "why": "Park/India perinatal mortality: stillbirths ≥28 weeks + early neonatal deaths, per 1000 total births. Trap: forgetting that neonatal deaths are also counted inside IMR, or mixing 22-week vs 28-week stillbirth cut-offs without stating the convention."
+  },
+  {
+    "id": "S04",
+    "subject": "Surgery",
+    "front": "Parkland formula: first 24-hour fluid for a 70 kg adult with 40% TBSA partial/full-thickness burns? When does the 8-hour clock start, and what must you not include in TBSA?",
+    "answer": "4 mL × 70 × 40 = 11 200 mL of Ringer lactate in 24 h; half in the first 8 hours, half in the next 16. The clock starts from the time of the burn, not arrival. Do not include first-degree (epidermal-only) burns.",
+    "why": "Titrate to urine output (about 0.5–1 mL/kg/h in adults). Adult rule of nines: head 9, each arm 9, front 18, back 18, each leg 18, perineum 1. Trap: starting the 8-hour clock at arrival, or counting erythematous first-degree areas."
+  },
+  {
+    "id": "P06",
+    "subject": "Pediatrics",
+    "front": "Tet spell: first manoeuvre, the drug used if that fails, and which cardiac drug must you not give?",
+    "answer": "Knee–chest / squatting first; oxygen, calm/morphine, IV fluid, then an IV beta-blocker (propranolol or esmolol). Phenylephrine if needed to raise SVR. Do not give digoxin or inotropes that increase contractility.",
+    "why": "Increased contractility worsens dynamic RVOT obstruction. Correct severe acidosis. Trap: giving digoxin for ‘heart failure’ during a spell."
+  },
+  {
+    "id": "O06",
+    "subject": "OBG",
+    "front": "Methotrexate for ectopic pregnancy: a clear contraindication, and what β-hCG change between day 4 and day 7 means treatment has failed?",
+    "answer": "Do not use MTX if the patient is unstable or the ectopic has ruptured (also IUP, important hepatic/renal disease, immunodeficiency, active peptic ulcer, breastfeeding, unreliable follow-up). Failure: β-hCG does not fall by at least 15% from day 4 to day 7.",
+    "why": "hCG may still rise up to day 4 — that alone is not failure. Size, cardiac activity and a very high hCG are relative contraindications. Trap: giving MTX to a shocked patient, or declaring failure on day 4 because the level rose."
+  },
+  {
+    "id": "D02",
+    "subject": "Medicine",
+    "front": "WPW with a fast irregular tachycardia: what is the rhythm, and which AV-nodal blockers must you not give?",
+    "answer": "AF conducting over the accessory pathway. Do not give verapamil, diltiazem, beta-blockers, digoxin or adenosine.",
+    "why": "Blocking the AV node may favour pathway conduction and degenerate to VF. Unstable: DC cardioversion. Trap: giving IV adenosine or verapamil ‘to terminate SVT’."
+  },
+  {
+    "id": "Y05",
+    "subject": "Psychiatry",
+    "front": "Alcohol withdrawal seizure vs delirium tremens: typical time after the last drink, and first-line drug class for both?",
+    "answer": "Seizures usually at 12–48 h (peak ~24 h). DT usually at 48–72 h (can be 2–5 days): fluctuating consciousness, marked autonomic hyperactivity, hallucinations. First-line: benzodiazepines (diazepam or chlordiazepoxide; lorazepam if liver failure).",
+    "why": "Uncomplicated tremors can start around 6–12 h. Alcoholic hallucinosis has a clear sensorium. Trap: starting an antipsychotic as first-line for DT, or calling a seizure at 6 hours ‘DT’."
+  },
+  {
+    "id": "M05",
+    "subject": "Microbiology",
+    "front": "Hepatitis viruses: which is a DNA virus, which is most likely to become chronic after neonatal infection, and which is classically linked to fulminant hepatitis in pregnancy?",
+    "answer": "HBV is DNA (Hepadnaviridae); the others are RNA. Neonatal HBV becomes chronic in about 90%. HEV is the classic cause of fulminant hepatitis in pregnancy (especially third trimester).",
+    "why": "Trap: saying HCV is the infection that becomes chronic in ~90% of neonates (that figure is neonatal HBV; adult HCV chronicity is high but is a different fact), or calling HEV a DNA virus."
+  },
+  {
+    "id": "R05",
+    "subject": "Orthopedics",
+    "front": "Compartment syndrome: which finding is the earliest useful warning, which is late and must not be waited for, and what pressure threshold is often used?",
+    "answer": "Pain out of proportion and pain on passive stretch are the earliest reliable signs. Pulselessness, pallor and paralysis are late. Fasciotomy is supported if ΔP (diastolic BP − compartment pressure) is <30 mmHg, or absolute pressure is >30–40 mmHg.",
+    "why": "Trap: waiting for an absent pulse, elevating the limb very high, or leaving a tight cast in place."
+  },
+  {
+    "id": "C05",
+    "subject": "PSM",
+    "front": "Which test for a 2×2 table of vaccination vs disease? Which for mean BP in three drug groups? Which for the same patients before and after a drug?",
+    "answer": "2×2 categorical counts → chi-square (Fisher’s exact if an expected cell is <5). Means in three independent groups → ANOVA. Same subjects before/after → paired t-test. Two independent group means (normal data) → unpaired t-test.",
+    "why": "Trap: using an unpaired t-test on paired data, or chi-square on means."
+  },
+  {
+    "id": "S05",
+    "subject": "Surgery",
+    "front": "Triple assessment of a breast lump: what are the three parts, and what do you do if they disagree?",
+    "answer": "Clinical examination + imaging (US first if younger, about <35–40 y; mammography ± US if older) + tissue (core biopsy preferred over FNAC). If all three are concordant and benign: reassure/follow. If any discordance: still biopsy or excise.",
+    "why": "Trap: accepting a ‘fibroadenoma’ in a 55-year-old on clinical exam alone, or stopping after a reassuring FNAC when imaging or exam is suspicious."
+  },
+  {
+    "id": "P07",
+    "subject": "Pediatrics",
+    "front": "Developmental red flags: by when is no social smile, no neck holding, no sitting without support, and no independent walking a delay — and why must you not use average age as the cut-off?",
+    "answer": "No social smile by 3 months; no neck holding by 4 months; no sitting without support by 8 months; no standing by 12 months; no independent walking by 18 months.",
+    "why": "Average ages are earlier (sit ~6–7 months). Referral cut-offs are later than the mean. Trap: calling a child delayed because they are not sitting at the average age of 6 months."
+  },
+  {
+    "id": "O07",
+    "subject": "OBG",
+    "front": "Active management of the third stage: recommended first-line uterotonic and dose, and which old step is no longer routine?",
+    "answer": "Oxytocin 10 IU IM after delivery of the baby is first-line. Delayed cord clamping (about 1–3 min) is preferred in most babies. Controlled cord traction only if a skilled attendant is present and the uterus is contracted.",
+    "why": "Avoid ergometrine as first-line in hypertension. Trap: quoting immediate cord clamping as essential ‘active management’, or using ergometrine first in a pre-eclamptic woman."
+  },
+  {
+    "id": "Y06",
+    "subject": "Psychiatry",
+    "front": "OCD: first-line psychotherapy, first-line drug class, and how SSRI doses and trial length compare with depression?",
+    "answer": "CBT with exposure and response prevention (ERP). SSRIs are first-line drugs — usually at higher doses than in depression, with an 8–12 week trial.",
+    "why": "Clomipramine is effective but not first-line because of side-effects. Trap: using a depression-dose SSRI and declaring failure at 3 weeks, or using a benzodiazepine as primary treatment."
+  },
+  {
+    "id": "M06",
+    "subject": "Microbiology",
+    "front": "Dimorphic fungi: which shows ‘captain’s wheel’ (multiple budding), and which shows spherules packed with endospores in tissue?",
+    "answer": "Paracoccidioides brasiliensis = pilot/captain’s wheel. Coccidioides = spherules with endospores.",
+    "why": "Histoplasma: small intracellular yeasts in macrophages. Blastomyces: broad-based budding. Mould at 25°C, yeast (or spherule) at 37°C in tissue. Trap: swapping Coccidioides and Paracoccidioides."
+  },
+  {
+    "id": "R06",
+    "subject": "Orthopedics",
+    "front": "DDH: which test detects a dislocatable hip, which reduces an already dislocated hip, and until what age is a Pavlik harness typically used?",
+    "answer": "Barlow = dislocatable (provokes dislocation). Ortolani = relocates an already dislocated hip (clunk of reduction). Pavlik harness is typically used in a reducible hip under 6 months.",
+    "why": "Older infants need closed or open reduction ± spica, later osteotomy. Trap: swapping Barlow and Ortolani, or continuing Pavlik on a fixed late dislocation."
+  },
+  {
+    "id": "C06",
+    "subject": "PSM",
+    "front": "Primary vs secondary vs tertiary prevention: which is a Pap smear / VIA, which is OPV immunisation, and which is physiotherapy for post-polio paralysis?",
+    "answer": "Screening (Pap/VIA, mammography, BP check in an asymptomatic person) = secondary. Immunisation, chlorination, bed-nets, health education = primary. Rehabilitation / disability limitation (post-polio physiotherapy, residual-damage surgery) = tertiary.",
+    "why": "Trap: calling a screening test ‘primary’ just because the patient is still asymptomatic."
+  },
+  {
+    "id": "S06",
+    "subject": "Surgery",
+    "front": "Tension pneumothorax vs cardiac tamponade after trauma: which must be treated before a chest X-ray, and what is Beck’s triad?",
+    "answer": "Tension pneumothorax: absent breath sounds, shock, distended neck veins; immediate needle or finger thoracostomy then chest tube — do not wait for an X-ray. Tamponade: Beck’s triad — hypotension, muffled heart sounds, raised JVP (± pulsus paradoxus); FAST helps; pericardiocentesis/thoracotomy.",
+    "why": "Both can raise JVP and cause shock. Trap: sending a hypotensive patient with no breath sounds to radiology."
+  },
+  {
+    "id": "P08",
+    "subject": "Pediatrics",
+    "front": "Child with diarrhoea: first step in severe dehydration vs some dehydration, and what is the current WHO ORS formula?",
+    "answer": "Severe (Plan C): immediate IV Ringer lactate (or NS) 100 mL/kg — not oral ORS first. Some dehydration (Plan B): reduced-osmolarity ORS 75 mL/kg over 4 hours. Current WHO ORS: Na 75, glucose 75, osmolarity 245 mOsm/L.",
+    "why": "Trap: starting ORS in shock, or quoting the old 311 mOsm/L (Na 90) formula as current WHO ORS."
+  },
+  {
+    "id": "O08",
+    "subject": "OBG",
+    "front": "DIPSI vs IADPSG for GDM: what is the DIPSI cut-off, and how do the IADPSG 75 g OGTT cut-offs differ?",
+    "answer": "DIPSI: 75 g glucose, 2-hour venous plasma ≥140 mg/dL, can be done non-fasting. IADPSG/WHO diagnostic OGTT: fasting ≥92, 1 h ≥180, 2 h ≥153 mg/dL (any one abnormal).",
+    "why": "Trap: treating the DIPSI 140 cut-off as if it were the IADPSG 2-hour 153 value, or assuming DIPSI requires an overnight fast."
+  },
+  {
+    "id": "P09",
+    "subject": "Pediatrics",
+    "front": "A term baby has TSB 25 mg/dL and signs of acute bilirubin encephalopathy. Phototherapy has only just been started. What is the next step, and what is the trap?",
+    "answer": "Prepare for exchange transfusion now; start or continue intensive phototherapy while you prepare. Do not wait to ‘see if phototherapy works’ when there are signs of ABE or the exchange threshold is crossed.",
+    "why": "Neurological signs of intermediate or advanced ABE are an indication for urgent exchange even if phototherapy has just begun."
+  },
+  {
+    "id": "Y07",
+    "subject": "Psychiatry",
+    "front": "Factitious disorder vs malingering vs conversion (functional neurological symptom disorder): what is the motive, and are the symptoms intentional?",
+    "answer": "Factitious: symptoms are intentionally produced; primary gain is the sick role, no obvious external reward. Malingering: intentional, with secondary gain (leave, money, drugs, legal). Conversion: not intentionally produced; unconscious; often a psychological conflict.",
+    "why": "Trap: labelling all medically unexplained weakness as malingering."
+  },
+  {
+    "id": "M07",
+    "subject": "Microbiology",
+    "front": "A 6-year-old has pharyngitis; a rapid streptococcal antigen test is negative. Why might you still not stop there, and which post-streptococcal sequel do antibiotics prevent — ARF or PSGN?",
+    "answer": "Rapid tests are specific but not perfectly sensitive — in children a negative RADT is followed by a throat culture. Early antibiotics prevent acute rheumatic fever (and reduce suppurative complications). They do not reliably prevent post-streptococcal GN.",
+    "why": "Trap: treating a negative rapid test as a definite rule-out in a child, or claiming that treating pharyngitis prevents PSGN."
+  },
+  {
+    "id": "P10",
+    "subject": "Pediatrics",
+    "front": "Kwashiorkor vs marasmus: which has the worse prognosis, and why is oedema not a sign of milder disease?",
+    "answer": "Kwashiorkor (oedematous SAM) has the worse prognosis. Oedema reflects hypoalbuminaemia and failed adaptation, not better nutrition.",
+    "why": "Marasmus is a more adapted wasting state; appetite is often preserved. Flag sign, flaky-paint dermatosis and fatty liver point to kwashiorkor. Trap: thinking the puffy child is better nourished than the wasted one."
+  },
+  {
+    "id": "O09",
+    "subject": "OBG",
+    "front": "Most common site of endometriosis vs most common site of ectopic pregnancy? Which tubal ectopic ruptures earliest?",
+    "answer": "Endometriosis: ovary (chocolate cyst) is the commonest site. Ectopic: ampulla of the tube is the commonest site. Isthmic ectopics rupture earlier (narrow lumen).",
+    "why": "Interstitial/cornual ectopics rupture later and often more catastrophically. Trap: saying pouch of Douglas is the commonest endometriosis site, or fimbria as the commonest ectopic site."
+  },
+  {
+    "id": "D03",
+    "subject": "Medicine",
+    "front": "How do volume status and urine sodium separate SIADH, cerebral salt wasting and hypovolaemic hyponatraemia from gut losses? What is the risk if chronic hyponatraemia is corrected too fast?",
+    "answer": "SIADH: euvolaemic, low plasma osmolality, inappropriately concentrated urine, urine Na usually >40, normal thyroid and adrenal. CSW (e.g. after SAH): hypovolaemic with high urine Na. Extrarenal hypovolaemic loss: urine Na typically <20. Too-rapid correction of chronic hyponatraemia → osmotic demyelination.",
+    "why": "Trap: fluid-restricting CSW (these patients need volume replacement), or pushing 3% saline as routine in every asymptomatic Na of 128."
+  },
+  {
+    "id": "S07",
+    "subject": "Surgery",
+    "front": "Commonest cause of small-bowel obstruction in adults vs commonest cause of large-bowel obstruction? Classic X-ray difference?",
+    "answer": "Adult SBO: adhesions (commonest overall cause of SBO). Adult LBO: colorectal carcinoma. SBO: central loops, valvulae conniventes crossing the full width. LBO: peripheral haustra (incomplete bands).",
+    "why": "Infants 6–18 months: ileocolic intussusception is the classic acute obstruction. Trap: calling cancer the commonest cause of all adult intestinal obstruction."
+  },
+  {
+    "id": "P11",
+    "subject": "Pediatrics",
+    "front": "An 18-month-old has a 3-minute generalised seizure during a fever, then is well with a normal neuro exam. When is this NOT a simple febrile seizure?",
+    "answer": "Simple: generalised, lasts <15 min, does not recur within 24 h, age typically 6 months–5 years, no residual deficit, no CNS infection. It is complex if focal, ≥15 min, or more than once in 24 h.",
+    "why": "Routine LP, EEG or CT is not indicated in a well child with a classic simple febrile seizure and no meningeal signs. Trap: calling a second seizure 6 hours later ‘simple’, or scanning every first febrile seizure."
+  },
+  {
+    "id": "P12",
+    "subject": "Pediatrics",
+    "front": "Breast-feeding jaundice vs breast-milk jaundice: which appears later, and how does management differ?",
+    "answer": "Breast-feeding (starvation/dehydration) jaundice: first week, inadequate intake — fix latch and frequency. Breast-milk jaundice: prolonged, typically week 2–3, inhibitors of conjugation in milk — continue breastfeeding if the baby is well and the conjugated fraction is normal.",
+    "why": "A brief 24–48 h interruption is sometimes used only to confirm breast-milk jaundice. Trap: stopping breastfeeding as the first step for early jaundice, or labelling a conjugated jaundice as ‘breast-milk jaundice’."
+  },
+  {
+    "id": "R07",
+    "subject": "Orthopedics",
+    "front": "Nerve at risk: surgical neck of humerus, humeral shaft, paediatric supracondylar fracture? And does a midshaft clavicle fracture in a child usually need surgery?",
+    "answer": "Surgical neck → axillary nerve. Humeral shaft (spiral groove) → radial nerve. Extension-type supracondylar → anterior interosseous / median nerve and brachial artery. Midshaft clavicle in children: almost always conservative.",
+    "why": "Medial epicondyle / cubital tunnel → ulnar nerve. Trap: rushing a paediatric midshaft clavicle to ORIF, or saying the radial nerve is at risk at the surgical neck."
+  },
+  {
+    "id": "C07",
+    "subject": "PSM",
+    "front": "Herd-immunity threshold is highest for which of measles, polio, diphtheria and influenza — and why do measles outbreaks still occur in ‘vaccinated’ populations?",
+    "answer": "Measles (R0 about 12–18) needs about 92–95% immunity. Polio and diphtheria are lower (around 80–85%); influenza is lower still and strain-variable.",
+    "why": "A small measles immunity gap can still sustain an outbreak. Trap: thinking 80% measles coverage is enough because that level is adequate for some other diseases."
+  },
+  {
+    "id": "O10",
+    "subject": "OBG",
+    "front": "APGAR: which component most often loses a point, at what 5-minute score do you continue scoring, and why must you not wait for the 1-minute score?",
+    "answer": "Colour (appearance) is most often reduced (acrocyanosis = 1). If the 5-minute APGAR is <7, continue every 5 minutes up to 20 minutes. Never delay resuscitation to calculate a 1-minute APGAR — start ABC immediately.",
+    "why": "A low 1-minute score is a snapshot of transition, not a good long-term prognostic tool; 5- and 10-minute scores matter more. Trap: waiting to ‘do APGAR first’ before stimulating and opening the airway."
+  }
+];
+(function(){try{
+  var KEY="neetpg_flash1_v1";
+  var byId={};CARDS.forEach(function(c){byId[c.id]=c});
+  var ALL=CARDS.map(function(c){return c.id});
+  var S=null;
+  try{S=window.localStorage;S.setItem(KEY+"_t","1");S.removeItem(KEY+"_t")}catch(e){S=null}
+  function fresh(){return {q:ALL.slice(),got:[],miss:[],i:0,flip:false,ts:Date.now()}}
+  function load(){
+    var d=null;if(S){try{d=JSON.parse(S.getItem(KEY)||"null")}catch(e){d=null}}
+    if(!d||!Array.isArray(d.q))return fresh();
+    var got=(d.got||[]).filter(function(id){return byId[id]});
+    var miss=(d.miss||[]).filter(function(id){return byId[id]});
+    var seen={};var q=[];
+    (d.q||[]).forEach(function(id){if(byId[id]&&got.indexOf(id)<0&&!seen[id]){q.push(id);seen[id]=1}});
+    ALL.forEach(function(id){if(got.indexOf(id)<0&&!seen[id]){q.push(id);seen[id]=1}});
+    var i=parseInt(d.i,10);if(isNaN(i)||i<0)i=0;if(i>=q.length)i=Math.max(0,q.length-1);
+    return {q:q,got:got,miss:miss,i:i,flip:!!d.flip,ts:d.ts||Date.now()}
+  }
+  var st=load();
+  function save(){if(!S)return;st.ts=Date.now();try{S.setItem(KEY,JSON.stringify(st))}catch(e){}}
+  var flipEl=document.getElementById("flip");
+  var frontEl=document.getElementById("front");
+  var ansEl=document.getElementById("answer");
+  var whyEl=document.getElementById("why");
+  var tagEl=document.getElementById("tag");
+  var progEl=document.getElementById("prog");
+  var barEl=document.getElementById("bar");
+  var hintEl=document.getElementById("hint");
+  var playEl=document.getElementById("play");
+  var doneEl=document.getElementById("done");
+  var prevBtn=document.getElementById("prevBtn");
+  var nextBtn=document.getElementById("nextBtn");
+
+  function setHeight(){
+    var faces=flipEl.querySelectorAll(".face");
+    var h=280;
+    faces.forEach(function(f){f.style.position="relative";f.style.transform="none";var x=Math.max(f.scrollHeight,280);if(x>h)h=x;});
+    faces[0].style.position="absolute";faces[0].style.transform="";
+    faces[1].style.position="absolute";faces[1].style.transform="rotateY(180deg)";
+    flipEl.style.minHeight=h+"px";
+  }
+  function current(){return st.q.length?byId[st.q[st.i]]:null}
+  function render(){
+    var done=!st.q.length;
+    playEl.style.display=done?"none":"block";
+    doneEl.style.display=done?"block":"none";
+    var g=st.got.length;
+    barEl.style.width=Math.round(g/ALL.length*100)+"%";
+    if(done){
+      tagEl.textContent="Done";
+      progEl.textContent="Got it "+g+" / "+ALL.length;
+      var m=st.miss.length;
+      document.getElementById("doneMsg").textContent=m?
+        ("You marked all "+ALL.length+" cards as Got it. "+m+" were flagged for review at least once."):
+        ("You marked all "+ALL.length+" cards as Got it. None were flagged.");
+      document.getElementById("reviewMissedBtn").style.display=m?"inline-flex":"none";
+      hintEl.textContent="";
+      return;
+    }
+    var c=current();
+    tagEl.textContent=c.subject;
+    progEl.textContent="Got it "+g+" / "+ALL.length+"  ·  "+(st.i+1)+" of "+st.q.length+" left";
+    frontEl.textContent=c.front;
+    ansEl.textContent=c.answer;
+    whyEl.textContent=c.why;
+    flipEl.classList.toggle("is-flipped",!!st.flip);
+    hintEl.textContent=st.flip?"Tap the card to see the question again":"Tap the card to flip";
+    prevBtn.disabled=st.i<=0;
+    nextBtn.disabled=st.i>=st.q.length-1;
+    prevBtn.classList.toggle("dis",st.i<=0);
+    nextBtn.classList.toggle("dis",st.i>=st.q.length-1);
+    requestAnimationFrame(function(){setHeight()});
+  }
+  function show(i,flipped){
+    if(!st.q.length)return;
+    st.i=Math.max(0,Math.min(i,st.q.length-1));
+    st.flip=!!flipped;
+    save();render();
+    try{window.scrollTo({top:0,behavior:"smooth"})}catch(e){window.scrollTo(0,0)}
+  }
+  function toggle(){if(!st.q.length)return;st.flip=!st.flip;save();render()}
+  function gotIt(){
+    if(!st.q.length)return;
+    var id=st.q[st.i];
+    if(st.got.indexOf(id)<0)st.got.push(id);
+    st.q.splice(st.i,1);
+    if(st.i>=st.q.length)st.i=Math.max(0,st.q.length-1);
+    st.flip=false;save();render();
+  }
+  function reviewAgain(){
+    if(!st.q.length)return;
+    var id=st.q[st.i];
+    if(st.miss.indexOf(id)<0)st.miss.push(id);
+    st.q.splice(st.i,1);
+    var ins=Math.min(st.i+3,st.q.length);
+    st.q.splice(ins,0,id);
+    if(st.q.length===1){st.i=0;st.flip=false;save();render();hintEl.textContent="Requeued — this is the only card left";return}
+    st.flip=false;save();render();
+  }
+  flipEl.addEventListener("click",toggle);
+  flipEl.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();toggle()}});
+  document.getElementById("flipBtn").addEventListener("click",toggle);
+  prevBtn.addEventListener("click",function(){if(st.i>0)show(st.i-1,false)});
+  nextBtn.addEventListener("click",function(){if(st.i<st.q.length-1)show(st.i+1,false)});
+  document.getElementById("gotBtn").addEventListener("click",gotIt);
+  document.getElementById("missBtn").addEventListener("click",reviewAgain);
+  document.getElementById("restartBtn").addEventListener("click",function(){st=fresh();save();render();window.scrollTo(0,0)});
+  document.getElementById("reviewMissedBtn").addEventListener("click",function(){
+    var q=st.miss.filter(function(id){return byId[id]});
+    if(!q.length)return;
+    st.got=st.got.filter(function(id){return q.indexOf(id)<0});
+    st.q=q.slice();st.i=0;st.flip=false;save();render();window.scrollTo(0,0);
+  });
+  document.getElementById("rcOpen").addEventListener("click",function(){document.getElementById("rcbox").classList.add("open")});
+  document.getElementById("rcNo").addEventListener("click",function(){document.getElementById("rcbox").classList.remove("open")});
+  document.getElementById("rcYes").addEventListener("click",function(){st=fresh();save();document.getElementById("rcbox").classList.remove("open");render();window.scrollTo(0,0)});
+
+  function fill(){
+    var dt=new Date(),ist="";
+    try{ist=dt.toLocaleString("en-IN",{timeZone:"Asia/Kolkata"})+" IST | "}catch(x){}
+    document.getElementById("f_ts").value=ist+dt.toISOString();
+    document.getElementById("f_progress").value="Got it "+st.got.length+" / "+ALL.length+", flagged "+st.miss.length+", remaining "+st.q.length;
+    document.getElementById("f_got").value=st.got.join(", ")||"none";
+    document.getElementById("f_left").value=st.q.join(", ")||"none";
+    var lines=st.miss.map(function(id){var c=byId[id];if(!c)return id;return id+" | "+c.subject+" | Q: "+c.front+" | A: "+c.answer});
+    document.getElementById("f_miss").value=lines.join(" || ")||"none";
+  }
+  var f=document.getElementById("flash");
+  f.addEventListener("submit",function(e){
+    fill();
+    if(!window.fetch||!window.FormData)return;
+    e.preventDefault();
+    var b=document.getElementById("sendBtn"),ok=document.getElementById("sentOk"),er=document.getElementById("sentErr");
+    b.disabled=true;b.textContent="Sending…";ok.style.display="none";er.style.display="none";
+    var fd=new FormData(f),o={};fd.forEach(function(v,k){if(k!=="_next")o[k]=v});
+    fetch(f.action.replace("formsubmit.co/","formsubmit.co/ajax/"),{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(o)})
+      .then(function(r){return r.json()}).then(function(j){if(String(j.success)==="true"){ok.style.display="block";b.textContent="📤 Send again"}else{throw 0}})
+      .catch(function(){er.style.display="block";b.textContent="📤 Send my missed cards"}).then(function(){b.disabled=false});
+  });
+  if(/[?&]sent=1(?:&|$)/.test(location.search)){document.getElementById("sentOk").style.display="block"}
+  window.addEventListener("pagehide",save);
+  document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")save()});
+  window.addEventListener("resize",function(){if(st.q.length)setHeight()});
+  window.__resume={key:KEY,storage:!!S,restored:S&&!!S.getItem(KEY)};
+  render();
+}catch(e){var p=document.getElementById("front");if(p)p.textContent="Could not start the deck. Reload and try again."}})();
+</script>
+</body>
+</html>
