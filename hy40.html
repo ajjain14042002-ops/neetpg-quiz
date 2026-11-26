@@ -7,19 +7,26 @@
 <title>NEET PG High-Yield 40</title>
 <style>
 :root{--bg:#f4f6fb;--card:#fff;--text:#1b2233;--muted:#667085;--border:#e3e7ef;--accent:#4f46e5;--accent2:#eef0ff;
---ok:#16a34a;--okbg:#e8f8ee;--bad:#dc2626;--badbg:#fdecec;--chip:#f0f2f7}
+--ok:#16a34a;--okbg:#e8f8ee;--bad:#dc2626;--badbg:#fdecec;--chip:#f0f2f7;
+--sat:env(safe-area-inset-top,0px);--sab:env(safe-area-inset-bottom,0px);
+--sal:env(safe-area-inset-left,0px);--sar:env(safe-area-inset-right,0px);
+--live-h:calc(44px + var(--sab));--hd-h:calc(88px + var(--sat));--qnav-h:62px}
 @media (prefers-color-scheme:dark){:root{--bg:#0f1420;--card:#171d2b;--text:#e7eaf2;--muted:#98a2b3;--border:#2a3245;--accent:#818cf8;--accent2:#232a45;
 --ok:#22c55e;--okbg:#10291b;--bad:#f87171;--badbg:#341618;--chip:#202838}}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif}
-form{max-width:720px;margin:0 auto;padding:0 14px 40px}
-input.pg,input.ans,input.tg{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
-input.pg{position:fixed;top:0;left:0}
-.hd{padding:10px 0 4px}
+html{margin:0;scroll-padding-top:var(--hd-h);scroll-padding-bottom:calc(var(--live-h) + var(--qnav-h) + 8px)}
+html,body{background:var(--bg);color:var(--text);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif}
+body{margin:0}
+form{max-width:720px;margin:0 auto;padding:0 max(14px,var(--sal)) calc(var(--live-h) + var(--qnav-h) + 12px) max(14px,var(--sar))}
+/* Visually hide radios/toggles WITHOUT position:fixed at the top of the screen.
+   Fixed 1px radios at top:0 made iOS Safari focus-scroll, leaving the header
+   visible but untappable, and Prev/Next jumped out of the visual viewport. */
+input.pg,input.ans,input.tg{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);white-space:nowrap;border:0;opacity:0;pointer-events:none;-webkit-appearance:none;appearance:none}
+.hd{position:sticky;top:0;z-index:6;background:var(--bg);padding:calc(10px + var(--sat)) 0 8px;border-bottom:1px solid var(--border)}
 .top{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .title{font-weight:700;font-size:15px}
 .score{font-size:13px;color:var(--muted);white-space:nowrap}
-.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:10px;padding:10px 14px;font:600 15px/1.2 inherit;cursor:pointer;min-height:46px;text-align:center;user-select:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:10px;padding:10px 14px;font:600 15px/1.2 inherit;cursor:pointer;min-height:46px;text-align:center;user-select:none;touch-action:manipulation}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn.small{padding:6px 10px;min-height:38px;font-size:13px}
 .btn.danger{background:var(--bad);border-color:var(--bad);color:#fff}
@@ -33,7 +40,7 @@ input.pg{position:fixed;top:0;left:0}
 .qno{font-size:13px;color:var(--muted);font-weight:600}
 .stem{font-size:17px;font-weight:600;margin:12px 0 4px}
 .opts{display:flex;flex-direction:column;gap:10px;margin-top:12px;position:relative}
-.opt{display:flex;align-items:flex-start;gap:12px;width:100%;border:1.5px solid var(--border);background:var(--card);border-radius:12px;padding:13px 12px;font-size:16px;cursor:pointer;min-height:56px}
+.opt{display:flex;align-items:flex-start;gap:12px;width:100%;border:1.5px solid var(--border);background:var(--card);border-radius:12px;padding:13px 12px;font-size:16px;cursor:pointer;min-height:56px;touch-action:manipulation}
 .opt .l{flex:0 0 30px;height:30px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--muted)}
 .opt .t{flex:1;padding-top:3px}
 .opt .m{font-weight:800;padding-top:3px}
@@ -47,7 +54,7 @@ input.w:checked+.opt .l{background:var(--bad);border-color:var(--bad);color:#fff
 input.w:checked+.opt .m::after{content:"✗"}
 .opts:has(input.ans:checked) .opt{pointer-events:none;cursor:default}
 input.ans:checked~.opt{pointer-events:none}
-.res{display:none}
+.res{display:none;scroll-margin-top:calc(var(--hd-h) + 8px);scroll-margin-bottom:calc(var(--live-h) + var(--qnav-h) + 8px)}
 input.ans:checked~.res{display:block}
 .verdict{margin-top:14px;font-weight:800;font-size:16px;display:none}
 .okv{color:var(--ok)}.badv{color:var(--bad)}
@@ -56,25 +63,36 @@ input.c:checked~.res .okv,input.w:checked~.res .badv{display:block}
 .expl h4{margin:0 0 6px;font-size:14px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
 .expl p{margin:0 0 10px}
 .one{background:var(--accent2);border-left:4px solid var(--accent);padding:10px 12px;border-radius:8px}
-.qnav{display:flex;gap:8px;margin-top:16px}
+/* Sticky Prev/Next stay above the fixed score bar and never slide under it
+   when an explanation expands or iOS resizes the visual viewport. */
+.qnav{display:flex;gap:8px;margin-top:16px;position:sticky;bottom:var(--live-h);z-index:4;background:var(--bg);padding:8px 0;border-top:1px solid var(--border)}
 .qnav>*{flex:1}
-/* paging: inactive pages stay in the DOM (so CSS counters still count) but are hidden */
-main>section{position:absolute;visibility:hidden;height:0;overflow:hidden;left:-9999px;top:0;width:300px}
+.doubt{margin-top:14px;padding-top:12px;border-top:1px dashed var(--border)}
+.doubt-title{font-weight:700;font-size:14px;margin:0 0 8px}
+.doubt-ta{display:block;width:100%;box-sizing:border-box;border:1.5px solid var(--border);background:var(--bg);color:var(--text);border-radius:10px;padding:10px 12px;font:inherit;font-size:16px;line-height:1.4;min-height:84px;resize:vertical;margin:0 0 8px}
+.doubt-ta:focus{outline:2px solid var(--accent);border-color:var(--accent)}
+.doubt .doubt-copy{width:100%}
+.doubt-fb{display:none;font-weight:700;font-size:13px;margin-top:8px}
+.doubt-fb.ok{color:var(--ok);display:block}
+.doubt-fb.err{color:var(--bad);display:block}
+/* paging: keep inactive pages in the DOM for CSS counters, but do NOT park
+   them far off-screen (iOS Safari expands the scrollable overflow). */
+main{position:relative}
+main>section{position:absolute;visibility:hidden;height:0;width:0;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);left:0;top:0;margin:0;pointer-events:none}
 /* palette */
 .palwrap{display:none}
 #tp:checked~.ph .palwrap{display:block}
 #tp:checked~.ph .palbtn-open{display:none}
 #tp:not(:checked)~.ph .palbtn-close{display:none}
 .pal{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-top:10px}
-.pal label{display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:10px;border:1.5px solid var(--border);background:var(--card);font-weight:700;font-size:14px;cursor:pointer;min-height:38px}
+.pal label{display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:10px;border:1.5px solid var(--border);background:var(--card);font-weight:700;font-size:14px;cursor:pointer;min-height:38px;touch-action:manipulation}
 .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:10px}
 .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:4px;border:1.5px solid var(--border)}
-/* live score via CSS counters (no JS needed) — placed at end of DOM, shown fixed at bottom */
-.live{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--border);padding:8px 14px calc(8px + env(safe-area-inset-bottom));font-size:14px;text-align:center;z-index:5}
+/* live score via CSS counters (no JS needed) — fixed at the bottom, above the home indicator */
+.live{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--border);padding:8px 14px calc(8px + var(--sab));font-size:14px;text-align:center;z-index:5}
 .live b.r::after{content:counter(r)}
 .live b.w::after{content:counter(w)}
 .sum-r::after{content:counter(r)}.sum-w::after{content:counter(w)}
-form{padding-bottom:70px}
 .big{font-size:36px;font-weight:800;margin:4px 0}
 table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
 td,th{padding:8px 6px;border-bottom:1px solid var(--border);text-align:left}
@@ -82,10 +100,10 @@ td.n,th.n{text-align:right;white-space:nowrap}
 td.ok{color:var(--ok);font-weight:700}td.bad{color:var(--bad);font-weight:700}
 .note{font-size:12px;color:var(--muted);margin-top:10px}
 /* review-wrong mode: show every wrongly answered question as a list */
-.rvbar{display:none}
+.rvbar{display:none;position:sticky;top:0;z-index:6;background:var(--card);padding:12px 16px;margin-top:10px;padding-top:calc(12px + var(--sat))}
 #rv:checked~.rvbar{display:block}
-#rv:checked~main>section{position:absolute!important;visibility:hidden!important;height:0!important;overflow:hidden!important;left:-9999px!important}
-#rv:checked~main>section.q:has(input.w:checked){position:static!important;visibility:visible!important;height:auto!important;overflow:visible!important;width:auto!important;left:auto!important}
+#rv:checked~main>section{position:absolute!important;visibility:hidden!important;height:0!important;width:0!important;overflow:hidden!important;left:0!important;clip:rect(0,0,0,0)!important;clip-path:inset(50%)!important;pointer-events:none!important}
+#rv:checked~main>section.q:has(input.w:checked){position:static!important;visibility:visible!important;height:auto!important;width:auto!important;overflow:visible!important;left:auto!important;clip:auto!important;clip-path:none!important;pointer-events:auto!important}
 #rv:checked~main .qnav{display:none}
 #rv:checked~.ph{display:none}
 /* in-page reset confirm */
@@ -97,6 +115,8 @@ td.ok{color:var(--ok);font-weight:700}td.bad{color:var(--bad);font-weight:700}
 .send{margin-top:14px}.send .btn{width:100%}
 .sent-ok{display:none;color:var(--ok);font-weight:700;margin-top:8px}
 .sent-err{display:none;color:var(--bad);font-weight:700;margin-top:8px}
+.copy-res-wrap{margin-top:10px}
+.copy-res-wrap.is-fallback #copyResBtn{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
 form{counter-reset:r 0 w 0 s0r 0 s0w 0 s1r 0 s1w 0 s2r 0 s2w 0 s3r 0 s3w 0 s4r 0 s4w 0 s5r 0 s5w 0 s6r 0 s6w 0 s7r 0 s7w 0 s8r 0 s8w 0 s9r 0 s9w 0 s10r 0 s10w 0 s11r 0 s11w 0 s12r 0 s12w 0 s13r 0 s13w 0 s14r 0 s14w 0 s15r 0 s15w 0 s16r 0 s16w 0 s17r 0 s17w 0 s18r 0 s18w 0}
 .s0.c:checked{counter-increment:r s0r}
 .s0.w:checked{counter-increment:w s0w}
@@ -136,7 +156,7 @@ form{counter-reset:r 0 w 0 s0r 0 s0w 0 s1r 0 s1w 0 s2r 0 s2w 0 s3r 0 s3w 0 s4r 0
 .s17.w:checked{counter-increment:w s17w}
 .s18.c:checked{counter-increment:r s18r}
 .s18.w:checked{counter-increment:w s18w}
-#p1:checked~main #q1,#p2:checked~main #q2,#p3:checked~main #q3,#p4:checked~main #q4,#p5:checked~main #q5,#p6:checked~main #q6,#p7:checked~main #q7,#p8:checked~main #q8,#p9:checked~main #q9,#p10:checked~main #q10,#p11:checked~main #q11,#p12:checked~main #q12,#p13:checked~main #q13,#p14:checked~main #q14,#p15:checked~main #q15,#p16:checked~main #q16,#p17:checked~main #q17,#p18:checked~main #q18,#p19:checked~main #q19,#p20:checked~main #q20,#p21:checked~main #q21,#p22:checked~main #q22,#p23:checked~main #q23,#p24:checked~main #q24,#p25:checked~main #q25,#p26:checked~main #q26,#p27:checked~main #q27,#p28:checked~main #q28,#p29:checked~main #q29,#p30:checked~main #q30,#p31:checked~main #q31,#p32:checked~main #q32,#p33:checked~main #q33,#p34:checked~main #q34,#p35:checked~main #q35,#p36:checked~main #q36,#p37:checked~main #q37,#p38:checked~main #q38,#p39:checked~main #q39,#p40:checked~main #q40,#p41:checked~main #q41{position:static;visibility:visible;height:auto;overflow:visible;width:auto;left:auto}
+#p1:checked~main #q1,#p2:checked~main #q2,#p3:checked~main #q3,#p4:checked~main #q4,#p5:checked~main #q5,#p6:checked~main #q6,#p7:checked~main #q7,#p8:checked~main #q8,#p9:checked~main #q9,#p10:checked~main #q10,#p11:checked~main #q11,#p12:checked~main #q12,#p13:checked~main #q13,#p14:checked~main #q14,#p15:checked~main #q15,#p16:checked~main #q16,#p17:checked~main #q17,#p18:checked~main #q18,#p19:checked~main #q19,#p20:checked~main #q20,#p21:checked~main #q21,#p22:checked~main #q22,#p23:checked~main #q23,#p24:checked~main #q24,#p25:checked~main #q25,#p26:checked~main #q26,#p27:checked~main #q27,#p28:checked~main #q28,#p29:checked~main #q29,#p30:checked~main #q30,#p31:checked~main #q31,#p32:checked~main #q32,#p33:checked~main #q33,#p34:checked~main #q34,#p35:checked~main #q35,#p36:checked~main #q36,#p37:checked~main #q37,#p38:checked~main #q38,#p39:checked~main #q39,#p40:checked~main #q40,#p41:checked~main #q41{position:static;visibility:visible;height:auto;overflow:visible;width:auto;left:auto;clip:auto;clip-path:none;pointer-events:auto}
 form:has(input[name="Q1-01"].c:checked) .pal label[for="p1"],form:has(input[name="Q1-02"].c:checked) .pal label[for="p2"],form:has(input[name="Q1-03"].c:checked) .pal label[for="p3"],form:has(input[name="Q1-04"].c:checked) .pal label[for="p4"],form:has(input[name="Q1-05"].c:checked) .pal label[for="p5"],form:has(input[name="Q1-06"].c:checked) .pal label[for="p6"],form:has(input[name="Q1-07"].c:checked) .pal label[for="p7"],form:has(input[name="Q1-08"].c:checked) .pal label[for="p8"],form:has(input[name="Q1-09"].c:checked) .pal label[for="p9"],form:has(input[name="Q1-10"].c:checked) .pal label[for="p10"],form:has(input[name="Q1-11"].c:checked) .pal label[for="p11"],form:has(input[name="Q1-12"].c:checked) .pal label[for="p12"],form:has(input[name="Q1-13"].c:checked) .pal label[for="p13"],form:has(input[name="Q1-14"].c:checked) .pal label[for="p14"],form:has(input[name="Q1-15"].c:checked) .pal label[for="p15"],form:has(input[name="Q1-16"].c:checked) .pal label[for="p16"],form:has(input[name="Q1-17"].c:checked) .pal label[for="p17"],form:has(input[name="Q1-18"].c:checked) .pal label[for="p18"],form:has(input[name="Q1-19"].c:checked) .pal label[for="p19"],form:has(input[name="Q1-20"].c:checked) .pal label[for="p20"],form:has(input[name="Q1-21"].c:checked) .pal label[for="p21"],form:has(input[name="Q1-22"].c:checked) .pal label[for="p22"],form:has(input[name="Q1-23"].c:checked) .pal label[for="p23"],form:has(input[name="Q1-24"].c:checked) .pal label[for="p24"],form:has(input[name="Q1-25"].c:checked) .pal label[for="p25"],form:has(input[name="Q1-26"].c:checked) .pal label[for="p26"],form:has(input[name="Q1-27"].c:checked) .pal label[for="p27"],form:has(input[name="Q1-28"].c:checked) .pal label[for="p28"],form:has(input[name="Q1-29"].c:checked) .pal label[for="p29"],form:has(input[name="Q1-30"].c:checked) .pal label[for="p30"],form:has(input[name="Q1-31"].c:checked) .pal label[for="p31"],form:has(input[name="Q1-32"].c:checked) .pal label[for="p32"],form:has(input[name="Q1-33"].c:checked) .pal label[for="p33"],form:has(input[name="Q1-34"].c:checked) .pal label[for="p34"],form:has(input[name="Q1-35"].c:checked) .pal label[for="p35"],form:has(input[name="Q1-36"].c:checked) .pal label[for="p36"],form:has(input[name="Q1-37"].c:checked) .pal label[for="p37"],form:has(input[name="Q1-38"].c:checked) .pal label[for="p38"],form:has(input[name="Q1-39"].c:checked) .pal label[for="p39"],form:has(input[name="Q1-40"].c:checked) .pal label[for="p40"]{background:var(--ok);border-color:var(--ok);color:#fff}
 form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name="Q1-02"].w:checked) .pal label[for="p2"],form:has(input[name="Q1-03"].w:checked) .pal label[for="p3"],form:has(input[name="Q1-04"].w:checked) .pal label[for="p4"],form:has(input[name="Q1-05"].w:checked) .pal label[for="p5"],form:has(input[name="Q1-06"].w:checked) .pal label[for="p6"],form:has(input[name="Q1-07"].w:checked) .pal label[for="p7"],form:has(input[name="Q1-08"].w:checked) .pal label[for="p8"],form:has(input[name="Q1-09"].w:checked) .pal label[for="p9"],form:has(input[name="Q1-10"].w:checked) .pal label[for="p10"],form:has(input[name="Q1-11"].w:checked) .pal label[for="p11"],form:has(input[name="Q1-12"].w:checked) .pal label[for="p12"],form:has(input[name="Q1-13"].w:checked) .pal label[for="p13"],form:has(input[name="Q1-14"].w:checked) .pal label[for="p14"],form:has(input[name="Q1-15"].w:checked) .pal label[for="p15"],form:has(input[name="Q1-16"].w:checked) .pal label[for="p16"],form:has(input[name="Q1-17"].w:checked) .pal label[for="p17"],form:has(input[name="Q1-18"].w:checked) .pal label[for="p18"],form:has(input[name="Q1-19"].w:checked) .pal label[for="p19"],form:has(input[name="Q1-20"].w:checked) .pal label[for="p20"],form:has(input[name="Q1-21"].w:checked) .pal label[for="p21"],form:has(input[name="Q1-22"].w:checked) .pal label[for="p22"],form:has(input[name="Q1-23"].w:checked) .pal label[for="p23"],form:has(input[name="Q1-24"].w:checked) .pal label[for="p24"],form:has(input[name="Q1-25"].w:checked) .pal label[for="p25"],form:has(input[name="Q1-26"].w:checked) .pal label[for="p26"],form:has(input[name="Q1-27"].w:checked) .pal label[for="p27"],form:has(input[name="Q1-28"].w:checked) .pal label[for="p28"],form:has(input[name="Q1-29"].w:checked) .pal label[for="p29"],form:has(input[name="Q1-30"].w:checked) .pal label[for="p30"],form:has(input[name="Q1-31"].w:checked) .pal label[for="p31"],form:has(input[name="Q1-32"].w:checked) .pal label[for="p32"],form:has(input[name="Q1-33"].w:checked) .pal label[for="p33"],form:has(input[name="Q1-34"].w:checked) .pal label[for="p34"],form:has(input[name="Q1-35"].w:checked) .pal label[for="p35"],form:has(input[name="Q1-36"].w:checked) .pal label[for="p36"],form:has(input[name="Q1-37"].w:checked) .pal label[for="p37"],form:has(input[name="Q1-38"].w:checked) .pal label[for="p38"],form:has(input[name="Q1-39"].w:checked) .pal label[for="p39"],form:has(input[name="Q1-40"].w:checked) .pal label[for="p40"]{background:var(--bad);border-color:var(--bad);color:#fff}
 #p1:checked~.ph .pal label[for="p1"],#p2:checked~.ph .pal label[for="p2"],#p3:checked~.ph .pal label[for="p3"],#p4:checked~.ph .pal label[for="p4"],#p5:checked~.ph .pal label[for="p5"],#p6:checked~.ph .pal label[for="p6"],#p7:checked~.ph .pal label[for="p7"],#p8:checked~.ph .pal label[for="p8"],#p9:checked~.ph .pal label[for="p9"],#p10:checked~.ph .pal label[for="p10"],#p11:checked~.ph .pal label[for="p11"],#p12:checked~.ph .pal label[for="p12"],#p13:checked~.ph .pal label[for="p13"],#p14:checked~.ph .pal label[for="p14"],#p15:checked~.ph .pal label[for="p15"],#p16:checked~.ph .pal label[for="p16"],#p17:checked~.ph .pal label[for="p17"],#p18:checked~.ph .pal label[for="p18"],#p19:checked~.ph .pal label[for="p19"],#p20:checked~.ph .pal label[for="p20"],#p21:checked~.ph .pal label[for="p21"],#p22:checked~.ph .pal label[for="p22"],#p23:checked~.ph .pal label[for="p23"],#p24:checked~.ph .pal label[for="p24"],#p25:checked~.ph .pal label[for="p25"],#p26:checked~.ph .pal label[for="p26"],#p27:checked~.ph .pal label[for="p27"],#p28:checked~.ph .pal label[for="p28"],#p29:checked~.ph .pal label[for="p29"],#p30:checked~.ph .pal label[for="p30"],#p31:checked~.ph .pal label[for="p31"],#p32:checked~.ph .pal label[for="p32"],#p33:checked~.ph .pal label[for="p33"],#p34:checked~.ph .pal label[for="p34"],#p35:checked~.ph .pal label[for="p35"],#p36:checked~.ph .pal label[for="p36"],#p37:checked~.ph .pal label[for="p37"],#p38:checked~.ph .pal label[for="p38"],#p39:checked~.ph .pal label[for="p39"],#p40:checked~.ph .pal label[for="p40"]{outline:3px solid var(--accent);outline-offset:1px}
@@ -173,6 +193,7 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="hidden" name="score" id="f_score" value="see answers below">
 <input type="hidden" name="not_attempted" id="f_na" value="">
 <input type="hidden" name="wrong_concepts" id="f_wc" value="">
+<input type="hidden" name="doubts" id="f_doubts" value="">
 <input type="radio" name="pg" class="pg" id="p1" value="last viewed page 1" checked><input type="radio" name="pg" class="pg" id="p2" value="last viewed page 2"><input type="radio" name="pg" class="pg" id="p3" value="last viewed page 3"><input type="radio" name="pg" class="pg" id="p4" value="last viewed page 4"><input type="radio" name="pg" class="pg" id="p5" value="last viewed page 5"><input type="radio" name="pg" class="pg" id="p6" value="last viewed page 6"><input type="radio" name="pg" class="pg" id="p7" value="last viewed page 7"><input type="radio" name="pg" class="pg" id="p8" value="last viewed page 8"><input type="radio" name="pg" class="pg" id="p9" value="last viewed page 9"><input type="radio" name="pg" class="pg" id="p10" value="last viewed page 10"><input type="radio" name="pg" class="pg" id="p11" value="last viewed page 11"><input type="radio" name="pg" class="pg" id="p12" value="last viewed page 12"><input type="radio" name="pg" class="pg" id="p13" value="last viewed page 13"><input type="radio" name="pg" class="pg" id="p14" value="last viewed page 14"><input type="radio" name="pg" class="pg" id="p15" value="last viewed page 15"><input type="radio" name="pg" class="pg" id="p16" value="last viewed page 16"><input type="radio" name="pg" class="pg" id="p17" value="last viewed page 17"><input type="radio" name="pg" class="pg" id="p18" value="last viewed page 18"><input type="radio" name="pg" class="pg" id="p19" value="last viewed page 19"><input type="radio" name="pg" class="pg" id="p20" value="last viewed page 20"><input type="radio" name="pg" class="pg" id="p21" value="last viewed page 21"><input type="radio" name="pg" class="pg" id="p22" value="last viewed page 22"><input type="radio" name="pg" class="pg" id="p23" value="last viewed page 23"><input type="radio" name="pg" class="pg" id="p24" value="last viewed page 24"><input type="radio" name="pg" class="pg" id="p25" value="last viewed page 25"><input type="radio" name="pg" class="pg" id="p26" value="last viewed page 26"><input type="radio" name="pg" class="pg" id="p27" value="last viewed page 27"><input type="radio" name="pg" class="pg" id="p28" value="last viewed page 28"><input type="radio" name="pg" class="pg" id="p29" value="last viewed page 29"><input type="radio" name="pg" class="pg" id="p30" value="last viewed page 30"><input type="radio" name="pg" class="pg" id="p31" value="last viewed page 31"><input type="radio" name="pg" class="pg" id="p32" value="last viewed page 32"><input type="radio" name="pg" class="pg" id="p33" value="last viewed page 33"><input type="radio" name="pg" class="pg" id="p34" value="last viewed page 34"><input type="radio" name="pg" class="pg" id="p35" value="last viewed page 35"><input type="radio" name="pg" class="pg" id="p36" value="last viewed page 36"><input type="radio" name="pg" class="pg" id="p37" value="last viewed page 37"><input type="radio" name="pg" class="pg" id="p38" value="last viewed page 38"><input type="radio" name="pg" class="pg" id="p39" value="last viewed page 39"><input type="radio" name="pg" class="pg" id="p40" value="last viewed page 40"><input type="radio" name="pg" class="pg" id="p41" value="last viewed page 41">
 <input type="checkbox" class="tg" id="tp"><input type="checkbox" class="tg" id="rv"><input type="checkbox" class="tg" id="rc">
 <div class="hd ph">
@@ -198,7 +219,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s3" name="Q1-01" id="a1_2" value="Q1-01 | Dermatology | Lichen planus (Wickham&#x27;s striae) | chose C: Lichen planus | correct C: Lichen planus | RIGHT" data-tag="Q1-01 Dermatology: Lichen planus (Wickham&#x27;s striae)"><label class="opt" for="a1_2"><span class="l">C</span><span class="t">Lichen planus</span><span class="m"></span></label>
 <input type="radio" class="ans w s3" name="Q1-01" id="a1_3" value="Q1-01 | Dermatology | Lichen planus (Wickham&#x27;s striae) | chose D: Pemphigus vulgaris | correct C: Lichen planus | WRONG" data-tag="Q1-01 Dermatology: Lichen planus (Wickham&#x27;s striae)"><label class="opt" for="a1_3"><span class="l">D</span><span class="t">Pemphigus vulgaris</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. Lichen planus</div>
-<div class="expl"><h4>Explanation</h4><p>The 6 P&#x27;s of lichen planus: Pruritic, Purple, Polygonal, Planar (flat-topped), Papules, Plaques. Wickham&#x27;s striae are due to focal hypergranulosis. Other features: the Koebner phenomenon, oral lacy white lesions, and Max-Joseph spaces / saw-tooth rete ridges on histology. Psoriasis shows silvery scales and the Auspitz sign; pemphigus vulgaris gives flaccid bullae with Nikolsky sign; dermatitis herpetiformis gives grouped extensor vesicles with gluten sensitivity.</p><div class="one"><b>One-liner to remember: Lichen planus = 6 P&#x27;s + Wickham&#x27;s striae (hypergranulosis); psoriasis = Auspitz sign.</b></div><div class="credit">Concept: Lichen planus (Wickham&#x27;s striae)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>The 6 P&#x27;s of lichen planus: Pruritic, Purple, Polygonal, Planar (flat-topped), Papules, Plaques. Wickham&#x27;s striae are due to focal hypergranulosis. Other features: the Koebner phenomenon, oral lacy white lesions, and Max-Joseph spaces / saw-tooth rete ridges on histology. Psoriasis shows silvery scales and the Auspitz sign; pemphigus vulgaris gives flaccid bullae with Nikolsky sign; dermatitis herpetiformis gives grouped extensor vesicles with gluten sensitivity.</p><div class="one"><b>One-liner to remember: Lichen planus = 6 P&#x27;s + Wickham&#x27;s striae (hypergranulosis); psoriasis = Auspitz sign.</b></div><div class="credit">Concept: Lichen planus (Wickham&#x27;s striae)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q1" aria-label="Doubt about question 1"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><span class="btn dis">‹ Prev</span><label class="btn primary" for="p2">Next ›</label></div>
 </section>
@@ -210,7 +238,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s7" name="Q1-02" id="a2_2" value="Q1-02 | Microbiology | Negri bodies | chose C: Herpes simplex encephalitis | correct A: Rabies | WRONG" data-tag="Q1-02 Microbiology: Negri bodies"><label class="opt" for="a2_2"><span class="l">C</span><span class="t">Herpes simplex encephalitis</span><span class="m"></span></label>
 <input type="radio" class="ans w s7" name="Q1-02" id="a2_3" value="Q1-02 | Microbiology | Negri bodies | chose D: Cytomegalovirus infection | correct A: Rabies | WRONG" data-tag="Q1-02 Microbiology: Negri bodies"><label class="opt" for="a2_3"><span class="l">D</span><span class="t">Cytomegalovirus infection</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. Rabies</div>
-<div class="expl"><h4>Explanation</h4><p>Negri bodies are intracytoplasmic eosinophilic inclusions of rabies virus, best seen in the hippocampus (Ammon&#x27;s horn) and cerebellar Purkinje cells. CMV gives &#x27;owl&#x27;s-eye&#x27; intranuclear inclusions; molluscum gives Henderson–Paterson (molluscum) bodies; HSV gives Cowdry type A intranuclear inclusions. Note that the absence of Negri bodies does not rule out rabies.</p><div class="one"><b>One-liner to remember: Negri bodies = rabies (hippocampus and Purkinje cells), intracytoplasmic.</b></div><div class="credit">Concept: Negri bodies</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Negri bodies are intracytoplasmic eosinophilic inclusions of rabies virus, best seen in the hippocampus (Ammon&#x27;s horn) and cerebellar Purkinje cells. CMV gives &#x27;owl&#x27;s-eye&#x27; intranuclear inclusions; molluscum gives Henderson–Paterson (molluscum) bodies; HSV gives Cowdry type A intranuclear inclusions. Note that the absence of Negri bodies does not rule out rabies.</p><div class="one"><b>One-liner to remember: Negri bodies = rabies (hippocampus and Purkinje cells), intracytoplasmic.</b></div><div class="credit">Concept: Negri bodies</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q2" aria-label="Doubt about question 2"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p1">‹ Prev</label><label class="btn primary" for="p3">Next ›</label></div>
 </section>
@@ -222,7 +257,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s2" name="Q1-03" id="a3_2" value="Q1-03 | Biochemistry | Glycogen storage disease (Von Gierke) | chose C: Acid maltase (α-1,4-glucosidase) | correct D: Glucose-6-phosphatase | WRONG" data-tag="Q1-03 Biochemistry: Glycogen storage disease (Von Gierke)"><label class="opt" for="a3_2"><span class="l">C</span><span class="t">Acid maltase (α-1,4-glucosidase)</span><span class="m"></span></label>
 <input type="radio" class="ans c s2" name="Q1-03" id="a3_3" value="Q1-03 | Biochemistry | Glycogen storage disease (Von Gierke) | chose D: Glucose-6-phosphatase | correct D: Glucose-6-phosphatase | RIGHT" data-tag="Q1-03 Biochemistry: Glycogen storage disease (Von Gierke)"><label class="opt" for="a3_3"><span class="l">D</span><span class="t">Glucose-6-phosphatase</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. Glucose-6-phosphatase</div>
-<div class="expl"><h4>Explanation</h4><p>This is Von Gierke disease (GSD type I). Without glucose-6-phosphatase the liver cannot release free glucose from either glycogenolysis or gluconeogenesis, causing severe fasting hypoglycaemia with lactic acidosis, hyperuricaemia and hyperlipidaemia. Acid maltase deficiency = Pompe (type II, cardiomegaly); debranching enzyme = Cori (type III, milder, no lactic acidosis); muscle phosphorylase = McArdle (type V, exercise cramps, myoglobinuria).</p><div class="one"><b>One-liner to remember: Von Gierke = G6Pase (type I); Pompe = acid maltase (heart); Cori = debranching; McArdle = muscle phosphorylase.</b></div><div class="credit">Concept: Glycogen storage disease (Von Gierke)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>This is Von Gierke disease (GSD type I). Without glucose-6-phosphatase the liver cannot release free glucose from either glycogenolysis or gluconeogenesis, causing severe fasting hypoglycaemia with lactic acidosis, hyperuricaemia and hyperlipidaemia. Acid maltase deficiency = Pompe (type II, cardiomegaly); debranching enzyme = Cori (type III, milder, no lactic acidosis); muscle phosphorylase = McArdle (type V, exercise cramps, myoglobinuria).</p><div class="one"><b>One-liner to remember: Von Gierke = G6Pase (type I); Pompe = acid maltase (heart); Cori = debranching; McArdle = muscle phosphorylase.</b></div><div class="credit">Concept: Glycogen storage disease (Von Gierke)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q3" aria-label="Doubt about question 3"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p2">‹ Prev</label><label class="btn primary" for="p4">Next ›</label></div>
 </section>
@@ -234,7 +276,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s6" name="Q1-04" id="a4_2" value="Q1-04 | Medicine | Causes of Cushing syndrome | chose C: Ectopic ACTH from small-cell lung cancer | correct B: ACTH-secreting pituitary adenoma (Cushing disease) | WRONG" data-tag="Q1-04 Medicine: Causes of Cushing syndrome"><label class="opt" for="a4_2"><span class="l">C</span><span class="t">Ectopic ACTH from small-cell lung cancer</span><span class="m"></span></label>
 <input type="radio" class="ans w s6" name="Q1-04" id="a4_3" value="Q1-04 | Medicine | Causes of Cushing syndrome | chose D: Adrenal carcinoma | correct B: ACTH-secreting pituitary adenoma (Cushing disease) | WRONG" data-tag="Q1-04 Medicine: Causes of Cushing syndrome"><label class="opt" for="a4_3"><span class="l">D</span><span class="t">Adrenal carcinoma</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. ACTH-secreting pituitary adenoma (Cushing disease)</div>
-<div class="expl"><h4>Explanation</h4><p>Overall the commonest cause of Cushing syndrome is exogenous (iatrogenic) glucocorticoid use. Among endogenous causes, about 70–75% are ACTH-dependent pituitary microadenomas (Cushing disease). Ectopic ACTH (e.g., small-cell lung carcinoma, carcinoids) is about 10–15% and often presents with hypokalaemia and pigmentation. Adrenal adenoma/carcinoma are ACTH-independent with suppressed ACTH. A high-dose dexamethasone test suppresses cortisol in pituitary but not ectopic disease.</p><div class="one"><b>One-liner to remember: Most common overall = exogenous steroids; most common endogenous = pituitary adenoma (Cushing disease).</b></div><div class="credit">Concept: Causes of Cushing syndrome</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Overall the commonest cause of Cushing syndrome is exogenous (iatrogenic) glucocorticoid use. Among endogenous causes, about 70–75% are ACTH-dependent pituitary microadenomas (Cushing disease). Ectopic ACTH (e.g., small-cell lung carcinoma, carcinoids) is about 10–15% and often presents with hypokalaemia and pigmentation. Adrenal adenoma/carcinoma are ACTH-independent with suppressed ACTH. A high-dose dexamethasone test suppresses cortisol in pituitary but not ectopic disease.</p><div class="one"><b>One-liner to remember: Most common overall = exogenous steroids; most common endogenous = pituitary adenoma (Cushing disease).</b></div><div class="credit">Concept: Causes of Cushing syndrome</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q4" aria-label="Doubt about question 4"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p3">‹ Prev</label><label class="btn primary" for="p5">Next ›</label></div>
 </section>
@@ -246,7 +295,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s0" name="Q1-05" id="a5_2" value="Q1-05 | Anatomy | Brachial plexus birth injury (Erb vs Klumpke) | chose C: C7 only | correct A: C5 and C6 (upper trunk) | WRONG" data-tag="Q1-05 Anatomy: Brachial plexus birth injury (Erb vs Klumpke)"><label class="opt" for="a5_2"><span class="l">C</span><span class="t">C7 only</span><span class="m"></span></label>
 <input type="radio" class="ans w s0" name="Q1-05" id="a5_3" value="Q1-05 | Anatomy | Brachial plexus birth injury (Erb vs Klumpke) | chose D: C5 to T1 (all roots) | correct A: C5 and C6 (upper trunk) | WRONG" data-tag="Q1-05 Anatomy: Brachial plexus birth injury (Erb vs Klumpke)"><label class="opt" for="a5_3"><span class="l">D</span><span class="t">C5 to T1 (all roots)</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. C5 and C6 (upper trunk)</div>
-<div class="expl"><h4>Explanation</h4><p>Waiter&#x27;s tip = Erb&#x27;s palsy: injury to the upper trunk (C5, C6) at Erb&#x27;s point from excessive separation of head and shoulder. Deltoid, supraspinatus, infraspinatus, biceps and brachialis are paralysed. C8–T1 injury (excessive abduction) gives Klumpke&#x27;s palsy with claw hand and possibly Horner syndrome.</p><div class="one"><b>One-liner to remember: Erb = C5–C6 = waiter&#x27;s tip; Klumpke = C8–T1 = claw hand ± Horner.</b></div><div class="credit">Concept: Brachial plexus birth injury (Erb vs Klumpke)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Waiter&#x27;s tip = Erb&#x27;s palsy: injury to the upper trunk (C5, C6) at Erb&#x27;s point from excessive separation of head and shoulder. Deltoid, supraspinatus, infraspinatus, biceps and brachialis are paralysed. C8–T1 injury (excessive abduction) gives Klumpke&#x27;s palsy with claw hand and possibly Horner syndrome.</p><div class="one"><b>One-liner to remember: Erb = C5–C6 = waiter&#x27;s tip; Klumpke = C8–T1 = claw hand ± Horner.</b></div><div class="credit">Concept: Brachial plexus birth injury (Erb vs Klumpke)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q5" aria-label="Doubt about question 5"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p4">‹ Prev</label><label class="btn primary" for="p6">Next ›</label></div>
 </section>
@@ -258,7 +314,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s12" name="Q1-06" id="a6_2" value="Q1-06 | Pathology | Psammoma bodies | chose C: Serous cystadenocarcinoma of ovary | correct D: Follicular carcinoma of thyroid | WRONG" data-tag="Q1-06 Pathology: Psammoma bodies"><label class="opt" for="a6_2"><span class="l">C</span><span class="t">Serous cystadenocarcinoma of ovary</span><span class="m"></span></label>
 <input type="radio" class="ans c s12" name="Q1-06" id="a6_3" value="Q1-06 | Pathology | Psammoma bodies | chose D: Follicular carcinoma of thyroid | correct D: Follicular carcinoma of thyroid | RIGHT" data-tag="Q1-06 Pathology: Psammoma bodies"><label class="opt" for="a6_3"><span class="l">D</span><span class="t">Follicular carcinoma of thyroid</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. Follicular carcinoma of thyroid</div>
-<div class="expl"><h4>Explanation</h4><p>Psammoma bodies are laminated concentric calcifications (dystrophic calcification) typically seen in papillary tumours. Mnemonic PSaMMoma: Papillary carcinoma of thyroid, Serous cystadenocarcinoma of ovary, Meningioma, Mesothelioma (also papillary RCC). Follicular carcinoma does not form papillae and shows capsular/vascular invasion instead.</p><div class="one"><b>One-liner to remember: PSaMM = Papillary thyroid, Serous ovary, Meningioma, Mesothelioma. Psammoma bodies = dystrophic calcification.</b></div><div class="credit">Concept: Psammoma bodies</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Psammoma bodies are laminated concentric calcifications (dystrophic calcification) typically seen in papillary tumours. Mnemonic PSaMMoma: Papillary carcinoma of thyroid, Serous cystadenocarcinoma of ovary, Meningioma, Mesothelioma (also papillary RCC). Follicular carcinoma does not form papillae and shows capsular/vascular invasion instead.</p><div class="one"><b>One-liner to remember: PSaMM = Papillary thyroid, Serous ovary, Meningioma, Mesothelioma. Psammoma bodies = dystrophic calcification.</b></div><div class="credit">Concept: Psammoma bodies</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q6" aria-label="Doubt about question 6"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p5">‹ Prev</label><label class="btn primary" for="p7">Next ›</label></div>
 </section>
@@ -270,7 +333,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s5" name="Q1-07" id="a7_2" value="Q1-07 | Forensic Medicine | Post-mortem lividity colours | chose C: Phosphorus | correct B: Carbon monoxide | WRONG" data-tag="Q1-07 Forensic Medicine: Post-mortem lividity colours"><label class="opt" for="a7_2"><span class="l">C</span><span class="t">Phosphorus</span><span class="m"></span></label>
 <input type="radio" class="ans w s5" name="Q1-07" id="a7_3" value="Q1-07 | Forensic Medicine | Post-mortem lividity colours | chose D: Nitrites | correct B: Carbon monoxide | WRONG" data-tag="Q1-07 Forensic Medicine: Post-mortem lividity colours"><label class="opt" for="a7_3"><span class="l">D</span><span class="t">Nitrites</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. Carbon monoxide</div>
-<div class="expl"><h4>Explanation</h4><p>CO forms carboxyhaemoglobin, which is cherry red, so lividity is cherry red. Cyanide and hypothermia (refrigeration) also give bright pink/red lividity. Hydrogen sulphide gives bluish-green, phosphorus dark brown/yellow, and nitrites, chlorates and aniline give chocolate/copper-brown lividity (methaemoglobin).</p><div class="one"><b>One-liner to remember: Cherry red = CO (also cyanide, cold); chocolate/brown = nitrites (MetHb); bluish-green = H₂S.</b></div><div class="credit">Concept: Post-mortem lividity colours</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>CO forms carboxyhaemoglobin, which is cherry red, so lividity is cherry red. Cyanide and hypothermia (refrigeration) also give bright pink/red lividity. Hydrogen sulphide gives bluish-green, phosphorus dark brown/yellow, and nitrites, chlorates and aniline give chocolate/copper-brown lividity (methaemoglobin).</p><div class="one"><b>One-liner to remember: Cherry red = CO (also cyanide, cold); chocolate/brown = nitrites (MetHb); bluish-green = H₂S.</b></div><div class="credit">Concept: Post-mortem lividity colours</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q7" aria-label="Doubt about question 7"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p6">‹ Prev</label><label class="btn primary" for="p8">Next ›</label></div>
 </section>
@@ -282,7 +352,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s17" name="Q1-08" id="a8_2" value="Q1-08 | Radiology | Radiosensitivity of cell cycle | chose C: G2–M phase | correct C: G2–M phase | RIGHT" data-tag="Q1-08 Radiology: Radiosensitivity of cell cycle"><label class="opt" for="a8_2"><span class="l">C</span><span class="t">G2–M phase</span><span class="m"></span></label>
 <input type="radio" class="ans w s17" name="Q1-08" id="a8_3" value="Q1-08 | Radiology | Radiosensitivity of cell cycle | chose D: Early G1 phase | correct C: G2–M phase | WRONG" data-tag="Q1-08 Radiology: Radiosensitivity of cell cycle"><label class="opt" for="a8_3"><span class="l">D</span><span class="t">Early G1 phase</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. G2–M phase</div>
-<div class="expl"><h4>Explanation</h4><p>Cells are most radiosensitive in the G2 and M (mitosis) phases and most radioresistant in the late S phase (DNA synthesis, active repair by homologous recombination). This is why fractionation works: redistribution (reassortment) moves surviving cells into sensitive phases. The 4 R&#x27;s of radiobiology: Repair, Reoxygenation, Redistribution, Repopulation (+ Radiosensitivity). Per the Law of Bergonié and Tribondeau, rapidly dividing, undifferentiated cells are the most radiosensitive.</p><div class="one"><b>One-liner to remember: Most radiosensitive = G2–M; most radioresistant = late S; 4 R&#x27;s of radiobiology.</b></div><div class="credit">Concept: Radiosensitivity of cell cycle</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Cells are most radiosensitive in the G2 and M (mitosis) phases and most radioresistant in the late S phase (DNA synthesis, active repair by homologous recombination). This is why fractionation works: redistribution (reassortment) moves surviving cells into sensitive phases. The 4 R&#x27;s of radiobiology: Repair, Reoxygenation, Redistribution, Repopulation (+ Radiosensitivity). Per the Law of Bergonié and Tribondeau, rapidly dividing, undifferentiated cells are the most radiosensitive.</p><div class="one"><b>One-liner to remember: Most radiosensitive = G2–M; most radioresistant = late S; 4 R&#x27;s of radiobiology.</b></div><div class="credit">Concept: Radiosensitivity of cell cycle</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q8" aria-label="Doubt about question 8"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p7">‹ Prev</label><label class="btn primary" for="p9">Next ›</label></div>
 </section>
@@ -294,7 +371,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s5" name="Q1-09" id="a9_2" value="Q1-09 | Forensic Medicine | Signs of IUFD (Spalding) | chose C: Hydrocephalus | correct D: Intrauterine fetal death | WRONG" data-tag="Q1-09 Forensic Medicine: Signs of IUFD (Spalding)"><label class="opt" for="a9_2"><span class="l">C</span><span class="t">Hydrocephalus</span><span class="m"></span></label>
 <input type="radio" class="ans c s5" name="Q1-09" id="a9_3" value="Q1-09 | Forensic Medicine | Signs of IUFD (Spalding) | chose D: Intrauterine fetal death | correct D: Intrauterine fetal death | RIGHT" data-tag="Q1-09 Forensic Medicine: Signs of IUFD (Spalding)"><label class="opt" for="a9_3"><span class="l">D</span><span class="t">Intrauterine fetal death</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. Intrauterine fetal death</div>
-<div class="expl"><h4>Explanation</h4><p>Spalding sign is overlapping of the fetal skull bones from liquefaction of the brain and loss of tension after intrauterine death, seen about 7–10 days after death. Other radiological signs of IUFD: Robert&#x27;s sign (gas in the great vessels, the earliest at about 12 hours), hyperflexion of the spine, and collapse of the spinal column. Today ultrasound (absent cardiac activity) is the investigation of choice for confirming IUFD.</p><div class="one"><b>One-liner to remember: Spalding sign = overlapping skull bones = IUFD (~7–10 days); Robert&#x27;s sign (gas in great vessels) is the earliest X-ray sign.</b></div><div class="credit">Concept: Signs of IUFD (Spalding)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Spalding sign is overlapping of the fetal skull bones from liquefaction of the brain and loss of tension after intrauterine death, seen about 7–10 days after death. Other radiological signs of IUFD: Robert&#x27;s sign (gas in the great vessels, the earliest at about 12 hours), hyperflexion of the spine, and collapse of the spinal column. Today ultrasound (absent cardiac activity) is the investigation of choice for confirming IUFD.</p><div class="one"><b>One-liner to remember: Spalding sign = overlapping skull bones = IUFD (~7–10 days); Robert&#x27;s sign (gas in great vessels) is the earliest X-ray sign.</b></div><div class="credit">Concept: Signs of IUFD (Spalding)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q9" aria-label="Doubt about question 9"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p8">‹ Prev</label><label class="btn primary" for="p10">Next ›</label></div>
 </section>
@@ -306,7 +390,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s9" name="Q1-10" id="a10_2" value="Q1-10 | Ophthalmology | Kayser–Fleischer ring | chose C: Bowman&#x27;s membrane | correct A: Descemet&#x27;s membrane | WRONG" data-tag="Q1-10 Ophthalmology: Kayser–Fleischer ring"><label class="opt" for="a10_2"><span class="l">C</span><span class="t">Bowman&#x27;s membrane</span><span class="m"></span></label>
 <input type="radio" class="ans w s9" name="Q1-10" id="a10_3" value="Q1-10 | Ophthalmology | Kayser–Fleischer ring | chose D: Corneal stroma | correct A: Descemet&#x27;s membrane | WRONG" data-tag="Q1-10 Ophthalmology: Kayser–Fleischer ring"><label class="opt" for="a10_3"><span class="l">D</span><span class="t">Corneal stroma</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. Descemet&#x27;s membrane</div>
-<div class="expl"><h4>Explanation</h4><p>The KF ring is a golden-brown ring at the peripheral (limbal) cornea from copper deposited in Descemet&#x27;s membrane, appearing first superiorly; slit-lamp exam may be needed. Wilson disease is due to an ATP7B mutation (autosomal recessive). The sunflower cataract also occurs with copper (chalcosis). Iron lines (e.g., Fleischer ring in keratoconus, Hudson–Stähli line) are epithelial.</p><div class="one"><b>One-liner to remember: KF ring = copper in Descemet&#x27;s membrane (Wilson, ATP7B); sunflower cataract = copper.</b></div><div class="credit">Concept: Kayser–Fleischer ring</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>The KF ring is a golden-brown ring at the peripheral (limbal) cornea from copper deposited in Descemet&#x27;s membrane, appearing first superiorly; slit-lamp exam may be needed. Wilson disease is due to an ATP7B mutation (autosomal recessive). The sunflower cataract also occurs with copper (chalcosis). Iron lines (e.g., Fleischer ring in keratoconus, Hudson–Stähli line) are epithelial.</p><div class="one"><b>One-liner to remember: KF ring = copper in Descemet&#x27;s membrane (Wilson, ATP7B); sunflower cataract = copper.</b></div><div class="credit">Concept: Kayser–Fleischer ring</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q10" aria-label="Doubt about question 10"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p9">‹ Prev</label><label class="btn primary" for="p11">Next ›</label></div>
 </section>
@@ -318,7 +409,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s18" name="Q1-11" id="a11_2" value="Q1-11 | Surgery | Hernia types (Richter&#x27;s) | chose C: Maydl&#x27;s hernia | correct B: Richter&#x27;s hernia | WRONG" data-tag="Q1-11 Surgery: Hernia types (Richter&#x27;s)"><label class="opt" for="a11_2"><span class="l">C</span><span class="t">Maydl&#x27;s hernia</span><span class="m"></span></label>
 <input type="radio" class="ans w s18" name="Q1-11" id="a11_3" value="Q1-11 | Surgery | Hernia types (Richter&#x27;s) | chose D: Amyand&#x27;s hernia | correct B: Richter&#x27;s hernia | WRONG" data-tag="Q1-11 Surgery: Hernia types (Richter&#x27;s)"><label class="opt" for="a11_3"><span class="l">D</span><span class="t">Amyand&#x27;s hernia</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. Richter&#x27;s hernia</div>
-<div class="expl"><h4>Explanation</h4><p>In Richter&#x27;s hernia only part of the bowel wall circumference is trapped, so the lumen stays patent and there are no obstructive features despite strangulation; it is common with femoral hernias and laparoscopic port sites. Littre&#x27;s hernia contains a Meckel&#x27;s diverticulum, Amyand&#x27;s an appendix (inguinal), and Maydl&#x27;s a W-shaped loop where the intra-abdominal middle loop strangulates. Femoral hernia with Richter&#x27;s is a dangerous combination.</p><div class="one"><b>One-liner to remember: Richter = part of wall (strangulation without obstruction); Littre = Meckel&#x27;s; Amyand = appendix; Maydl = W loop.</b></div><div class="credit">Concept: Hernia types (Richter&#x27;s)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>In Richter&#x27;s hernia only part of the bowel wall circumference is trapped, so the lumen stays patent and there are no obstructive features despite strangulation; it is common with femoral hernias and laparoscopic port sites. Littre&#x27;s hernia contains a Meckel&#x27;s diverticulum, Amyand&#x27;s an appendix (inguinal), and Maydl&#x27;s a W-shaped loop where the intra-abdominal middle loop strangulates. Femoral hernia with Richter&#x27;s is a dangerous combination.</p><div class="one"><b>One-liner to remember: Richter = part of wall (strangulation without obstruction); Littre = Meckel&#x27;s; Amyand = appendix; Maydl = W loop.</b></div><div class="credit">Concept: Hernia types (Richter&#x27;s)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q11" aria-label="Doubt about question 11"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p10">‹ Prev</label><label class="btn primary" for="p12">Next ›</label></div>
 </section>
@@ -330,7 +428,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s8" name="Q1-12" id="a12_2" value="Q1-12 | OBG | Ectopic pregnancy site | chose C: Fimbria | correct A: Ampulla | WRONG" data-tag="Q1-12 OBG: Ectopic pregnancy site"><label class="opt" for="a12_2"><span class="l">C</span><span class="t">Fimbria</span><span class="m"></span></label>
 <input type="radio" class="ans w s8" name="Q1-12" id="a12_3" value="Q1-12 | OBG | Ectopic pregnancy site | chose D: Isthmus | correct A: Ampulla | WRONG" data-tag="Q1-12 OBG: Ectopic pregnancy site"><label class="opt" for="a12_3"><span class="l">D</span><span class="t">Isthmus</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. Ampulla</div>
-<div class="expl"><h4>Explanation</h4><p>The ampulla (~70–80%) is the commonest site because fertilisation normally occurs there. Isthmic pregnancy ruptures earliest (6–8 weeks) because the lumen is narrow. Interstitial pregnancy ruptures latest (12–16 weeks) but is the most dangerous, with catastrophic haemorrhage from uterine/ovarian vessels. Fimbrial ectopic is the least common tubal type.</p><div class="one"><b>One-liner to remember: Ectopic: commonest = ampulla; earliest rupture = isthmus; latest and most dangerous = interstitial.</b></div><div class="credit">Concept: Ectopic pregnancy site</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>The ampulla (~70–80%) is the commonest site because fertilisation normally occurs there. Isthmic pregnancy ruptures earliest (6–8 weeks) because the lumen is narrow. Interstitial pregnancy ruptures latest (12–16 weeks) but is the most dangerous, with catastrophic haemorrhage from uterine/ovarian vessels. Fimbrial ectopic is the least common tubal type.</p><div class="one"><b>One-liner to remember: Ectopic: commonest = ampulla; earliest rupture = isthmus; latest and most dangerous = interstitial.</b></div><div class="credit">Concept: Ectopic pregnancy site</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q12" aria-label="Doubt about question 12"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p11">‹ Prev</label><label class="btn primary" for="p13">Next ›</label></div>
 </section>
@@ -342,7 +447,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s11" name="Q1-13" id="a13_2" value="Q1-13 | PSM / Community Medicine | Chlorination – residual chlorine | chose C: 0.5 mg/L | correct C: 0.5 mg/L | RIGHT" data-tag="Q1-13 PSM / Community Medicine: Chlorination – residual chlorine"><label class="opt" for="a13_2"><span class="l">C</span><span class="t">0.5 mg/L</span><span class="m"></span></label>
 <input type="radio" class="ans w s11" name="Q1-13" id="a13_3" value="Q1-13 | PSM / Community Medicine | Chlorination – residual chlorine | chose D: 1 mg/L | correct C: 0.5 mg/L | WRONG" data-tag="Q1-13 PSM / Community Medicine: Chlorination – residual chlorine"><label class="opt" for="a13_3"><span class="l">D</span><span class="t">1 mg/L</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. 0.5 mg/L</div>
-<div class="expl"><h4>Explanation</h4><p>Per Park, water is chlorinated to leave a free residual chlorine of 0.5 mg/L (ppm) after a contact period of at least 1 hour. This kills bacteria and most viruses, but not cysts, ova or spores. The orthotolidine (OT) test measures free and combined residual chlorine. Break-point chlorination is the point at which chlorine demand is fully met and free residual chlorine appears.</p><div class="one"><b>One-liner to remember: Free residual chlorine = 0.5 mg/L after 1 hour contact; OT test measures it.</b></div><div class="credit">Concept: Chlorination – residual chlorine</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Per Park, water is chlorinated to leave a free residual chlorine of 0.5 mg/L (ppm) after a contact period of at least 1 hour. This kills bacteria and most viruses, but not cysts, ova or spores. The orthotolidine (OT) test measures free and combined residual chlorine. Break-point chlorination is the point at which chlorine demand is fully met and free residual chlorine appears.</p><div class="one"><b>One-liner to remember: Free residual chlorine = 0.5 mg/L after 1 hour contact; OT test measures it.</b></div><div class="credit">Concept: Chlorination – residual chlorine</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q13" aria-label="Doubt about question 13"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p12">‹ Prev</label><label class="btn primary" for="p14">Next ›</label></div>
 </section>
@@ -354,7 +466,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s15" name="Q1-14" id="a14_2" value="Q1-14 | Physiology | Nephron segment Na⁺ reabsorption | chose C: Thick ascending limb of loop of Henle | correct A: Proximal convoluted tubule | WRONG" data-tag="Q1-14 Physiology: Nephron segment Na⁺ reabsorption"><label class="opt" for="a14_2"><span class="l">C</span><span class="t">Thick ascending limb of loop of Henle</span><span class="m"></span></label>
 <input type="radio" class="ans w s15" name="Q1-14" id="a14_3" value="Q1-14 | Physiology | Nephron segment Na⁺ reabsorption | chose D: Collecting duct | correct A: Proximal convoluted tubule | WRONG" data-tag="Q1-14 Physiology: Nephron segment Na⁺ reabsorption"><label class="opt" for="a14_3"><span class="l">D</span><span class="t">Collecting duct</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. Proximal convoluted tubule</div>
-<div class="expl"><h4>Explanation</h4><p>About 65–67% of filtered Na⁺ (and water) is reabsorbed isosmotically in the PCT. The thick ascending limb reabsorbs about 25% (via the NKCC2 transporter, the site of loop diuretics), the DCT about 5% (NCC, the thiazide site), and the collecting duct 2–3% (ENaC, aldosterone-regulated).</p><div class="one"><b>One-liner to remember: PCT reabsorbs ~2/3 of Na⁺ and water; glucose and amino acids are almost 100% reabsorbed in the PCT.</b></div><div class="credit">Concept: Nephron segment Na⁺ reabsorption</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>About 65–67% of filtered Na⁺ (and water) is reabsorbed isosmotically in the PCT. The thick ascending limb reabsorbs about 25% (via the NKCC2 transporter, the site of loop diuretics), the DCT about 5% (NCC, the thiazide site), and the collecting duct 2–3% (ENaC, aldosterone-regulated).</p><div class="one"><b>One-liner to remember: PCT reabsorbs ~2/3 of Na⁺ and water; glucose and amino acids are almost 100% reabsorbed in the PCT.</b></div><div class="credit">Concept: Nephron segment Na⁺ reabsorption</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q14" aria-label="Doubt about question 14"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p13">‹ Prev</label><label class="btn primary" for="p15">Next ›</label></div>
 </section>
@@ -366,7 +485,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s11" name="Q1-15" id="a15_2" value="Q1-15 | PSM / Community Medicine | Vaccine heat sensitivity / cold chain | chose C: Oral polio vaccine (OPV) | correct C: Oral polio vaccine (OPV) | RIGHT" data-tag="Q1-15 PSM / Community Medicine: Vaccine heat sensitivity / cold chain"><label class="opt" for="a15_2"><span class="l">C</span><span class="t">Oral polio vaccine (OPV)</span><span class="m"></span></label>
 <input type="radio" class="ans w s11" name="Q1-15" id="a15_3" value="Q1-15 | PSM / Community Medicine | Vaccine heat sensitivity / cold chain | chose D: BCG (freeze-dried, unreconstituted) | correct C: Oral polio vaccine (OPV) | WRONG" data-tag="Q1-15 PSM / Community Medicine: Vaccine heat sensitivity / cold chain"><label class="opt" for="a15_3"><span class="l">D</span><span class="t">BCG (freeze-dried, unreconstituted)</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. Oral polio vaccine (OPV)</div>
-<div class="expl"><h4>Explanation</h4><p>Per Park, OPV is the most heat-sensitive vaccine. It is kept frozen (−15 to −25 °C) at state/district vaccine stores and carries a vaccine vial monitor. TT, Hep B, DPT and pentavalent are freeze-sensitive (never freeze them; check with the shake test). Reconstituted BCG and measles vaccines are heat- and light-sensitive and must be used within 4 hours (per the national open-vial policy).</p><div class="one"><b>One-liner to remember: Most heat-sensitive = OPV; freeze-sensitive = Hep B, DPT, TT, pentavalent (shake test).</b></div><div class="credit">Concept: Vaccine heat sensitivity / cold chain</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Per Park, OPV is the most heat-sensitive vaccine. It is kept frozen (−15 to −25 °C) at state/district vaccine stores and carries a vaccine vial monitor. TT, Hep B, DPT and pentavalent are freeze-sensitive (never freeze them; check with the shake test). Reconstituted BCG and measles vaccines are heat- and light-sensitive and must be used within 4 hours (per the national open-vial policy).</p><div class="one"><b>One-liner to remember: Most heat-sensitive = OPV; freeze-sensitive = Hep B, DPT, TT, pentavalent (shake test).</b></div><div class="credit">Concept: Vaccine heat sensitivity / cold chain</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q15" aria-label="Doubt about question 15"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p14">‹ Prev</label><label class="btn primary" for="p16">Next ›</label></div>
 </section>
@@ -378,7 +504,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s7" name="Q1-16" id="a16_2" value="Q1-16 | Microbiology | Nagler reaction | chose C: Clostridioides (Clostridium) difficile | correct D: Clostridium perfringens | WRONG" data-tag="Q1-16 Microbiology: Nagler reaction"><label class="opt" for="a16_2"><span class="l">C</span><span class="t">Clostridioides (Clostridium) difficile</span><span class="m"></span></label>
 <input type="radio" class="ans c s7" name="Q1-16" id="a16_3" value="Q1-16 | Microbiology | Nagler reaction | chose D: Clostridium perfringens | correct D: Clostridium perfringens | RIGHT" data-tag="Q1-16 Microbiology: Nagler reaction"><label class="opt" for="a16_3"><span class="l">D</span><span class="t">Clostridium perfringens</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. Clostridium perfringens</div>
-<div class="expl"><h4>Explanation</h4><p>The Nagler reaction demonstrates the alpha toxin (lecithinase, phospholipase C) of C. perfringens. On egg-yolk agar it causes opalescence, which is inhibited on the half of the plate pre-treated with antitoxin. C. perfringens is the commonest cause of gas gangrene and also shows a double zone of haemolysis and &#x27;stormy clot&#x27; fermentation in litmus milk.</p><div class="one"><b>One-liner to remember: Nagler reaction = alpha toxin (lecithinase) of C. perfringens; also stormy clot and double-zone haemolysis.</b></div><div class="credit">Concept: Nagler reaction</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>The Nagler reaction demonstrates the alpha toxin (lecithinase, phospholipase C) of C. perfringens. On egg-yolk agar it causes opalescence, which is inhibited on the half of the plate pre-treated with antitoxin. C. perfringens is the commonest cause of gas gangrene and also shows a double zone of haemolysis and &#x27;stormy clot&#x27; fermentation in litmus milk.</p><div class="one"><b>One-liner to remember: Nagler reaction = alpha toxin (lecithinase) of C. perfringens; also stormy clot and double-zone haemolysis.</b></div><div class="credit">Concept: Nagler reaction</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q16" aria-label="Doubt about question 16"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p15">‹ Prev</label><label class="btn primary" for="p17">Next ›</label></div>
 </section>
@@ -390,7 +523,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s11" name="Q1-17" id="a17_2" value="Q1-17 | PSM / Community Medicine | Screening test indices | chose C: Negative predictive value | correct B: Sensitivity | WRONG" data-tag="Q1-17 PSM / Community Medicine: Screening test indices"><label class="opt" for="a17_2"><span class="l">C</span><span class="t">Negative predictive value</span><span class="m"></span></label>
 <input type="radio" class="ans w s11" name="Q1-17" id="a17_3" value="Q1-17 | PSM / Community Medicine | Screening test indices | chose D: Specificity | correct B: Sensitivity | WRONG" data-tag="Q1-17 PSM / Community Medicine: Screening test indices"><label class="opt" for="a17_3"><span class="l">D</span><span class="t">Specificity</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. Sensitivity</div>
-<div class="expl"><h4>Explanation</h4><p>Sensitivity = TP/(TP+FN), the true-positive rate. A highly sensitive test has few false negatives, so it is preferred for screening and a negative result rules OUT disease (SnNout). Specificity = TN/(TN+FP), the ability to identify those WITHOUT disease; a positive highly specific test rules IN disease (SpPin). Predictive values depend on prevalence, while sensitivity and specificity do not.</p><div class="one"><b>One-liner to remember: Sensitivity = TP/(TP+FN) (SnNout); specificity = TN/(TN+FP) (SpPin); PPV rises with prevalence.</b></div><div class="credit">Concept: Screening test indices</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Sensitivity = TP/(TP+FN), the true-positive rate. A highly sensitive test has few false negatives, so it is preferred for screening and a negative result rules OUT disease (SnNout). Specificity = TN/(TN+FP), the ability to identify those WITHOUT disease; a positive highly specific test rules IN disease (SpPin). Predictive values depend on prevalence, while sensitivity and specificity do not.</p><div class="one"><b>One-liner to remember: Sensitivity = TP/(TP+FN) (SnNout); specificity = TN/(TN+FP) (SpPin); PPV rises with prevalence.</b></div><div class="credit">Concept: Screening test indices</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q17" aria-label="Doubt about question 17"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p16">‹ Prev</label><label class="btn primary" for="p18">Next ›</label></div>
 </section>
@@ -402,7 +542,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s18" name="Q1-18" id="a18_2" value="Q1-18 | Surgery | Parkland formula (burns) | chose C: 7200 mL | correct B: 4800 mL | WRONG" data-tag="Q1-18 Surgery: Parkland formula (burns)"><label class="opt" for="a18_2"><span class="l">C</span><span class="t">7200 mL</span><span class="m"></span></label>
 <input type="radio" class="ans w s18" name="Q1-18" id="a18_3" value="Q1-18 | Surgery | Parkland formula (burns) | chose D: 2400 mL | correct B: 4800 mL | WRONG" data-tag="Q1-18 Surgery: Parkland formula (burns)"><label class="opt" for="a18_3"><span class="l">D</span><span class="t">2400 mL</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. 4800 mL</div>
-<div class="expl"><h4>Explanation</h4><p>Parkland formula: 4 mL × body weight (kg) × %TBSA burn = 4 × 60 × 40 = 9600 mL of Ringer lactate in the first 24 hours. HALF of it (4800 mL) is given in the first 8 hours counted from the TIME OF BURN (not from admission), and the rest over the next 16 hours. 9600 mL is the 24-hour total. Titrate to urine output (0.5 mL/kg/h in adults, 1 mL/kg/h in children). Note: newer ATLS advice starts adults at 2 mL/kg/%TBSA, but Parkland (4 mL) remains the standard exam answer.</p><div class="one"><b>One-liner to remember: Parkland = 4 mL × kg × %TBSA (RL); half in first 8 h from time of burn; target UO 0.5 mL/kg/h.</b></div><div class="credit">Concept: Parkland formula (burns)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Parkland formula: 4 mL × body weight (kg) × %TBSA burn = 4 × 60 × 40 = 9600 mL of Ringer lactate in the first 24 hours. HALF of it (4800 mL) is given in the first 8 hours counted from the TIME OF BURN (not from admission), and the rest over the next 16 hours. 9600 mL is the 24-hour total. Titrate to urine output (0.5 mL/kg/h in adults, 1 mL/kg/h in children). Note: newer ATLS advice starts adults at 2 mL/kg/%TBSA, but Parkland (4 mL) remains the standard exam answer.</p><div class="one"><b>One-liner to remember: Parkland = 4 mL × kg × %TBSA (RL); half in first 8 h from time of burn; target UO 0.5 mL/kg/h.</b></div><div class="credit">Concept: Parkland formula (burns)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q18" aria-label="Doubt about question 18"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p17">‹ Prev</label><label class="btn primary" for="p19">Next ›</label></div>
 </section>
@@ -414,7 +561,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s6" name="Q1-19" id="a19_2" value="Q1-19 | Medicine | ECG in hyperkalaemia | chose C: Prolonged QT interval | correct D: Tall, peaked (tented) T waves | WRONG" data-tag="Q1-19 Medicine: ECG in hyperkalaemia"><label class="opt" for="a19_2"><span class="l">C</span><span class="t">Prolonged QT interval</span><span class="m"></span></label>
 <input type="radio" class="ans c s6" name="Q1-19" id="a19_3" value="Q1-19 | Medicine | ECG in hyperkalaemia | chose D: Tall, peaked (tented) T waves | correct D: Tall, peaked (tented) T waves | RIGHT" data-tag="Q1-19 Medicine: ECG in hyperkalaemia"><label class="opt" for="a19_3"><span class="l">D</span><span class="t">Tall, peaked (tented) T waves</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. Tall, peaked (tented) T waves</div>
-<div class="expl"><h4>Explanation</h4><p>As serum K⁺ rises, the sequence is: tall peaked T waves first, then PR prolongation, P-wave flattening/loss, QRS widening, a sine-wave pattern, and finally VF/asystole. Prominent U waves and ST depression are features of HYPOkalaemia, and QT prolongation is typical of hypocalcaemia. The first step in treatment with ECG changes is IV calcium gluconate (membrane stabilisation).</p><div class="one"><b>One-liner to remember: Hyperkalaemia: peaked T first, then sine wave; give IV calcium gluconate first to stabilise the membrane.</b></div><div class="credit">Concept: ECG in hyperkalaemia</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>As serum K⁺ rises, the sequence is: tall peaked T waves first, then PR prolongation, P-wave flattening/loss, QRS widening, a sine-wave pattern, and finally VF/asystole. Prominent U waves and ST depression are features of HYPOkalaemia, and QT prolongation is typical of hypocalcaemia. The first step in treatment with ECG changes is IV calcium gluconate (membrane stabilisation).</p><div class="one"><b>One-liner to remember: Hyperkalaemia: peaked T first, then sine wave; give IV calcium gluconate first to stabilise the membrane.</b></div><div class="credit">Concept: ECG in hyperkalaemia</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q19" aria-label="Doubt about question 19"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p18">‹ Prev</label><label class="btn primary" for="p20">Next ›</label></div>
 </section>
@@ -426,7 +580,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s18" name="Q1-20" id="a20_2" value="Q1-20 | Surgery | Charcot&#x27;s triad / cholangitis | chose C: Carcinoma head of pancreas | correct D: Acute (ascending) cholangitis | WRONG" data-tag="Q1-20 Surgery: Charcot&#x27;s triad / cholangitis"><label class="opt" for="a20_2"><span class="l">C</span><span class="t">Carcinoma head of pancreas</span><span class="m"></span></label>
 <input type="radio" class="ans c s18" name="Q1-20" id="a20_3" value="Q1-20 | Surgery | Charcot&#x27;s triad / cholangitis | chose D: Acute (ascending) cholangitis | correct D: Acute (ascending) cholangitis | RIGHT" data-tag="Q1-20 Surgery: Charcot&#x27;s triad / cholangitis"><label class="opt" for="a20_3"><span class="l">D</span><span class="t">Acute (ascending) cholangitis</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. Acute (ascending) cholangitis</div>
-<div class="expl"><h4>Explanation</h4><p>Charcot&#x27;s triad (fever with rigors, jaundice, RUQ pain) = acute cholangitis, usually from CBD stones causing obstruction plus infection. Reynolds&#x27; pentad adds hypotension (shock) and altered mental status, indicating suppurative cholangitis needing urgent biliary drainage (ERCP). Acute cholecystitis gives RUQ pain, fever and Murphy&#x27;s sign but usually no significant jaundice. Ca head of pancreas causes painless progressive jaundice with a palpable gallbladder (Courvoisier&#x27;s law).</p><div class="one"><b>One-liner to remember: Charcot&#x27;s triad = cholangitis; + shock + confusion = Reynolds&#x27; pentad → urgent ERCP drainage.</b></div><div class="credit">Concept: Charcot&#x27;s triad / cholangitis</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Charcot&#x27;s triad (fever with rigors, jaundice, RUQ pain) = acute cholangitis, usually from CBD stones causing obstruction plus infection. Reynolds&#x27; pentad adds hypotension (shock) and altered mental status, indicating suppurative cholangitis needing urgent biliary drainage (ERCP). Acute cholecystitis gives RUQ pain, fever and Murphy&#x27;s sign but usually no significant jaundice. Ca head of pancreas causes painless progressive jaundice with a palpable gallbladder (Courvoisier&#x27;s law).</p><div class="one"><b>One-liner to remember: Charcot&#x27;s triad = cholangitis; + shock + confusion = Reynolds&#x27; pentad → urgent ERCP drainage.</b></div><div class="credit">Concept: Charcot&#x27;s triad / cholangitis</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q20" aria-label="Doubt about question 20"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p19">‹ Prev</label><label class="btn primary" for="p21">Next ›</label></div>
 </section>
@@ -438,7 +599,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s14" name="Q1-21" id="a21_2" value="Q1-21 | Pharmacology | Paracetamol poisoning antidote | chose C: Flumazenil | correct B: N-acetylcysteine | WRONG" data-tag="Q1-21 Pharmacology: Paracetamol poisoning antidote"><label class="opt" for="a21_2"><span class="l">C</span><span class="t">Flumazenil</span><span class="m"></span></label>
 <input type="radio" class="ans w s14" name="Q1-21" id="a21_3" value="Q1-21 | Pharmacology | Paracetamol poisoning antidote | chose D: Fomepizole | correct B: N-acetylcysteine | WRONG" data-tag="Q1-21 Pharmacology: Paracetamol poisoning antidote"><label class="opt" for="a21_3"><span class="l">D</span><span class="t">Fomepizole</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. N-acetylcysteine</div>
-<div class="expl"><h4>Explanation</h4><p>Toxic doses saturate glucuronidation/sulfation, so more paracetamol goes via CYP2E1 to the toxic metabolite NAPQI, which depletes glutathione and causes centrilobular (zone 3) hepatic necrosis. N-acetylcysteine replenishes glutathione and is most effective within 8–10 hours (the Rumack–Matthew nomogram guides treatment). Flumazenil is for benzodiazepines, fomepizole for methanol/ethylene glycol, and naloxone for opioids.</p><div class="one"><b>One-liner to remember: Paracetamol → NAPQI → zone 3 necrosis; antidote NAC (best within 8–10 h).</b></div><div class="credit">Concept: Paracetamol poisoning antidote</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Toxic doses saturate glucuronidation/sulfation, so more paracetamol goes via CYP2E1 to the toxic metabolite NAPQI, which depletes glutathione and causes centrilobular (zone 3) hepatic necrosis. N-acetylcysteine replenishes glutathione and is most effective within 8–10 hours (the Rumack–Matthew nomogram guides treatment). Flumazenil is for benzodiazepines, fomepizole for methanol/ethylene glycol, and naloxone for opioids.</p><div class="one"><b>One-liner to remember: Paracetamol → NAPQI → zone 3 necrosis; antidote NAC (best within 8–10 h).</b></div><div class="credit">Concept: Paracetamol poisoning antidote</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q21" aria-label="Doubt about question 21"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p20">‹ Prev</label><label class="btn primary" for="p22">Next ›</label></div>
 </section>
@@ -450,7 +618,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s13" name="Q1-22" id="a22_2" value="Q1-22 | Pediatrics | Developmental milestones (gross motor) | chose C: 3 years | correct C: 3 years | RIGHT" data-tag="Q1-22 Pediatrics: Developmental milestones (gross motor)"><label class="opt" for="a22_2"><span class="l">C</span><span class="t">3 years</span><span class="m"></span></label>
 <input type="radio" class="ans w s13" name="Q1-22" id="a22_3" value="Q1-22 | Pediatrics | Developmental milestones (gross motor) | chose D: 4 years | correct C: 3 years | WRONG" data-tag="Q1-22 Pediatrics: Developmental milestones (gross motor)"><label class="opt" for="a22_3"><span class="l">D</span><span class="t">4 years</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. 3 years</div>
-<div class="expl"><h4>Explanation</h4><p>Gross-motor milestones: walks alone ~12–13 months, runs ~18 months, climbs stairs with both feet on each step ~2 years, rides a tricycle and climbs stairs with alternate feet ~3 years, hops on one foot ~4 years, skips ~5 years. Copying: circle 3 yr, cross 4 yr, square 4–5 yr, triangle 5 yr.</p><div class="one"><b>One-liner to remember: Tricycle = 3 years; hop = 4 years; skip = 5 years.</b></div><div class="credit">Concept: Developmental milestones (gross motor)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Gross-motor milestones: walks alone ~12–13 months, runs ~18 months, climbs stairs with both feet on each step ~2 years, rides a tricycle and climbs stairs with alternate feet ~3 years, hops on one foot ~4 years, skips ~5 years. Copying: circle 3 yr, cross 4 yr, square 4–5 yr, triangle 5 yr.</p><div class="one"><b>One-liner to remember: Tricycle = 3 years; hop = 4 years; skip = 5 years.</b></div><div class="credit">Concept: Developmental milestones (gross motor)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q22" aria-label="Doubt about question 22"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p21">‹ Prev</label><label class="btn primary" for="p23">Next ›</label></div>
 </section>
@@ -462,7 +637,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s10" name="Q1-23" id="a23_2" value="Q1-23 | Orthopedics | Bone tumours – osteosarcoma | chose C: Giant cell tumour | correct D: Osteosarcoma | WRONG" data-tag="Q1-23 Orthopedics: Bone tumours – osteosarcoma"><label class="opt" for="a23_2"><span class="l">C</span><span class="t">Giant cell tumour</span><span class="m"></span></label>
 <input type="radio" class="ans c s10" name="Q1-23" id="a23_3" value="Q1-23 | Orthopedics | Bone tumours – osteosarcoma | chose D: Osteosarcoma | correct D: Osteosarcoma | RIGHT" data-tag="Q1-23 Orthopedics: Bone tumours – osteosarcoma"><label class="opt" for="a23_3"><span class="l">D</span><span class="t">Osteosarcoma</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. Osteosarcoma</div>
-<div class="expl"><h4>Explanation</h4><p>Osteosarcoma is the commonest primary malignant bone tumour in adolescents. It arises in the metaphysis of long bones around the knee (distal femur &gt; proximal tibia) and shows Codman&#x27;s triangle, sunray spicules and raised ALP. Ewing sarcoma is diaphyseal with an &#x27;onion-peel&#x27; periosteal reaction (t(11;22), CD99). Giant cell tumour is epiphyseal-metaphyseal after physeal closure (20–40 yr) with a &#x27;soap-bubble&#x27; look. Osteochondroma is a benign exostosis pointing away from the joint.</p><div class="one"><b>One-liner to remember: Osteosarcoma = metaphysis + sunray + Codman&#x27;s triangle; Ewing = diaphysis + onion peel; GCT = epiphysis + soap bubble.</b></div><div class="credit">Concept: Bone tumours – osteosarcoma</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Osteosarcoma is the commonest primary malignant bone tumour in adolescents. It arises in the metaphysis of long bones around the knee (distal femur &gt; proximal tibia) and shows Codman&#x27;s triangle, sunray spicules and raised ALP. Ewing sarcoma is diaphyseal with an &#x27;onion-peel&#x27; periosteal reaction (t(11;22), CD99). Giant cell tumour is epiphyseal-metaphyseal after physeal closure (20–40 yr) with a &#x27;soap-bubble&#x27; look. Osteochondroma is a benign exostosis pointing away from the joint.</p><div class="one"><b>One-liner to remember: Osteosarcoma = metaphysis + sunray + Codman&#x27;s triangle; Ewing = diaphysis + onion peel; GCT = epiphysis + soap bubble.</b></div><div class="credit">Concept: Bone tumours – osteosarcoma</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q23" aria-label="Doubt about question 23"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p22">‹ Prev</label><label class="btn primary" for="p24">Next ›</label></div>
 </section>
@@ -474,7 +656,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s15" name="Q1-24" id="a24_2" value="Q1-24 | Physiology | O2–Hb dissociation curve shifts | chose C: Alkalosis | correct A: Increased 2,3-BPG | WRONG" data-tag="Q1-24 Physiology: O2–Hb dissociation curve shifts"><label class="opt" for="a24_2"><span class="l">C</span><span class="t">Alkalosis</span><span class="m"></span></label>
 <input type="radio" class="ans w s15" name="Q1-24" id="a24_3" value="Q1-24 | Physiology | O2–Hb dissociation curve shifts | chose D: Decreased temperature | correct A: Increased 2,3-BPG | WRONG" data-tag="Q1-24 Physiology: O2–Hb dissociation curve shifts"><label class="opt" for="a24_3"><span class="l">D</span><span class="t">Decreased temperature</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. Increased 2,3-BPG</div>
-<div class="expl"><h4>Explanation</h4><p>A right shift means lower O₂ affinity, so more O₂ is unloaded to tissues. Causes: ↑CO₂, ↑H⁺ (acidosis, Bohr effect), ↑temperature, ↑2,3-BPG, exercise. Alkalosis, hypothermia, HbF (binds 2,3-BPG poorly), CO and methaemoglobin shift the curve to the LEFT.</p><div class="one"><b>One-liner to remember: Right shift = &#x27;CADET face right&#x27;: CO₂, Acid, 2,3-DPG, Exercise, Temperature.</b></div><div class="credit">Concept: O2–Hb dissociation curve shifts</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>A right shift means lower O₂ affinity, so more O₂ is unloaded to tissues. Causes: ↑CO₂, ↑H⁺ (acidosis, Bohr effect), ↑temperature, ↑2,3-BPG, exercise. Alkalosis, hypothermia, HbF (binds 2,3-BPG poorly), CO and methaemoglobin shift the curve to the LEFT.</p><div class="one"><b>One-liner to remember: Right shift = &#x27;CADET face right&#x27;: CO₂, Acid, 2,3-DPG, Exercise, Temperature.</b></div><div class="credit">Concept: O2–Hb dissociation curve shifts</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q24" aria-label="Doubt about question 24"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p23">‹ Prev</label><label class="btn primary" for="p25">Next ›</label></div>
 </section>
@@ -486,7 +675,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s1" name="Q1-25" id="a25_2" value="Q1-25 | Anesthesia | Malignant hyperthermia | chose C: Neostigmine | correct B: Dantrolene | WRONG" data-tag="Q1-25 Anesthesia: Malignant hyperthermia"><label class="opt" for="a25_2"><span class="l">C</span><span class="t">Neostigmine</span><span class="m"></span></label>
 <input type="radio" class="ans w s1" name="Q1-25" id="a25_3" value="Q1-25 | Anesthesia | Malignant hyperthermia | chose D: Paracetamol (IV) | correct B: Dantrolene | WRONG" data-tag="Q1-25 Anesthesia: Malignant hyperthermia"><label class="opt" for="a25_3"><span class="l">D</span><span class="t">Paracetamol (IV)</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. Dantrolene</div>
-<div class="expl"><h4>Explanation</h4><p>This is malignant hyperthermia: a pharmacogenetic disorder (usually an RYR1 mutation, autosomal dominant) triggered by volatile anaesthetics and succinylcholine, causing uncontrolled Ca²⁺ release from the sarcoplasmic reticulum. The EARLIEST sign is a rise in end-tidal CO₂. Treatment: stop triggers, hyperventilate with 100% O₂, give IV dantrolene (blocks RYR1 Ca²⁺ release), cool and correct hyperkalaemia. Neostigmine and sugammadex reverse non-depolarising blockers and have no role here.</p><div class="one"><b>One-liner to remember: Malignant hyperthermia: earliest sign = ↑EtCO₂; defect RYR1; treatment = dantrolene.</b></div><div class="credit">Concept: Malignant hyperthermia</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>This is malignant hyperthermia: a pharmacogenetic disorder (usually an RYR1 mutation, autosomal dominant) triggered by volatile anaesthetics and succinylcholine, causing uncontrolled Ca²⁺ release from the sarcoplasmic reticulum. The EARLIEST sign is a rise in end-tidal CO₂. Treatment: stop triggers, hyperventilate with 100% O₂, give IV dantrolene (blocks RYR1 Ca²⁺ release), cool and correct hyperkalaemia. Neostigmine and sugammadex reverse non-depolarising blockers and have no role here.</p><div class="one"><b>One-liner to remember: Malignant hyperthermia: earliest sign = ↑EtCO₂; defect RYR1; treatment = dantrolene.</b></div><div class="credit">Concept: Malignant hyperthermia</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q25" aria-label="Doubt about question 25"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p24">‹ Prev</label><label class="btn primary" for="p26">Next ›</label></div>
 </section>
@@ -498,7 +694,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s9" name="Q1-26" id="a26_2" value="Q1-26 | Ophthalmology | CRAO – cherry-red spot | chose C: Central retinal artery occlusion | correct C: Central retinal artery occlusion | RIGHT" data-tag="Q1-26 Ophthalmology: CRAO – cherry-red spot"><label class="opt" for="a26_2"><span class="l">C</span><span class="t">Central retinal artery occlusion</span><span class="m"></span></label>
 <input type="radio" class="ans w s9" name="Q1-26" id="a26_3" value="Q1-26 | Ophthalmology | CRAO – cherry-red spot | chose D: Vitreous haemorrhage | correct C: Central retinal artery occlusion | WRONG" data-tag="Q1-26 Ophthalmology: CRAO – cherry-red spot"><label class="opt" for="a26_3"><span class="l">D</span><span class="t">Vitreous haemorrhage</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. Central retinal artery occlusion</div>
-<div class="expl"><h4>Explanation</h4><p>In CRAO the inner retina becomes ischaemic, oedematous and milky-white, while the thin foveola (supplied by the choroid) stands out as a cherry-red spot, with &#x27;cattle-trucking&#x27; of the arterioles. It is an emergency. CRVO gives a &#x27;blood and thunder&#x27; / &#x27;stormy sunset&#x27; fundus with flame haemorrhages. A cherry-red spot is also seen in Tay–Sachs, Niemann–Pick and other sphingolipidoses.</p><div class="one"><b>One-liner to remember: Sudden painless loss + cherry-red spot = CRAO; &#x27;blood and thunder&#x27; fundus = CRVO.</b></div><div class="credit">Concept: CRAO – cherry-red spot</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>In CRAO the inner retina becomes ischaemic, oedematous and milky-white, while the thin foveola (supplied by the choroid) stands out as a cherry-red spot, with &#x27;cattle-trucking&#x27; of the arterioles. It is an emergency. CRVO gives a &#x27;blood and thunder&#x27; / &#x27;stormy sunset&#x27; fundus with flame haemorrhages. A cherry-red spot is also seen in Tay–Sachs, Niemann–Pick and other sphingolipidoses.</p><div class="one"><b>One-liner to remember: Sudden painless loss + cherry-red spot = CRAO; &#x27;blood and thunder&#x27; fundus = CRVO.</b></div><div class="credit">Concept: CRAO – cherry-red spot</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q26" aria-label="Doubt about question 26"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p25">‹ Prev</label><label class="btn primary" for="p27">Next ›</label></div>
 </section>
@@ -510,7 +713,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s14" name="Q1-27" id="a27_2" value="Q1-27 | Pharmacology | Red man syndrome | chose C: Vancomycin | correct C: Vancomycin | RIGHT" data-tag="Q1-27 Pharmacology: Red man syndrome"><label class="opt" for="a27_2"><span class="l">C</span><span class="t">Vancomycin</span><span class="m"></span></label>
 <input type="radio" class="ans w s14" name="Q1-27" id="a27_3" value="Q1-27 | Pharmacology | Red man syndrome | chose D: Gentamicin | correct C: Vancomycin | WRONG" data-tag="Q1-27 Pharmacology: Red man syndrome"><label class="opt" for="a27_3"><span class="l">D</span><span class="t">Gentamicin</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. Vancomycin</div>
-<div class="expl"><h4>Explanation</h4><p>&#x27;Red man (red neck) syndrome&#x27; is a rate-related, non-IgE-mediated histamine release from mast cells with rapid vancomycin infusion. It is not a true allergy. Prevent it by infusing slowly (over at least 60 minutes) and with antihistamine premedication. Gentamicin&#x27;s classic toxicities are nephro- and ototoxicity; ceftriaxone causes biliary sludge (pseudolithiasis).</p><div class="one"><b>One-liner to remember: Red man syndrome = rapid vancomycin infusion → histamine release (not allergy) → slow the infusion.</b></div><div class="credit">Concept: Red man syndrome</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>&#x27;Red man (red neck) syndrome&#x27; is a rate-related, non-IgE-mediated histamine release from mast cells with rapid vancomycin infusion. It is not a true allergy. Prevent it by infusing slowly (over at least 60 minutes) and with antihistamine premedication. Gentamicin&#x27;s classic toxicities are nephro- and ototoxicity; ceftriaxone causes biliary sludge (pseudolithiasis).</p><div class="one"><b>One-liner to remember: Red man syndrome = rapid vancomycin infusion → histamine release (not allergy) → slow the infusion.</b></div><div class="credit">Concept: Red man syndrome</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q27" aria-label="Doubt about question 27"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p26">‹ Prev</label><label class="btn primary" for="p28">Next ›</label></div>
 </section>
@@ -522,7 +732,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s12" name="Q1-28" id="a28_2" value="Q1-28 | Pathology | Amyloid types (secondary amyloidosis) | chose C: AA (serum amyloid A-derived) | correct C: AA (serum amyloid A-derived) | RIGHT" data-tag="Q1-28 Pathology: Amyloid types (secondary amyloidosis)"><label class="opt" for="a28_2"><span class="l">C</span><span class="t">AA (serum amyloid A-derived)</span><span class="m"></span></label>
 <input type="radio" class="ans w s12" name="Q1-28" id="a28_3" value="Q1-28 | Pathology | Amyloid types (secondary amyloidosis) | chose D: Aβ2-microglobulin | correct C: AA (serum amyloid A-derived) | WRONG" data-tag="Q1-28 Pathology: Amyloid types (secondary amyloidosis)"><label class="opt" for="a28_3"><span class="l">D</span><span class="t">Aβ2-microglobulin</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. AA (serum amyloid A-derived)</div>
-<div class="expl"><h4>Explanation</h4><p>Reactive systemic (secondary) amyloidosis complicates chronic inflammation such as RA, TB, bronchiectasis, osteomyelitis and IBD. The precursor is serum amyloid A (an acute-phase protein from the liver), giving AA amyloid. AL is seen in plasma-cell dyscrasias (multiple myeloma), ATTR in familial/senile cardiac amyloidosis, and Aβ2-microglobulin in long-term haemodialysis. Congo red shows apple-green birefringence under polarised light.</p><div class="one"><b>One-liner to remember: Chronic inflammation → AA amyloid; myeloma → AL; dialysis → Aβ2M; Congo red = apple-green birefringence.</b></div><div class="credit">Concept: Amyloid types (secondary amyloidosis)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Reactive systemic (secondary) amyloidosis complicates chronic inflammation such as RA, TB, bronchiectasis, osteomyelitis and IBD. The precursor is serum amyloid A (an acute-phase protein from the liver), giving AA amyloid. AL is seen in plasma-cell dyscrasias (multiple myeloma), ATTR in familial/senile cardiac amyloidosis, and Aβ2-microglobulin in long-term haemodialysis. Congo red shows apple-green birefringence under polarised light.</p><div class="one"><b>One-liner to remember: Chronic inflammation → AA amyloid; myeloma → AL; dialysis → Aβ2M; Congo red = apple-green birefringence.</b></div><div class="credit">Concept: Amyloid types (secondary amyloidosis)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q28" aria-label="Doubt about question 28"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p27">‹ Prev</label><label class="btn primary" for="p29">Next ›</label></div>
 </section>
@@ -534,7 +751,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s16" name="Q1-29" id="a29_2" value="Q1-29 | Psychiatry | Lithium teratogenicity | chose C: Cleft lip and palate | correct B: Ebstein anomaly | WRONG" data-tag="Q1-29 Psychiatry: Lithium teratogenicity"><label class="opt" for="a29_2"><span class="l">C</span><span class="t">Cleft lip and palate</span><span class="m"></span></label>
 <input type="radio" class="ans w s16" name="Q1-29" id="a29_3" value="Q1-29 | Psychiatry | Lithium teratogenicity | chose D: Neural tube defects | correct B: Ebstein anomaly | WRONG" data-tag="Q1-29 Psychiatry: Lithium teratogenicity"><label class="opt" for="a29_3"><span class="l">D</span><span class="t">Neural tube defects</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. Ebstein anomaly</div>
-<div class="expl"><h4>Explanation</h4><p>Lithium is classically linked to Ebstein anomaly (apical displacement of the tricuspid valve), though the absolute risk is lower than once thought. Valproate and carbamazepine are linked to neural tube defects, thalidomide to phocomelia, and phenytoin to fetal hydantoin syndrome (and cleft lip/palate). Other lithium side effects to remember: tremor, hypothyroidism, nephrogenic diabetes insipidus and a narrow therapeutic index (0.6–1.2 mEq/L).</p><div class="one"><b>One-liner to remember: Lithium in pregnancy = Ebstein anomaly; valproate = NTD; thalidomide = phocomelia.</b></div><div class="credit">Concept: Lithium teratogenicity</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Lithium is classically linked to Ebstein anomaly (apical displacement of the tricuspid valve), though the absolute risk is lower than once thought. Valproate and carbamazepine are linked to neural tube defects, thalidomide to phocomelia, and phenytoin to fetal hydantoin syndrome (and cleft lip/palate). Other lithium side effects to remember: tremor, hypothyroidism, nephrogenic diabetes insipidus and a narrow therapeutic index (0.6–1.2 mEq/L).</p><div class="one"><b>One-liner to remember: Lithium in pregnancy = Ebstein anomaly; valproate = NTD; thalidomide = phocomelia.</b></div><div class="credit">Concept: Lithium teratogenicity</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q29" aria-label="Doubt about question 29"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p28">‹ Prev</label><label class="btn primary" for="p30">Next ›</label></div>
 </section>
@@ -546,7 +770,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s4" name="Q1-30" id="a30_2" value="Q1-30 | ENT | Epistaxis site | chose C: Roof of nasal cavity | correct B: Little&#x27;s area (anterior-inferior nasal septum) | WRONG" data-tag="Q1-30 ENT: Epistaxis site"><label class="opt" for="a30_2"><span class="l">C</span><span class="t">Roof of nasal cavity</span><span class="m"></span></label>
 <input type="radio" class="ans w s4" name="Q1-30" id="a30_3" value="Q1-30 | ENT | Epistaxis site | chose D: Superior turbinate | correct B: Little&#x27;s area (anterior-inferior nasal septum) | WRONG" data-tag="Q1-30 ENT: Epistaxis site"><label class="opt" for="a30_3"><span class="l">D</span><span class="t">Superior turbinate</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. Little&#x27;s area (anterior-inferior nasal septum)</div>
-<div class="expl"><h4>Explanation</h4><p>About 90% of nosebleeds arise from Little&#x27;s area, where Kiesselbach&#x27;s plexus forms on the anteroinferior septum from anastomosis of the anterior ethmoidal, sphenopalatine (septal branch), greater palatine and superior labial (septal branch of facial) arteries. Woodruff&#x27;s plexus is under the posterior end of the inferior turbinate and is the source of posterior epistaxis in older hypertensive patients.</p><div class="one"><b>One-liner to remember: Little&#x27;s area = Kiesselbach&#x27;s plexus = commonest site; Woodruff&#x27;s plexus = posterior bleed in elderly.</b></div><div class="credit">Concept: Epistaxis site</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>About 90% of nosebleeds arise from Little&#x27;s area, where Kiesselbach&#x27;s plexus forms on the anteroinferior septum from anastomosis of the anterior ethmoidal, sphenopalatine (septal branch), greater palatine and superior labial (septal branch of facial) arteries. Woodruff&#x27;s plexus is under the posterior end of the inferior turbinate and is the source of posterior epistaxis in older hypertensive patients.</p><div class="one"><b>One-liner to remember: Little&#x27;s area = Kiesselbach&#x27;s plexus = commonest site; Woodruff&#x27;s plexus = posterior bleed in elderly.</b></div><div class="credit">Concept: Epistaxis site</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q30" aria-label="Doubt about question 30"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p29">‹ Prev</label><label class="btn primary" for="p31">Next ›</label></div>
 </section>
@@ -558,7 +789,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s8" name="Q1-31" id="a31_2" value="Q1-31 | OBG | Meigs syndrome | chose C: Dysgerminoma | correct A: Ovarian fibroma | WRONG" data-tag="Q1-31 OBG: Meigs syndrome"><label class="opt" for="a31_2"><span class="l">C</span><span class="t">Dysgerminoma</span><span class="m"></span></label>
 <input type="radio" class="ans w s8" name="Q1-31" id="a31_3" value="Q1-31 | OBG | Meigs syndrome | chose D: Granulosa cell tumour | correct A: Ovarian fibroma | WRONG" data-tag="Q1-31 OBG: Meigs syndrome"><label class="opt" for="a31_3"><span class="l">D</span><span class="t">Granulosa cell tumour</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. Ovarian fibroma</div>
-<div class="expl"><h4>Explanation</h4><p>Meigs syndrome = benign ovarian fibroma + ascites + (usually right-sided) hydrothorax, which resolve after tumour removal. Pseudo-Meigs is the same picture with other pelvic tumours. Granulosa cell tumour secretes oestrogen (Call–Exner bodies, endometrial hyperplasia); dysgerminoma is the commonest malignant germ-cell tumour (LDH marker, radiosensitive); Brenner tumour shows &#x27;coffee-bean&#x27; nuclei and Walthard nests.</p><div class="one"><b>One-liner to remember: Meigs syndrome = ovarian fibroma + ascites + right hydrothorax.</b></div><div class="credit">Concept: Meigs syndrome</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Meigs syndrome = benign ovarian fibroma + ascites + (usually right-sided) hydrothorax, which resolve after tumour removal. Pseudo-Meigs is the same picture with other pelvic tumours. Granulosa cell tumour secretes oestrogen (Call–Exner bodies, endometrial hyperplasia); dysgerminoma is the commonest malignant germ-cell tumour (LDH marker, radiosensitive); Brenner tumour shows &#x27;coffee-bean&#x27; nuclei and Walthard nests.</p><div class="one"><b>One-liner to remember: Meigs syndrome = ovarian fibroma + ascites + right hydrothorax.</b></div><div class="credit">Concept: Meigs syndrome</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q31" aria-label="Doubt about question 31"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p30">‹ Prev</label><label class="btn primary" for="p32">Next ›</label></div>
 </section>
@@ -570,7 +808,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s13" name="Q1-32" id="a32_2" value="Q1-32 | Pediatrics | Bronchiolitis | chose C: Parainfluenza virus | correct B: Respiratory syncytial virus (RSV) | WRONG" data-tag="Q1-32 Pediatrics: Bronchiolitis"><label class="opt" for="a32_2"><span class="l">C</span><span class="t">Parainfluenza virus</span><span class="m"></span></label>
 <input type="radio" class="ans w s13" name="Q1-32" id="a32_3" value="Q1-32 | Pediatrics | Bronchiolitis | chose D: Adenovirus | correct B: Respiratory syncytial virus (RSV) | WRONG" data-tag="Q1-32 Pediatrics: Bronchiolitis"><label class="opt" for="a32_3"><span class="l">D</span><span class="t">Adenovirus</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. Respiratory syncytial virus (RSV)</div>
-<div class="expl"><h4>Explanation</h4><p>This is acute bronchiolitis, commonest under 2 years (peak 2–6 months). RSV causes most cases, with others like rhinovirus, hMPV and parainfluenza. Treatment is supportive (oxygen, hydration, nasal suction); routine bronchodilators, steroids and antibiotics are not recommended. Palivizumab or nirsevimab (anti-RSV monoclonals) are used for prophylaxis in high-risk infants. Parainfluenza type 1 is the commonest cause of croup (steeple sign).</p><div class="one"><b>One-liner to remember: Bronchiolitis = RSV (&lt; 2 yr, supportive care); croup = parainfluenza (steeple sign).</b></div><div class="credit">Concept: Bronchiolitis</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>This is acute bronchiolitis, commonest under 2 years (peak 2–6 months). RSV causes most cases, with others like rhinovirus, hMPV and parainfluenza. Treatment is supportive (oxygen, hydration, nasal suction); routine bronchodilators, steroids and antibiotics are not recommended. Palivizumab or nirsevimab (anti-RSV monoclonals) are used for prophylaxis in high-risk infants. Parainfluenza type 1 is the commonest cause of croup (steeple sign).</p><div class="one"><b>One-liner to remember: Bronchiolitis = RSV (&lt; 2 yr, supportive care); croup = parainfluenza (steeple sign).</b></div><div class="credit">Concept: Bronchiolitis</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q32" aria-label="Doubt about question 32"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p31">‹ Prev</label><label class="btn primary" for="p33">Next ›</label></div>
 </section>
@@ -582,7 +827,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s10" name="Q1-33" id="a33_2" value="Q1-33 | Orthopedics | Garden classification | chose C: Neck of femur | correct C: Neck of femur | RIGHT" data-tag="Q1-33 Orthopedics: Garden classification"><label class="opt" for="a33_2"><span class="l">C</span><span class="t">Neck of femur</span><span class="m"></span></label>
 <input type="radio" class="ans w s10" name="Q1-33" id="a33_3" value="Q1-33 | Orthopedics | Garden classification | chose D: Ankle | correct C: Neck of femur | WRONG" data-tag="Q1-33 Orthopedics: Garden classification"><label class="opt" for="a33_3"><span class="l">D</span><span class="t">Ankle</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. Neck of femur</div>
-<div class="expl"><h4>Explanation</h4><p>Garden classification (I–IV) grades intracapsular neck-of-femur fractures by displacement: I incomplete/valgus impacted, II complete undisplaced, III partially displaced, IV fully displaced. Grades III–IV carry a high risk of avascular necrosis (retinacular vessels from the medial circumflex femoral artery are disrupted). Pauwels classification uses the fracture angle. Tibial plateau = Schatzker; ankle = Lauge-Hansen/Danis-Weber; intertrochanteric = Boyd–Griffin/Evans.</p><div class="one"><b>One-liner to remember: Garden and Pauwels = neck of femur; Schatzker = tibial plateau; Weber/Lauge-Hansen = ankle.</b></div><div class="credit">Concept: Garden classification</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Garden classification (I–IV) grades intracapsular neck-of-femur fractures by displacement: I incomplete/valgus impacted, II complete undisplaced, III partially displaced, IV fully displaced. Grades III–IV carry a high risk of avascular necrosis (retinacular vessels from the medial circumflex femoral artery are disrupted). Pauwels classification uses the fracture angle. Tibial plateau = Schatzker; ankle = Lauge-Hansen/Danis-Weber; intertrochanteric = Boyd–Griffin/Evans.</p><div class="one"><b>One-liner to remember: Garden and Pauwels = neck of femur; Schatzker = tibial plateau; Weber/Lauge-Hansen = ankle.</b></div><div class="credit">Concept: Garden classification</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q33" aria-label="Doubt about question 33"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p32">‹ Prev</label><label class="btn primary" for="p34">Next ›</label></div>
 </section>
@@ -594,7 +846,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s14" name="Q1-34" id="a34_2" value="Q1-34 | Pharmacology | ATT adverse effects (optic neuritis) | chose C: Pyrazinamide | correct A: Ethambutol | WRONG" data-tag="Q1-34 Pharmacology: ATT adverse effects (optic neuritis)"><label class="opt" for="a34_2"><span class="l">C</span><span class="t">Pyrazinamide</span><span class="m"></span></label>
 <input type="radio" class="ans w s14" name="Q1-34" id="a34_3" value="Q1-34 | Pharmacology | ATT adverse effects (optic neuritis) | chose D: Rifampicin | correct A: Ethambutol | WRONG" data-tag="Q1-34 Pharmacology: ATT adverse effects (optic neuritis)"><label class="opt" for="a34_3"><span class="l">D</span><span class="t">Rifampicin</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. Ethambutol</div>
-<div class="expl"><h4>Explanation</h4><p>Ethambutol causes dose-related retrobulbar (optic) neuritis with decreased visual acuity, central scotoma and red–green colour blindness. It is usually reversible if the drug is stopped early, so visual testing is advised. Isoniazid causes peripheral neuropathy (prevent with pyridoxine) and hepatitis; rifampicin causes orange-red secretions and enzyme induction; pyrazinamide causes hyperuricaemia and is the most hepatotoxic first-line drug.</p><div class="one"><b>One-liner to remember: Ethambutol = Eye (optic neuritis, red–green defect); INH = neuropathy (give B6); PZA = gout.</b></div><div class="credit">Concept: ATT adverse effects (optic neuritis)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Ethambutol causes dose-related retrobulbar (optic) neuritis with decreased visual acuity, central scotoma and red–green colour blindness. It is usually reversible if the drug is stopped early, so visual testing is advised. Isoniazid causes peripheral neuropathy (prevent with pyridoxine) and hepatitis; rifampicin causes orange-red secretions and enzyme induction; pyrazinamide causes hyperuricaemia and is the most hepatotoxic first-line drug.</p><div class="one"><b>One-liner to remember: Ethambutol = Eye (optic neuritis, red–green defect); INH = neuropathy (give B6); PZA = gout.</b></div><div class="credit">Concept: ATT adverse effects (optic neuritis)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q34" aria-label="Doubt about question 34"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p33">‹ Prev</label><label class="btn primary" for="p35">Next ›</label></div>
 </section>
@@ -606,7 +865,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s6" name="Q1-35" id="a35_2" value="Q1-35 | Medicine | Light&#x27;s criteria (pleural effusion) | chose C: 0.5 | correct C: 0.5 | RIGHT" data-tag="Q1-35 Medicine: Light&#x27;s criteria (pleural effusion)"><label class="opt" for="a35_2"><span class="l">C</span><span class="t">0.5</span><span class="m"></span></label>
 <input type="radio" class="ans w s6" name="Q1-35" id="a35_3" value="Q1-35 | Medicine | Light&#x27;s criteria (pleural effusion) | chose D: 0.6 | correct C: 0.5 | WRONG" data-tag="Q1-35 Medicine: Light&#x27;s criteria (pleural effusion)"><label class="opt" for="a35_3"><span class="l">D</span><span class="t">0.6</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. 0.5</div>
-<div class="expl"><h4>Explanation</h4><p>Light&#x27;s criteria (any one = exudate): pleural/serum protein ratio &gt; 0.5; pleural/serum LDH ratio &gt; 0.6; pleural LDH &gt; two-thirds of the upper limit of normal serum LDH. The 0.6 option is a trap, because that cut-off is for the LDH ratio. Transudates are seen in CHF, cirrhosis and nephrotic syndrome; exudates in TB, malignancy and parapneumonic effusions. In India, a lymphocytic exudate with high ADA strongly suggests TB.</p><div class="one"><b>One-liner to remember: Light&#x27;s: protein ratio &gt; 0.5, LDH ratio &gt; 0.6, LDH &gt; 2/3 ULN = exudate.</b></div><div class="credit">Concept: Light&#x27;s criteria (pleural effusion)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Light&#x27;s criteria (any one = exudate): pleural/serum protein ratio &gt; 0.5; pleural/serum LDH ratio &gt; 0.6; pleural LDH &gt; two-thirds of the upper limit of normal serum LDH. The 0.6 option is a trap, because that cut-off is for the LDH ratio. Transudates are seen in CHF, cirrhosis and nephrotic syndrome; exudates in TB, malignancy and parapneumonic effusions. In India, a lymphocytic exudate with high ADA strongly suggests TB.</p><div class="one"><b>One-liner to remember: Light&#x27;s: protein ratio &gt; 0.5, LDH ratio &gt; 0.6, LDH &gt; 2/3 ULN = exudate.</b></div><div class="credit">Concept: Light&#x27;s criteria (pleural effusion)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q35" aria-label="Doubt about question 35"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p34">‹ Prev</label><label class="btn primary" for="p36">Next ›</label></div>
 </section>
@@ -618,7 +884,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s4" name="Q1-36" id="a36_2" value="Q1-36 | ENT | Complications of CSOM (Gradenigo) | chose C: Labyrinthitis | correct A: Petrositis (Gradenigo syndrome) | WRONG" data-tag="Q1-36 ENT: Complications of CSOM (Gradenigo)"><label class="opt" for="a36_2"><span class="l">C</span><span class="t">Labyrinthitis</span><span class="m"></span></label>
 <input type="radio" class="ans w s4" name="Q1-36" id="a36_3" value="Q1-36 | ENT | Complications of CSOM (Gradenigo) | chose D: Lateral sinus thrombosis | correct A: Petrositis (Gradenigo syndrome) | WRONG" data-tag="Q1-36 ENT: Complications of CSOM (Gradenigo)"><label class="opt" for="a36_3"><span class="l">D</span><span class="t">Lateral sinus thrombosis</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. Petrositis (Gradenigo syndrome)</div>
-<div class="expl"><h4>Explanation</h4><p>Gradenigo syndrome is the triad of persistent ear discharge, VI nerve (abducens) palsy and retro-orbital pain from trigeminal (V) irritation, caused by petrous apicitis. The VI nerve lies in Dorello&#x27;s canal near the petrous apex. Lateral sinus thrombosis gives picket-fence fever and Griesinger sign; Bezold abscess is pus under the sternocleidomastoid; labyrinthitis causes vertigo and SNHL.</p><div class="one"><b>One-liner to remember: Gradenigo triad = ear discharge + VI nerve palsy + retro-orbital pain = petrous apicitis.</b></div><div class="credit">Concept: Complications of CSOM (Gradenigo)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Gradenigo syndrome is the triad of persistent ear discharge, VI nerve (abducens) palsy and retro-orbital pain from trigeminal (V) irritation, caused by petrous apicitis. The VI nerve lies in Dorello&#x27;s canal near the petrous apex. Lateral sinus thrombosis gives picket-fence fever and Griesinger sign; Bezold abscess is pus under the sternocleidomastoid; labyrinthitis causes vertigo and SNHL.</p><div class="one"><b>One-liner to remember: Gradenigo triad = ear discharge + VI nerve palsy + retro-orbital pain = petrous apicitis.</b></div><div class="credit">Concept: Complications of CSOM (Gradenigo)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q36" aria-label="Doubt about question 36"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p35">‹ Prev</label><label class="btn primary" for="p37">Next ›</label></div>
 </section>
@@ -630,7 +903,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s0" name="Q1-37" id="a37_2" value="Q1-37 | Anatomy | Nerve injuries with humerus fractures | chose C: Radial nerve | correct D: Axillary nerve | WRONG" data-tag="Q1-37 Anatomy: Nerve injuries with humerus fractures"><label class="opt" for="a37_2"><span class="l">C</span><span class="t">Radial nerve</span><span class="m"></span></label>
 <input type="radio" class="ans c s0" name="Q1-37" id="a37_3" value="Q1-37 | Anatomy | Nerve injuries with humerus fractures | chose D: Axillary nerve | correct D: Axillary nerve | RIGHT" data-tag="Q1-37 Anatomy: Nerve injuries with humerus fractures"><label class="opt" for="a37_3"><span class="l">D</span><span class="t">Axillary nerve</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. Axillary nerve</div>
-<div class="expl"><h4>Explanation</h4><p>The axillary nerve winds around the surgical neck of the humerus with the posterior circumflex humeral artery, so it is injured here (also in anterior shoulder dislocation). Look for weak abduction (deltoid) and loss of sensation over the &#x27;regimental badge&#x27; area. The radial nerve is injured in midshaft fractures (spiral groove → wrist drop) and the ulnar nerve in medial epicondyle fractures.</p><div class="one"><b>One-liner to remember: Surgical neck = axillary; midshaft (spiral groove) = radial; medial epicondyle = ulnar; supracondylar = median/AIN.</b></div><div class="credit">Concept: Nerve injuries with humerus fractures</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>The axillary nerve winds around the surgical neck of the humerus with the posterior circumflex humeral artery, so it is injured here (also in anterior shoulder dislocation). Look for weak abduction (deltoid) and loss of sensation over the &#x27;regimental badge&#x27; area. The radial nerve is injured in midshaft fractures (spiral groove → wrist drop) and the ulnar nerve in medial epicondyle fractures.</p><div class="one"><b>One-liner to remember: Surgical neck = axillary; midshaft (spiral groove) = radial; medial epicondyle = ulnar; supracondylar = median/AIN.</b></div><div class="credit">Concept: Nerve injuries with humerus fractures</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q37" aria-label="Doubt about question 37"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p36">‹ Prev</label><label class="btn primary" for="p38">Next ›</label></div>
 </section>
@@ -642,7 +922,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s2" name="Q1-38" id="a38_2" value="Q1-38 | Biochemistry | Lesch–Nyhan syndrome (purine salvage) | chose C: Adenosine deaminase | correct A: HGPRT | WRONG" data-tag="Q1-38 Biochemistry: Lesch–Nyhan syndrome (purine salvage)"><label class="opt" for="a38_2"><span class="l">C</span><span class="t">Adenosine deaminase</span><span class="m"></span></label>
 <input type="radio" class="ans w s2" name="Q1-38" id="a38_3" value="Q1-38 | Biochemistry | Lesch–Nyhan syndrome (purine salvage) | chose D: Xanthine oxidase | correct A: HGPRT | WRONG" data-tag="Q1-38 Biochemistry: Lesch–Nyhan syndrome (purine salvage)"><label class="opt" for="a38_3"><span class="l">D</span><span class="t">Xanthine oxidase</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. HGPRT</div>
-<div class="expl"><h4>Explanation</h4><p>Lesch–Nyhan syndrome is X-linked recessive complete deficiency of hypoxanthine-guanine phosphoribosyltransferase (HGPRT), a purine SALVAGE enzyme. Failure of salvage increases PRPP and de novo purine synthesis, so uric acid is overproduced. ADA deficiency causes SCID; xanthine oxidase deficiency causes LOW uric acid; PRPP synthetase superactivity mainly presents as early gout.</p><div class="one"><b>One-liner to remember: Lesch–Nyhan = HGPRT deficiency (purine salvage) = self-mutilation + gout; X-linked recessive.</b></div><div class="credit">Concept: Lesch–Nyhan syndrome (purine salvage)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Lesch–Nyhan syndrome is X-linked recessive complete deficiency of hypoxanthine-guanine phosphoribosyltransferase (HGPRT), a purine SALVAGE enzyme. Failure of salvage increases PRPP and de novo purine synthesis, so uric acid is overproduced. ADA deficiency causes SCID; xanthine oxidase deficiency causes LOW uric acid; PRPP synthetase superactivity mainly presents as early gout.</p><div class="one"><b>One-liner to remember: Lesch–Nyhan = HGPRT deficiency (purine salvage) = self-mutilation + gout; X-linked recessive.</b></div><div class="credit">Concept: Lesch–Nyhan syndrome (purine salvage)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q38" aria-label="Doubt about question 38"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p37">‹ Prev</label><label class="btn primary" for="p39">Next ›</label></div>
 </section>
@@ -654,7 +941,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s8" name="Q1-39" id="a39_2" value="Q1-39 | OBG | Magnesium sulphate toxicity | chose C: Respiratory depression | correct D: Loss of patellar (deep tendon) reflex | WRONG" data-tag="Q1-39 OBG: Magnesium sulphate toxicity"><label class="opt" for="a39_2"><span class="l">C</span><span class="t">Respiratory depression</span><span class="m"></span></label>
 <input type="radio" class="ans c s8" name="Q1-39" id="a39_3" value="Q1-39 | OBG | Magnesium sulphate toxicity | chose D: Loss of patellar (deep tendon) reflex | correct D: Loss of patellar (deep tendon) reflex | RIGHT" data-tag="Q1-39 OBG: Magnesium sulphate toxicity"><label class="opt" for="a39_3"><span class="l">D</span><span class="t">Loss of patellar (deep tendon) reflex</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. Loss of patellar (deep tendon) reflex</div>
-<div class="expl"><h4>Explanation</h4><p>MgSO₄ is the drug of choice for prevention and treatment of eclamptic seizures. Toxicity is serum-level dependent: loss of the patellar reflex (~10 mEq/L) comes first, then respiratory depression (~12–15 mEq/L), then cardiac arrest (&gt; 25 mEq/L). Before each dose, check patellar reflex present, RR above 12–16/min (per textbook) and urine output ≥ 30 mL/h (oliguria is a reason to withhold, since Mg is excreted renally, not a toxicity sign). Antidote: 10 mL of 10% calcium gluconate IV.</p><div class="one"><b>One-liner to remember: MgSO₄ toxicity: first sign = loss of knee jerk; antidote = 10 mL 10% calcium gluconate IV slowly.</b></div><div class="credit">Concept: Magnesium sulphate toxicity</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>MgSO₄ is the drug of choice for prevention and treatment of eclamptic seizures. Toxicity is serum-level dependent: loss of the patellar reflex (~10 mEq/L) comes first, then respiratory depression (~12–15 mEq/L), then cardiac arrest (&gt; 25 mEq/L). Before each dose, check patellar reflex present, RR above 12–16/min (per textbook) and urine output ≥ 30 mL/h (oliguria is a reason to withhold, since Mg is excreted renally, not a toxicity sign). Antidote: 10 mL of 10% calcium gluconate IV.</p><div class="one"><b>One-liner to remember: MgSO₄ toxicity: first sign = loss of knee jerk; antidote = 10 mL 10% calcium gluconate IV slowly.</b></div><div class="credit">Concept: Magnesium sulphate toxicity</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q39" aria-label="Doubt about question 39"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p38">‹ Prev</label><label class="btn primary" for="p40">Next ›</label></div>
 </section>
@@ -666,7 +960,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s12" name="Q1-40" id="a40_2" value="Q1-40 | Pathology | Reed–Sternberg cell markers | chose C: CD20 and CD45 | correct D: CD15 and CD30 | WRONG" data-tag="Q1-40 Pathology: Reed–Sternberg cell markers"><label class="opt" for="a40_2"><span class="l">C</span><span class="t">CD20 and CD45</span><span class="m"></span></label>
 <input type="radio" class="ans c s12" name="Q1-40" id="a40_3" value="Q1-40 | Pathology | Reed–Sternberg cell markers | chose D: CD15 and CD30 | correct D: CD15 and CD30 | RIGHT" data-tag="Q1-40 Pathology: Reed–Sternberg cell markers"><label class="opt" for="a40_3"><span class="l">D</span><span class="t">CD15 and CD30</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. CD15 and CD30</div>
-<div class="expl"><h4>Explanation</h4><p>Classical RS cells (owl&#x27;s-eye nuclei) are CD15+ and CD30+, and CD45 (LCA) negative. The exception is nodular lymphocyte-predominant HL, whose &#x27;popcorn&#x27; (LP) cells are CD20+ and CD45+ but CD15 and CD30 negative. CD34/CD117 are stem-cell/GIST/AML markers; CD3/CD4 are T-cell markers.</p><div class="one"><b>One-liner to remember: Classical HL RS cell: CD15+, CD30+, CD45−. NLPHL popcorn cell: CD20+, CD15−, CD30−.</b></div><div class="credit">Concept: Reed–Sternberg cell markers</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Classical RS cells (owl&#x27;s-eye nuclei) are CD15+ and CD30+, and CD45 (LCA) negative. The exception is nodular lymphocyte-predominant HL, whose &#x27;popcorn&#x27; (LP) cells are CD20+ and CD45+ but CD15 and CD30 negative. CD34/CD117 are stem-cell/GIST/AML markers; CD3/CD4 are T-cell markers.</p><div class="one"><b>One-liner to remember: Classical HL RS cell: CD15+, CD30+, CD45−. NLPHL popcorn cell: CD20+, CD15−, CD30−.</b></div><div class="credit">Concept: Reed–Sternberg cell markers</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q40" aria-label="Doubt about question 40"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p39">‹ Prev</label><label class="btn primary" for="p41">Finish › Summary</label></div>
 </section>
@@ -681,10 +982,14 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
  </div>
  <div class="rcbox card"><b>Reset all answers and start again?</b>
   <div class="row"><button type="reset" class="btn danger" id="resetYes">Yes, reset</button><label class="btn" for="rc">Cancel</label></div></div>
- <div class="send card"><b>Send my results to Grok Bot</b><div style="font-size:13px;color:var(--muted);margin:4px 0 8px">Sends every answer (subject, concept, your option, correct option) so your weak concepts can be analysed. You can send again any time; your progress here is kept.</div>
+  <div class="send card"><b>Send my results to Grok Bot</b><div style="font-size:13px;color:var(--muted);margin:4px 0 8px">Sends every answer (subject, concept, your option, correct option) and any doubts you typed, so your weak concepts can be analysed. You can send again any time; your progress here is kept.</div>
   <button type="submit" class="btn primary" id="sendBtn">📤 Send my results</button>
-  <div class="sent-ok" id="sentOk">✓ Results sent. Grok Bot can now see them.</div>
-  <div class="sent-err" id="sentErr">Couldn't send – check your internet and tap again.</div></div>
+  <div class="sent-ok" id="sentOk">Sent! Tell Grok Bot to check your results.</div>
+  <div class="sent-err" id="sentErr">Couldn't send – check your internet and tap again, or copy your results below.</div>
+  <div id="copyResWrap" class="copy-res-wrap">
+    <button type="button" class="btn" id="copyResBtn">Copy results to paste in Grok Bot</button>
+    <div class="doubt-fb" id="copyResFb" aria-live="polite"></div>
+  </div></div>
  <table><thead><tr><th>Subject</th><th class="n">Correct</th><th class="n">Wrong</th><th class="n">Total</th></tr></thead><tbody><tr><td>Anatomy</td><td class="n ok"><span class="c-s0r"></span></td><td class="n bad"><span class="c-s0w"></span></td><td class="n">2</td></tr><tr><td>Anesthesia</td><td class="n ok"><span class="c-s1r"></span></td><td class="n bad"><span class="c-s1w"></span></td><td class="n">1</td></tr><tr><td>Biochemistry</td><td class="n ok"><span class="c-s2r"></span></td><td class="n bad"><span class="c-s2w"></span></td><td class="n">2</td></tr><tr><td>Dermatology</td><td class="n ok"><span class="c-s3r"></span></td><td class="n bad"><span class="c-s3w"></span></td><td class="n">1</td></tr><tr><td>ENT</td><td class="n ok"><span class="c-s4r"></span></td><td class="n bad"><span class="c-s4w"></span></td><td class="n">2</td></tr><tr><td>Forensic Medicine</td><td class="n ok"><span class="c-s5r"></span></td><td class="n bad"><span class="c-s5w"></span></td><td class="n">2</td></tr><tr><td>Medicine</td><td class="n ok"><span class="c-s6r"></span></td><td class="n bad"><span class="c-s6w"></span></td><td class="n">3</td></tr><tr><td>Microbiology</td><td class="n ok"><span class="c-s7r"></span></td><td class="n bad"><span class="c-s7w"></span></td><td class="n">2</td></tr><tr><td>OBG</td><td class="n ok"><span class="c-s8r"></span></td><td class="n bad"><span class="c-s8w"></span></td><td class="n">3</td></tr><tr><td>Ophthalmology</td><td class="n ok"><span class="c-s9r"></span></td><td class="n bad"><span class="c-s9w"></span></td><td class="n">2</td></tr><tr><td>Orthopedics</td><td class="n ok"><span class="c-s10r"></span></td><td class="n bad"><span class="c-s10w"></span></td><td class="n">2</td></tr><tr><td>PSM / Community Medicine</td><td class="n ok"><span class="c-s11r"></span></td><td class="n bad"><span class="c-s11w"></span></td><td class="n">3</td></tr><tr><td>Pathology</td><td class="n ok"><span class="c-s12r"></span></td><td class="n bad"><span class="c-s12w"></span></td><td class="n">3</td></tr><tr><td>Pediatrics</td><td class="n ok"><span class="c-s13r"></span></td><td class="n bad"><span class="c-s13w"></span></td><td class="n">2</td></tr><tr><td>Pharmacology</td><td class="n ok"><span class="c-s14r"></span></td><td class="n bad"><span class="c-s14w"></span></td><td class="n">3</td></tr><tr><td>Physiology</td><td class="n ok"><span class="c-s15r"></span></td><td class="n bad"><span class="c-s15w"></span></td><td class="n">2</td></tr><tr><td>Psychiatry</td><td class="n ok"><span class="c-s16r"></span></td><td class="n bad"><span class="c-s16w"></span></td><td class="n">1</td></tr><tr><td>Radiology</td><td class="n ok"><span class="c-s17r"></span></td><td class="n bad"><span class="c-s17w"></span></td><td class="n">1</td></tr><tr><td>Surgery</td><td class="n ok"><span class="c-s18r"></span></td><td class="n bad"><span class="c-s18w"></span></td><td class="n">3</td></tr></tbody></table>
  <p class="note">If "Review wrong answers" shows nothing, you have no wrong answers yet. Questions are on high-yield, frequently tested NEET PG topics (2020–2026 trends), not verbatim previous-year questions. Facts follow standard textbooks (Harrison, Robbins, KDT, Park, Bailey &amp; Love, Williams/DC Dutta, Nelson/Ghai, Khurana, Dhingra).</p>
 </section>
@@ -693,36 +998,160 @@ form:has(input[name="Q1-01"].w:checked) .pal label[for="p1"],form:has(input[name
 </form>
 <script>
 /* Optional enhancement. The quiz works without this script (pure HTML/CSS).
-   Saves answers + current question + review/palette state on every action and restores them on load. */
+   Saves answers + current question + review/palette state on every action and restores them on load.
+   Doubts are stored in a sibling localStorage key (resume key is never wiped). */
 (function(){try{
- var f=document.getElementById("quiz"),K="neetpg_hy40_quiz_resume_7c2f_v3",S=null;
+ var f=document.getElementById("quiz"),K="neetpg_hy40_quiz_resume_7c2f_v3",DK=K+"_doubts",S=null;
  try{S=window.localStorage;S.setItem(K+"_t","1");S.removeItem(K+"_t")}catch(e){S=null}
+ function quizName(){var el=f.querySelector('input[name="quiz"]');return el&&el.value?el.value:document.title}
+ function measureChrome(){
+  var live=document.querySelector(".live"),hd=document.querySelector(".hd");
+  if(live) document.documentElement.style.setProperty("--live-h",live.offsetHeight+"px");
+  if(hd) document.documentElement.style.setProperty("--hd-h",hd.offsetHeight+"px");
+ }
+ measureChrome();
+ window.addEventListener("resize",measureChrome);
+ if(window.visualViewport){window.visualViewport.addEventListener("resize",measureChrome);window.visualViewport.addEventListener("scroll",measureChrome)}
+ /* iOS Safari scrolls a focused hidden radio into view and desyncs the visual
+    viewport, so the header/nav can be seen but not tapped. Blur those controls. */
+ document.addEventListener("focusin",function(e){
+  var t=e.target;
+  if(t&&(t.classList.contains("pg")||t.classList.contains("tg")||t.classList.contains("ans"))){try{t.blur()}catch(x){}}
+ },true);
  function state(){var a={};f.querySelectorAll("input.ans:checked").forEach(function(i){var s=i.id.split("_");a[s[0]]=s[1]});
   var p=f.querySelector("input.pg:checked");return {a:a,p:p?p.id:"p1",rv:document.getElementById("rv").checked,y:window.scrollY||0,ts:Date.now()}}
  function save(){if(!S)return;try{S.setItem(K,JSON.stringify(state()))}catch(e){}}
+ function loadDoubts(){if(!S)return {};try{return JSON.parse(S.getItem(DK)||"{}")||{}}catch(e){return {}}}
+ function saveDoubts(d){if(!S)return;try{S.setItem(DK,JSON.stringify(d))}catch(e){}}
+ function collectDoubts(){var d=loadDoubts();f.querySelectorAll("textarea.doubt-ta").forEach(function(ta){var id=ta.getAttribute("data-qid");if(!id)return;var v=(ta.value||"").trim();if(v)d[id]=v;else delete d[id]});return d}
+ function persistDoubts(){saveDoubts(collectDoubts())}
  var d=null;if(S){try{d=JSON.parse(S.getItem(K)||"null")}catch(e){d=null}}
  if(d&&d.a){for(var n in d.a){var el=document.getElementById(n+"_"+d.a[n]);if(el)el.checked=true}
   var pg=document.getElementById(d.p);if(pg)pg.checked=true;
-  document.getElementById("rv").checked=!!d.rv;
-  var y=d.y||0;requestAnimationFrame(function(){window.scrollTo(0,y)})}
+  var rvEl=document.getElementById("rv");if(rvEl)rvEl.checked=!!d.rv;
+  var y=d.y||0;requestAnimationFrame(function(){window.scrollTo(0,y);measureChrome()})}
  window.__resume={key:K,storage:!!S,restored:!!(d&&d.a)};
+ (function(){var db=loadDoubts();f.querySelectorAll("textarea.doubt-ta").forEach(function(ta){var id=ta.getAttribute("data-qid");if(id&&db[id])ta.value=db[id]})})();
+ function scrollTopSafe(){
+  try{if(document.activeElement&&document.activeElement.blur)document.activeElement.blur()}catch(x){}
+  window.scrollTo(0,0);
+  requestAnimationFrame(function(){window.scrollTo(0,0);measureChrome()});
+ }
+ function scrollResIntoView(r){
+  if(!r)return;
+  var hd=document.querySelector(".hd");
+  var topPad=(hd?hd.getBoundingClientRect().bottom:0)+8;
+  var sec=r.closest("section");
+  var qnav=sec?sec.querySelector(".qnav"):null;
+  var live=document.querySelector(".live");
+  var botPad=(live?live.getBoundingClientRect().height:50)+(qnav?qnav.getBoundingClientRect().height:60)+8;
+  var vh=window.visualViewport?window.visualViewport.height:window.innerHeight;
+  var rect=r.getBoundingClientRect();
+  if(rect.top<topPad||rect.bottom>vh-botPad){
+   var y=window.scrollY+rect.top-topPad;
+   try{window.scrollTo({top:Math.max(0,y),behavior:"smooth"})}catch(x){window.scrollTo(0,Math.max(0,y))}
+  }
+ }
  f.addEventListener("change",function(e){var t=e.target;
-  if(t.classList.contains("pg")){window.scrollTo(0,0);var tp=document.getElementById("tp");if(tp)tp.checked=false}
+  if(t.classList.contains("pg")){var tp=document.getElementById("tp");if(tp)tp.checked=false;scrollTopSafe()}
+  if(t.id==="tp"){requestAnimationFrame(function(){measureChrome();if(t.checked){var hd=document.querySelector(".hd");if(hd)hd.scrollIntoView({block:"start"})}})}
   save();
-  if(t.classList.contains("ans")){var r=t.parentNode.querySelector(".res");setTimeout(function(){try{r.scrollIntoView({behavior:"smooth",block:"nearest"})}catch(x){}},60)}});
- f.addEventListener("reset",function(){setTimeout(function(){window.scrollTo(0,0);save()},0)});
+  if(t.classList.contains("ans")){var r=t.parentNode.querySelector(".res");setTimeout(function(){scrollResIntoView(r)},60)}});
+ f.addEventListener("reset",function(){setTimeout(function(){f.querySelectorAll("textarea.doubt-ta").forEach(function(ta){ta.value=""});if(S)try{S.removeItem(DK)}catch(e){}scrollTopSafe();save()},0)});
  var st=null;window.addEventListener("scroll",function(){clearTimeout(st);st=setTimeout(save,300)},{passive:true});
- function fill(){var all=f.querySelectorAll("section.q"),r=0,w=0,na=[],wc=[];all.forEach(function(s){var c=s.querySelector("input.ans:checked");if(!c){na.push(s.id.replace("q","Q"));return}
-  if(c.classList.contains("c"))r++;else{w++;wc.push(c.getAttribute("data-tag"))}});
-  var dt=new Date(),ist="";try{ist=dt.toLocaleString("en-IN",{timeZone:"Asia/Kolkata"})+" IST | "}catch(x){}document.getElementById("f_ts").value=ist+dt.toISOString();document.getElementById("f_score").value=r+" correct, "+w+" wrong, "+na.length+" not attempted (of "+all.length+")";
-  document.getElementById("f_na").value=na.join(", ")||"none";document.getElementById("f_wc").value=wc.join(" || ")||"none"}
- f.addEventListener("submit",function(e){fill();if(!window.fetch||!window.FormData)return;e.preventDefault();
-  var b=document.getElementById("sendBtn"),ok=document.getElementById("sentOk"),er=document.getElementById("sentErr");b.disabled=true;b.textContent="Sending…";ok.style.display="none";er.style.display="none";
-  var fd=new FormData(f),o={};fd.forEach(function(v,k){if(k!=="pg"&&k!=="_next")o[k]=v});
-  fetch(f.action.replace("formsubmit.co/","formsubmit.co/ajax/"),{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(o)})
-  .then(function(r){return r.json()}).then(function(j){if(String(j.success)==="true"){ok.style.display="block";b.textContent="📤 Send again"}else{throw 0}})
-  .catch(function(){er.style.display="block";b.textContent="📤 Send my results"}).then(function(){b.disabled=false})});
- window.addEventListener("pagehide",save);document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")save()});
+ var dtm=null;f.addEventListener("input",function(e){if(e.target&&e.target.classList.contains("doubt-ta")){clearTimeout(dtm);dtm=setTimeout(persistDoubts,200)}});
+ function textOf(el){return (el&&el.textContent||"").replace(/\s+/g," ").trim()}
+ function qMeta(sec){
+  var chosen=sec.querySelector("input.ans:checked"),correct=sec.querySelector("input.ans.c");
+  function optLine(inp){if(!inp)return "(not answered)";var lab=inp.nextElementSibling;return (textOf(lab&&lab.querySelector(".l"))+". "+textOf(lab&&lab.querySelector(".t"))).replace(/^\. /,"")}
+  var cred=sec.querySelector(".expl .credit");
+  var concept=cred?textOf(cred).replace(/^Concept:\s*/,""):"";
+  return {id:sec.id,qno:textOf(sec.querySelector(".qno"))||sec.id,subject:sec.getAttribute("data-s")||textOf(sec.querySelector(".tag")),concept:concept,stem:textOf(sec.querySelector(".stem")),chose:optLine(chosen),correct:optLine(correct),right:!!(chosen&&chosen.classList.contains("c")),answered:!!chosen};
+ }
+ function doubtPrompt(sec,doubtText){
+  var m=qMeta(sec);
+  return ["I have a doubt from my NEET PG quiz. Please explain it clearly.","","Quiz: "+quizName(),"Question: "+m.qno,"Subject / concept: "+m.subject+(m.concept?" — "+m.concept:""),"","Question:",m.stem,"","I chose: "+m.chose,"Correct answer: "+m.correct,"","My doubt:",(doubtText||"").trim()||"(no text typed)","","Please answer this doubt in the context of this question."].join("\n");
+ }
+ function resultsText(){
+  var r=0,w=0,na=0,body=[];
+  f.querySelectorAll("section.q").forEach(function(sec){
+   var m=qMeta(sec),dv=((sec.querySelector(".doubt-ta")||{}).value||"").trim();
+   if(!m.answered){na++;body.push("","— "+m.qno+" ["+m.subject+"] NOT ATTEMPTED")}
+   else{if(m.right)r++;else w++;body.push("","— "+m.qno+" ["+m.subject+(m.concept?" / "+m.concept:"")+"] "+(m.right?"RIGHT":"WRONG"));body.push("  Stem: "+m.stem);body.push("  I chose: "+m.chose);body.push("  Correct: "+m.correct)}
+   if(dv)body.push("  Doubt: "+dv);
+  });
+  return ["NEET PG quiz results to analyse","","Quiz: "+quizName(),"Score: "+r+" correct, "+w+" wrong, "+na+" not attempted (of "+(r+w+na)+")"].concat(body).join("\n");
+ }
+ function copyText(text){
+  function fallback(){var ta=document.createElement("textarea");ta.value=text;ta.setAttribute("readonly","");ta.style.cssText="position:fixed;top:0;left:0;width:1px;height:1px;opacity:0";document.body.appendChild(ta);ta.focus();ta.select();try{ta.setSelectionRange(0,ta.value.length)}catch(x){}var ok=false;try{ok=document.execCommand("copy")}catch(x){}document.body.removeChild(ta);return ok}
+  if(navigator.clipboard&&navigator.clipboard.writeText&&window.isSecureContext){
+   return navigator.clipboard.writeText(text).then(function(){return true}).catch(function(){return fallback()});
+  }
+  return Promise.resolve(fallback());
+ }
+ function flash(el,msg,ok){if(!el)return;el.textContent=msg;el.className="doubt-fb "+(ok?"ok":"err");el.style.display="block";clearTimeout(el._t);el._t=setTimeout(function(){el.style.display="none"},2500)}
+ f.addEventListener("click",function(e){
+  var btn=e.target.closest(".doubt-copy");if(!btn)return;e.preventDefault();
+  var box=btn.closest(".doubt"),sec=btn.closest("section"),ta=box&&box.querySelector(".doubt-ta"),fb=box&&box.querySelector(".doubt-fb");
+  persistDoubts();
+  copyText(doubtPrompt(sec,ta?ta.value:"")).then(function(ok){if(ok!==false)flash(fb,"Copied! Paste it in Grok Bot chat",true);else flash(fb,"Couldn't copy — long-press and copy the text",false)});
+ });
+ function fill(){
+  var all=f.querySelectorAll("section.q"),r=0,w=0,na=[],wc=[],ds=[];
+  persistDoubts();
+  all.forEach(function(s){var c=s.querySelector("input.ans:checked"),ta=s.querySelector(".doubt-ta"),dv=ta&&ta.value.trim();if(dv)ds.push(s.id+": "+dv);if(!c){na.push(s.id.replace("q","Q"));return}if(c.classList.contains("c"))r++;else{w++;wc.push(c.getAttribute("data-tag"))}});
+  var dt=new Date(),ist="";try{ist=dt.toLocaleString("en-IN",{timeZone:"Asia/Kolkata"})+" IST | "}catch(x){}
+  var ts=document.getElementById("f_ts"),sc=document.getElementById("f_score"),fn=document.getElementById("f_na"),fw=document.getElementById("f_wc"),fd=document.getElementById("f_doubts");
+  if(ts)ts.value=ist+dt.toISOString();
+  if(sc)sc.value=r+" correct, "+w+" wrong, "+na.length+" not attempted (of "+all.length+")";
+  if(fn)fn.value=na.join(", ")||"none";
+  if(fw)fw.value=wc.join(" || ")||"none";
+  if(fd)fd.value=ds.length?ds.join(" || "):"none";
+ }
+ function showCopyFallback(on){var c=document.getElementById("copyResWrap");if(!c)return;if(on)c.classList.add("is-fallback");else c.classList.remove("is-fallback")}
+ f.addEventListener("submit",function(e){
+  try{fill()}catch(x){}
+  if(!window.fetch||!window.FormData)return;
+  e.preventDefault();
+  var b=document.getElementById("sendBtn"),ok=document.getElementById("sentOk"),er=document.getElementById("sentErr");
+  function done(success,msg){
+   if(b){b.disabled=false;b.textContent=success?"📤 Send again":"📤 Send my results"}
+   if(ok){ok.style.display=success?"block":"none";if(success&&msg)ok.textContent=msg}
+   if(er){er.style.display=success?"none":"block";if(!success&&msg)er.textContent=msg}
+   if(!success)showCopyFallback(true);
+  }
+  if(b){b.disabled=true;b.textContent="Sending…"}
+  if(ok)ok.style.display="none";if(er)er.style.display="none";
+  var ac=typeof AbortController!=="undefined"?new AbortController():null;
+  var finished=false;
+  var to=setTimeout(function(){if(finished)return;try{if(ac)ac.abort()}catch(x){}if(!ac&&!finished){finished=true;done(false,"Couldn't send (timed out or network). Copy your results below and paste them in Grok Bot.")}},15000);
+  try{
+   var fd=new FormData(f),o={};fd.forEach(function(v,k){if(k!=="pg"&&k!=="_next"&&k!=="_honey")o[k]=v});
+   var url=f.action.replace("formsubmit.co/","formsubmit.co/ajax/");
+   var opts={method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(o)};
+   if(ac)opts.signal=ac.signal;
+   fetch(url,opts).then(function(r){
+    var ct=(r.headers&&r.headers.get("content-type"))||"";
+    if(ct.indexOf("json")!==-1)return r.json();
+    return r.text().then(function(t){try{return JSON.parse(t)}catch(x){if(!r.ok)throw new Error("bad status");return {success:r.ok}}});
+   }).then(function(j){
+    var good=j&&(j.success===true||String(j.success).toLowerCase()==="true");
+    if(good){finished=true;done(true,"Sent! Tell Grok Bot to check your results.")}
+    else throw new Error("not success");
+   }).catch(function(){
+    if(finished)return;finished=true;
+    done(false,"Couldn't send (timed out or network). Copy your results below and paste them in Grok Bot.");
+   }).then(function(){clearTimeout(to)});
+  }catch(err){finished=true;clearTimeout(to);done(false,"Couldn't send. Copy your results below and paste them in Grok Bot.")}
+ });
+ var copyBtn=document.getElementById("copyResBtn");
+ if(copyBtn)copyBtn.addEventListener("click",function(){
+  try{fill()}catch(x){}
+  var fb=document.getElementById("copyResFb");
+  copyText(resultsText()).then(function(ok){if(fb){fb.style.display="block";fb.className="doubt-fb "+(ok!==false?"ok":"err");fb.textContent=ok!==false?"Copied! Paste it in Grok Bot chat":"Couldn't copy automatically — long-press and copy."}});
+ });
+ window.addEventListener("pagehide",function(){save();persistDoubts()});
+ document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden"){save();persistDoubts()}});
 }catch(e){}})();
 </script>
 </body>

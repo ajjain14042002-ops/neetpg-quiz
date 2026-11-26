@@ -7,19 +7,26 @@
 <title>Quiz 2 – Weak Areas 40</title>
 <style>
 :root{--bg:#f4f6fb;--card:#fff;--text:#1b2233;--muted:#667085;--border:#e3e7ef;--accent:#4f46e5;--accent2:#eef0ff;
---ok:#16a34a;--okbg:#e8f8ee;--bad:#dc2626;--badbg:#fdecec;--chip:#f0f2f7}
+--ok:#16a34a;--okbg:#e8f8ee;--bad:#dc2626;--badbg:#fdecec;--chip:#f0f2f7;
+--sat:env(safe-area-inset-top,0px);--sab:env(safe-area-inset-bottom,0px);
+--sal:env(safe-area-inset-left,0px);--sar:env(safe-area-inset-right,0px);
+--live-h:calc(44px + var(--sab));--hd-h:calc(88px + var(--sat));--qnav-h:62px}
 @media (prefers-color-scheme:dark){:root{--bg:#0f1420;--card:#171d2b;--text:#e7eaf2;--muted:#98a2b3;--border:#2a3245;--accent:#818cf8;--accent2:#232a45;
 --ok:#22c55e;--okbg:#10291b;--bad:#f87171;--badbg:#341618;--chip:#202838}}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif}
-form{max-width:720px;margin:0 auto;padding:0 14px 40px}
-input.pg,input.ans,input.tg{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
-input.pg{position:fixed;top:0;left:0}
-.hd{padding:10px 0 4px}
+html{margin:0;scroll-padding-top:var(--hd-h);scroll-padding-bottom:calc(var(--live-h) + var(--qnav-h) + 8px)}
+html,body{background:var(--bg);color:var(--text);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif}
+body{margin:0}
+form{max-width:720px;margin:0 auto;padding:0 max(14px,var(--sal)) calc(var(--live-h) + var(--qnav-h) + 12px) max(14px,var(--sar))}
+/* Visually hide radios/toggles WITHOUT position:fixed at the top of the screen.
+   Fixed 1px radios at top:0 made iOS Safari focus-scroll, leaving the header
+   visible but untappable, and Prev/Next jumped out of the visual viewport. */
+input.pg,input.ans,input.tg{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);white-space:nowrap;border:0;opacity:0;pointer-events:none;-webkit-appearance:none;appearance:none}
+.hd{position:sticky;top:0;z-index:6;background:var(--bg);padding:calc(10px + var(--sat)) 0 8px;border-bottom:1px solid var(--border)}
 .top{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .title{font-weight:700;font-size:15px}
 .score{font-size:13px;color:var(--muted);white-space:nowrap}
-.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:10px;padding:10px 14px;font:600 15px/1.2 inherit;cursor:pointer;min-height:46px;text-align:center;user-select:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:10px;padding:10px 14px;font:600 15px/1.2 inherit;cursor:pointer;min-height:46px;text-align:center;user-select:none;touch-action:manipulation}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn.small{padding:6px 10px;min-height:38px;font-size:13px}
 .btn.danger{background:var(--bad);border-color:var(--bad);color:#fff}
@@ -33,7 +40,7 @@ input.pg{position:fixed;top:0;left:0}
 .qno{font-size:13px;color:var(--muted);font-weight:600}
 .stem{font-size:17px;font-weight:600;margin:12px 0 4px}
 .opts{display:flex;flex-direction:column;gap:10px;margin-top:12px;position:relative}
-.opt{display:flex;align-items:flex-start;gap:12px;width:100%;border:1.5px solid var(--border);background:var(--card);border-radius:12px;padding:13px 12px;font-size:16px;cursor:pointer;min-height:56px}
+.opt{display:flex;align-items:flex-start;gap:12px;width:100%;border:1.5px solid var(--border);background:var(--card);border-radius:12px;padding:13px 12px;font-size:16px;cursor:pointer;min-height:56px;touch-action:manipulation}
 .opt .l{flex:0 0 30px;height:30px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--muted)}
 .opt .t{flex:1;padding-top:3px}
 .opt .m{font-weight:800;padding-top:3px}
@@ -47,7 +54,7 @@ input.w:checked+.opt .l{background:var(--bad);border-color:var(--bad);color:#fff
 input.w:checked+.opt .m::after{content:"✗"}
 .opts:has(input.ans:checked) .opt{pointer-events:none;cursor:default}
 input.ans:checked~.opt{pointer-events:none}
-.res{display:none}
+.res{display:none;scroll-margin-top:calc(var(--hd-h) + 8px);scroll-margin-bottom:calc(var(--live-h) + var(--qnav-h) + 8px)}
 input.ans:checked~.res{display:block}
 .verdict{margin-top:14px;font-weight:800;font-size:16px;display:none}
 .okv{color:var(--ok)}.badv{color:var(--bad)}
@@ -56,25 +63,36 @@ input.c:checked~.res .okv,input.w:checked~.res .badv{display:block}
 .expl h4{margin:0 0 6px;font-size:14px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
 .expl p{margin:0 0 10px}
 .one{background:var(--accent2);border-left:4px solid var(--accent);padding:10px 12px;border-radius:8px}
-.qnav{display:flex;gap:8px;margin-top:16px}
+/* Sticky Prev/Next stay above the fixed score bar and never slide under it
+   when an explanation expands or iOS resizes the visual viewport. */
+.qnav{display:flex;gap:8px;margin-top:16px;position:sticky;bottom:var(--live-h);z-index:4;background:var(--bg);padding:8px 0;border-top:1px solid var(--border)}
 .qnav>*{flex:1}
-/* paging: inactive pages stay in the DOM (so CSS counters still count) but are hidden */
-main>section{position:absolute;visibility:hidden;height:0;overflow:hidden;left:-9999px;top:0;width:300px}
+.doubt{margin-top:14px;padding-top:12px;border-top:1px dashed var(--border)}
+.doubt-title{font-weight:700;font-size:14px;margin:0 0 8px}
+.doubt-ta{display:block;width:100%;box-sizing:border-box;border:1.5px solid var(--border);background:var(--bg);color:var(--text);border-radius:10px;padding:10px 12px;font:inherit;font-size:16px;line-height:1.4;min-height:84px;resize:vertical;margin:0 0 8px}
+.doubt-ta:focus{outline:2px solid var(--accent);border-color:var(--accent)}
+.doubt .doubt-copy{width:100%}
+.doubt-fb{display:none;font-weight:700;font-size:13px;margin-top:8px}
+.doubt-fb.ok{color:var(--ok);display:block}
+.doubt-fb.err{color:var(--bad);display:block}
+/* paging: keep inactive pages in the DOM for CSS counters, but do NOT park
+   them far off-screen (iOS Safari expands the scrollable overflow). */
+main{position:relative}
+main>section{position:absolute;visibility:hidden;height:0;width:0;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);left:0;top:0;margin:0;pointer-events:none}
 /* palette */
 .palwrap{display:none}
 #tp:checked~.ph .palwrap{display:block}
 #tp:checked~.ph .palbtn-open{display:none}
 #tp:not(:checked)~.ph .palbtn-close{display:none}
 .pal{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-top:10px}
-.pal label{display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:10px;border:1.5px solid var(--border);background:var(--card);font-weight:700;font-size:14px;cursor:pointer;min-height:38px}
+.pal label{display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:10px;border:1.5px solid var(--border);background:var(--card);font-weight:700;font-size:14px;cursor:pointer;min-height:38px;touch-action:manipulation}
 .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:10px}
 .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:4px;border:1.5px solid var(--border)}
-/* live score via CSS counters (no JS needed) — placed at end of DOM, shown fixed at bottom */
-.live{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--border);padding:8px 14px calc(8px + env(safe-area-inset-bottom));font-size:14px;text-align:center;z-index:5}
+/* live score via CSS counters (no JS needed) — fixed at the bottom, above the home indicator */
+.live{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--border);padding:8px 14px calc(8px + var(--sab));font-size:14px;text-align:center;z-index:5}
 .live b.r::after{content:counter(r)}
 .live b.w::after{content:counter(w)}
 .sum-r::after{content:counter(r)}.sum-w::after{content:counter(w)}
-form{padding-bottom:70px}
 .big{font-size:36px;font-weight:800;margin:4px 0}
 table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
 td,th{padding:8px 6px;border-bottom:1px solid var(--border);text-align:left}
@@ -82,10 +100,10 @@ td.n,th.n{text-align:right;white-space:nowrap}
 td.ok{color:var(--ok);font-weight:700}td.bad{color:var(--bad);font-weight:700}
 .note{font-size:12px;color:var(--muted);margin-top:10px}
 /* review-wrong mode: show every wrongly answered question as a list */
-.rvbar{display:none}
+.rvbar{display:none;position:sticky;top:0;z-index:6;background:var(--card);padding:12px 16px;margin-top:10px;padding-top:calc(12px + var(--sat))}
 #rv:checked~.rvbar{display:block}
-#rv:checked~main>section{position:absolute!important;visibility:hidden!important;height:0!important;overflow:hidden!important;left:-9999px!important}
-#rv:checked~main>section.q:has(input.w:checked){position:static!important;visibility:visible!important;height:auto!important;overflow:visible!important;width:auto!important;left:auto!important}
+#rv:checked~main>section{position:absolute!important;visibility:hidden!important;height:0!important;width:0!important;overflow:hidden!important;left:0!important;clip:rect(0,0,0,0)!important;clip-path:inset(50%)!important;pointer-events:none!important}
+#rv:checked~main>section.q:has(input.w:checked){position:static!important;visibility:visible!important;height:auto!important;width:auto!important;overflow:visible!important;left:auto!important;clip:auto!important;clip-path:none!important;pointer-events:auto!important}
 #rv:checked~main .qnav{display:none}
 #rv:checked~.ph{display:none}
 /* in-page reset confirm */
@@ -97,6 +115,8 @@ td.ok{color:var(--ok);font-weight:700}td.bad{color:var(--bad);font-weight:700}
 .send{margin-top:14px}.send .btn{width:100%}
 .sent-ok{display:none;color:var(--ok);font-weight:700;margin-top:8px}
 .sent-err{display:none;color:var(--bad);font-weight:700;margin-top:8px}
+.copy-res-wrap{margin-top:10px}
+.copy-res-wrap.is-fallback #copyResBtn{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
 form{counter-reset:r 0 w 0 s0r 0 s0w 0 s1r 0 s1w 0 s2r 0 s2w 0 s3r 0 s3w 0 s4r 0 s4w 0 s5r 0 s5w 0 s6r 0 s6w 0 s7r 0 s7w 0 s8r 0 s8w 0 s9r 0 s9w 0 s10r 0 s10w 0}
 .s0.c:checked{counter-increment:r s0r}
 .s0.w:checked{counter-increment:w s0w}
@@ -120,7 +140,7 @@ form{counter-reset:r 0 w 0 s0r 0 s0w 0 s1r 0 s1w 0 s2r 0 s2w 0 s3r 0 s3w 0 s4r 0
 .s9.w:checked{counter-increment:w s9w}
 .s10.c:checked{counter-increment:r s10r}
 .s10.w:checked{counter-increment:w s10w}
-#p1:checked~main #q1,#p2:checked~main #q2,#p3:checked~main #q3,#p4:checked~main #q4,#p5:checked~main #q5,#p6:checked~main #q6,#p7:checked~main #q7,#p8:checked~main #q8,#p9:checked~main #q9,#p10:checked~main #q10,#p11:checked~main #q11,#p12:checked~main #q12,#p13:checked~main #q13,#p14:checked~main #q14,#p15:checked~main #q15,#p16:checked~main #q16,#p17:checked~main #q17,#p18:checked~main #q18,#p19:checked~main #q19,#p20:checked~main #q20,#p21:checked~main #q21,#p22:checked~main #q22,#p23:checked~main #q23,#p24:checked~main #q24,#p25:checked~main #q25,#p26:checked~main #q26,#p27:checked~main #q27,#p28:checked~main #q28,#p29:checked~main #q29,#p30:checked~main #q30,#p31:checked~main #q31,#p32:checked~main #q32,#p33:checked~main #q33,#p34:checked~main #q34,#p35:checked~main #q35,#p36:checked~main #q36,#p37:checked~main #q37,#p38:checked~main #q38,#p39:checked~main #q39,#p40:checked~main #q40,#p41:checked~main #q41{position:static;visibility:visible;height:auto;overflow:visible;width:auto;left:auto}
+#p1:checked~main #q1,#p2:checked~main #q2,#p3:checked~main #q3,#p4:checked~main #q4,#p5:checked~main #q5,#p6:checked~main #q6,#p7:checked~main #q7,#p8:checked~main #q8,#p9:checked~main #q9,#p10:checked~main #q10,#p11:checked~main #q11,#p12:checked~main #q12,#p13:checked~main #q13,#p14:checked~main #q14,#p15:checked~main #q15,#p16:checked~main #q16,#p17:checked~main #q17,#p18:checked~main #q18,#p19:checked~main #q19,#p20:checked~main #q20,#p21:checked~main #q21,#p22:checked~main #q22,#p23:checked~main #q23,#p24:checked~main #q24,#p25:checked~main #q25,#p26:checked~main #q26,#p27:checked~main #q27,#p28:checked~main #q28,#p29:checked~main #q29,#p30:checked~main #q30,#p31:checked~main #q31,#p32:checked~main #q32,#p33:checked~main #q33,#p34:checked~main #q34,#p35:checked~main #q35,#p36:checked~main #q36,#p37:checked~main #q37,#p38:checked~main #q38,#p39:checked~main #q39,#p40:checked~main #q40,#p41:checked~main #q41{position:static;visibility:visible;height:auto;overflow:visible;width:auto;left:auto;clip:auto;clip-path:none;pointer-events:auto}
 form:has(input[name="Q2-01"].c:checked) .pal label[for="p1"],form:has(input[name="Q2-02"].c:checked) .pal label[for="p2"],form:has(input[name="Q2-03"].c:checked) .pal label[for="p3"],form:has(input[name="Q2-04"].c:checked) .pal label[for="p4"],form:has(input[name="Q2-05"].c:checked) .pal label[for="p5"],form:has(input[name="Q2-06"].c:checked) .pal label[for="p6"],form:has(input[name="Q2-07"].c:checked) .pal label[for="p7"],form:has(input[name="Q2-08"].c:checked) .pal label[for="p8"],form:has(input[name="Q2-09"].c:checked) .pal label[for="p9"],form:has(input[name="Q2-10"].c:checked) .pal label[for="p10"],form:has(input[name="Q2-11"].c:checked) .pal label[for="p11"],form:has(input[name="Q2-12"].c:checked) .pal label[for="p12"],form:has(input[name="Q2-13"].c:checked) .pal label[for="p13"],form:has(input[name="Q2-14"].c:checked) .pal label[for="p14"],form:has(input[name="Q2-15"].c:checked) .pal label[for="p15"],form:has(input[name="Q2-16"].c:checked) .pal label[for="p16"],form:has(input[name="Q2-17"].c:checked) .pal label[for="p17"],form:has(input[name="Q2-18"].c:checked) .pal label[for="p18"],form:has(input[name="Q2-19"].c:checked) .pal label[for="p19"],form:has(input[name="Q2-20"].c:checked) .pal label[for="p20"],form:has(input[name="Q2-21"].c:checked) .pal label[for="p21"],form:has(input[name="Q2-22"].c:checked) .pal label[for="p22"],form:has(input[name="Q2-23"].c:checked) .pal label[for="p23"],form:has(input[name="Q2-24"].c:checked) .pal label[for="p24"],form:has(input[name="Q2-25"].c:checked) .pal label[for="p25"],form:has(input[name="Q2-26"].c:checked) .pal label[for="p26"],form:has(input[name="Q2-27"].c:checked) .pal label[for="p27"],form:has(input[name="Q2-28"].c:checked) .pal label[for="p28"],form:has(input[name="Q2-29"].c:checked) .pal label[for="p29"],form:has(input[name="Q2-30"].c:checked) .pal label[for="p30"],form:has(input[name="Q2-31"].c:checked) .pal label[for="p31"],form:has(input[name="Q2-32"].c:checked) .pal label[for="p32"],form:has(input[name="Q2-33"].c:checked) .pal label[for="p33"],form:has(input[name="Q2-34"].c:checked) .pal label[for="p34"],form:has(input[name="Q2-35"].c:checked) .pal label[for="p35"],form:has(input[name="Q2-36"].c:checked) .pal label[for="p36"],form:has(input[name="Q2-37"].c:checked) .pal label[for="p37"],form:has(input[name="Q2-38"].c:checked) .pal label[for="p38"],form:has(input[name="Q2-39"].c:checked) .pal label[for="p39"],form:has(input[name="Q2-40"].c:checked) .pal label[for="p40"]{background:var(--ok);border-color:var(--ok);color:#fff}
 form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name="Q2-02"].w:checked) .pal label[for="p2"],form:has(input[name="Q2-03"].w:checked) .pal label[for="p3"],form:has(input[name="Q2-04"].w:checked) .pal label[for="p4"],form:has(input[name="Q2-05"].w:checked) .pal label[for="p5"],form:has(input[name="Q2-06"].w:checked) .pal label[for="p6"],form:has(input[name="Q2-07"].w:checked) .pal label[for="p7"],form:has(input[name="Q2-08"].w:checked) .pal label[for="p8"],form:has(input[name="Q2-09"].w:checked) .pal label[for="p9"],form:has(input[name="Q2-10"].w:checked) .pal label[for="p10"],form:has(input[name="Q2-11"].w:checked) .pal label[for="p11"],form:has(input[name="Q2-12"].w:checked) .pal label[for="p12"],form:has(input[name="Q2-13"].w:checked) .pal label[for="p13"],form:has(input[name="Q2-14"].w:checked) .pal label[for="p14"],form:has(input[name="Q2-15"].w:checked) .pal label[for="p15"],form:has(input[name="Q2-16"].w:checked) .pal label[for="p16"],form:has(input[name="Q2-17"].w:checked) .pal label[for="p17"],form:has(input[name="Q2-18"].w:checked) .pal label[for="p18"],form:has(input[name="Q2-19"].w:checked) .pal label[for="p19"],form:has(input[name="Q2-20"].w:checked) .pal label[for="p20"],form:has(input[name="Q2-21"].w:checked) .pal label[for="p21"],form:has(input[name="Q2-22"].w:checked) .pal label[for="p22"],form:has(input[name="Q2-23"].w:checked) .pal label[for="p23"],form:has(input[name="Q2-24"].w:checked) .pal label[for="p24"],form:has(input[name="Q2-25"].w:checked) .pal label[for="p25"],form:has(input[name="Q2-26"].w:checked) .pal label[for="p26"],form:has(input[name="Q2-27"].w:checked) .pal label[for="p27"],form:has(input[name="Q2-28"].w:checked) .pal label[for="p28"],form:has(input[name="Q2-29"].w:checked) .pal label[for="p29"],form:has(input[name="Q2-30"].w:checked) .pal label[for="p30"],form:has(input[name="Q2-31"].w:checked) .pal label[for="p31"],form:has(input[name="Q2-32"].w:checked) .pal label[for="p32"],form:has(input[name="Q2-33"].w:checked) .pal label[for="p33"],form:has(input[name="Q2-34"].w:checked) .pal label[for="p34"],form:has(input[name="Q2-35"].w:checked) .pal label[for="p35"],form:has(input[name="Q2-36"].w:checked) .pal label[for="p36"],form:has(input[name="Q2-37"].w:checked) .pal label[for="p37"],form:has(input[name="Q2-38"].w:checked) .pal label[for="p38"],form:has(input[name="Q2-39"].w:checked) .pal label[for="p39"],form:has(input[name="Q2-40"].w:checked) .pal label[for="p40"]{background:var(--bad);border-color:var(--bad);color:#fff}
 #p1:checked~.ph .pal label[for="p1"],#p2:checked~.ph .pal label[for="p2"],#p3:checked~.ph .pal label[for="p3"],#p4:checked~.ph .pal label[for="p4"],#p5:checked~.ph .pal label[for="p5"],#p6:checked~.ph .pal label[for="p6"],#p7:checked~.ph .pal label[for="p7"],#p8:checked~.ph .pal label[for="p8"],#p9:checked~.ph .pal label[for="p9"],#p10:checked~.ph .pal label[for="p10"],#p11:checked~.ph .pal label[for="p11"],#p12:checked~.ph .pal label[for="p12"],#p13:checked~.ph .pal label[for="p13"],#p14:checked~.ph .pal label[for="p14"],#p15:checked~.ph .pal label[for="p15"],#p16:checked~.ph .pal label[for="p16"],#p17:checked~.ph .pal label[for="p17"],#p18:checked~.ph .pal label[for="p18"],#p19:checked~.ph .pal label[for="p19"],#p20:checked~.ph .pal label[for="p20"],#p21:checked~.ph .pal label[for="p21"],#p22:checked~.ph .pal label[for="p22"],#p23:checked~.ph .pal label[for="p23"],#p24:checked~.ph .pal label[for="p24"],#p25:checked~.ph .pal label[for="p25"],#p26:checked~.ph .pal label[for="p26"],#p27:checked~.ph .pal label[for="p27"],#p28:checked~.ph .pal label[for="p28"],#p29:checked~.ph .pal label[for="p29"],#p30:checked~.ph .pal label[for="p30"],#p31:checked~.ph .pal label[for="p31"],#p32:checked~.ph .pal label[for="p32"],#p33:checked~.ph .pal label[for="p33"],#p34:checked~.ph .pal label[for="p34"],#p35:checked~.ph .pal label[for="p35"],#p36:checked~.ph .pal label[for="p36"],#p37:checked~.ph .pal label[for="p37"],#p38:checked~.ph .pal label[for="p38"],#p39:checked~.ph .pal label[for="p39"],#p40:checked~.ph .pal label[for="p40"]{outline:3px solid var(--accent);outline-offset:1px}
@@ -149,6 +169,7 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="hidden" name="score" id="f_score" value="see answers below">
 <input type="hidden" name="not_attempted" id="f_na" value="">
 <input type="hidden" name="wrong_concepts" id="f_wc" value="">
+<input type="hidden" name="doubts" id="f_doubts" value="">
 <input type="radio" name="pg" class="pg" id="p1" value="last viewed page 1" checked><input type="radio" name="pg" class="pg" id="p2" value="last viewed page 2"><input type="radio" name="pg" class="pg" id="p3" value="last viewed page 3"><input type="radio" name="pg" class="pg" id="p4" value="last viewed page 4"><input type="radio" name="pg" class="pg" id="p5" value="last viewed page 5"><input type="radio" name="pg" class="pg" id="p6" value="last viewed page 6"><input type="radio" name="pg" class="pg" id="p7" value="last viewed page 7"><input type="radio" name="pg" class="pg" id="p8" value="last viewed page 8"><input type="radio" name="pg" class="pg" id="p9" value="last viewed page 9"><input type="radio" name="pg" class="pg" id="p10" value="last viewed page 10"><input type="radio" name="pg" class="pg" id="p11" value="last viewed page 11"><input type="radio" name="pg" class="pg" id="p12" value="last viewed page 12"><input type="radio" name="pg" class="pg" id="p13" value="last viewed page 13"><input type="radio" name="pg" class="pg" id="p14" value="last viewed page 14"><input type="radio" name="pg" class="pg" id="p15" value="last viewed page 15"><input type="radio" name="pg" class="pg" id="p16" value="last viewed page 16"><input type="radio" name="pg" class="pg" id="p17" value="last viewed page 17"><input type="radio" name="pg" class="pg" id="p18" value="last viewed page 18"><input type="radio" name="pg" class="pg" id="p19" value="last viewed page 19"><input type="radio" name="pg" class="pg" id="p20" value="last viewed page 20"><input type="radio" name="pg" class="pg" id="p21" value="last viewed page 21"><input type="radio" name="pg" class="pg" id="p22" value="last viewed page 22"><input type="radio" name="pg" class="pg" id="p23" value="last viewed page 23"><input type="radio" name="pg" class="pg" id="p24" value="last viewed page 24"><input type="radio" name="pg" class="pg" id="p25" value="last viewed page 25"><input type="radio" name="pg" class="pg" id="p26" value="last viewed page 26"><input type="radio" name="pg" class="pg" id="p27" value="last viewed page 27"><input type="radio" name="pg" class="pg" id="p28" value="last viewed page 28"><input type="radio" name="pg" class="pg" id="p29" value="last viewed page 29"><input type="radio" name="pg" class="pg" id="p30" value="last viewed page 30"><input type="radio" name="pg" class="pg" id="p31" value="last viewed page 31"><input type="radio" name="pg" class="pg" id="p32" value="last viewed page 32"><input type="radio" name="pg" class="pg" id="p33" value="last viewed page 33"><input type="radio" name="pg" class="pg" id="p34" value="last viewed page 34"><input type="radio" name="pg" class="pg" id="p35" value="last viewed page 35"><input type="radio" name="pg" class="pg" id="p36" value="last viewed page 36"><input type="radio" name="pg" class="pg" id="p37" value="last viewed page 37"><input type="radio" name="pg" class="pg" id="p38" value="last viewed page 38"><input type="radio" name="pg" class="pg" id="p39" value="last viewed page 39"><input type="radio" name="pg" class="pg" id="p40" value="last viewed page 40"><input type="radio" name="pg" class="pg" id="p41" value="last viewed page 41">
 <input type="checkbox" class="tg" id="tp"><input type="checkbox" class="tg" id="rv"><input type="checkbox" class="tg" id="rc">
 <div class="hd ph">
@@ -174,7 +195,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s10" name="Q2-01" id="a1_2" value="Q2-01 | Surgery | Boerhaave syndrome – site of rupture | chose C: Left posterolateral wall of the lower thoracic oesophagus | correct C: Left posterolateral wall of the lower thoracic oesophagus | RIGHT" data-tag="Q2-01 Surgery: Boerhaave syndrome – site of rupture"><label class="opt" for="a1_2"><span class="l">C</span><span class="t">Left posterolateral wall of the lower thoracic oesophagus</span><span class="m"></span></label>
 <input type="radio" class="ans w s10" name="Q2-01" id="a1_3" value="Q2-01 | Surgery | Boerhaave syndrome – site of rupture | chose D: Cervical oesophagus at Killian&#x27;s dehiscence | correct C: Left posterolateral wall of the lower thoracic oesophagus | WRONG" data-tag="Q2-01 Surgery: Boerhaave syndrome – site of rupture"><label class="opt" for="a1_3"><span class="l">D</span><span class="t">Cervical oesophagus at Killian&#x27;s dehiscence</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. Left posterolateral wall of the lower thoracic oesophagus</div>
-<div class="expl"><h4>Explanation</h4><p>This is Boerhaave syndrome (spontaneous full-thickness rupture), shown by Mackler&#x27;s triad: vomiting, chest pain and subcutaneous emphysema. Correct: the tear is usually in the LEFT posterolateral wall of the distal oesophagus, 2–3 cm above the GE junction, where the wall is weakest and has no supporting structures. That is why a LEFT pleural effusion or pneumothorax follows. Diagnose with a water-soluble contrast swallow or CT. Why the others are wrong: the mid-oesophagus is not the usual site. Killian&#x27;s dehiscence (cervical) is the commonest site of IATROGENIC (endoscopic) perforation. The abdominal oesophagus is not the typical site. A Mallory–Weiss tear is only a MUCOSAL tear, near the GE junction.</p><div class="one"><b>One-liner to remember: Boerhaave = full-thickness tear, left posterolateral distal oesophagus; iatrogenic perforation = cervical (Killian&#x27;s).</b></div><div class="credit">Concept: Boerhaave syndrome – site of rupture</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>This is Boerhaave syndrome (spontaneous full-thickness rupture), shown by Mackler&#x27;s triad: vomiting, chest pain and subcutaneous emphysema. Correct: the tear is usually in the LEFT posterolateral wall of the distal oesophagus, 2–3 cm above the GE junction, where the wall is weakest and has no supporting structures. That is why a LEFT pleural effusion or pneumothorax follows. Diagnose with a water-soluble contrast swallow or CT. Why the others are wrong: the mid-oesophagus is not the usual site. Killian&#x27;s dehiscence (cervical) is the commonest site of IATROGENIC (endoscopic) perforation. The abdominal oesophagus is not the typical site. A Mallory–Weiss tear is only a MUCOSAL tear, near the GE junction.</p><div class="one"><b>One-liner to remember: Boerhaave = full-thickness tear, left posterolateral distal oesophagus; iatrogenic perforation = cervical (Killian&#x27;s).</b></div><div class="credit">Concept: Boerhaave syndrome – site of rupture</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q1" aria-label="Doubt about question 1"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><span class="btn dis">‹ Prev</span><label class="btn primary" for="p2">Next ›</label></div>
 </section>
@@ -186,7 +214,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s2" name="Q2-02" id="a2_2" value="Q2-02 | OBG | FIGO 2018 staging of carcinoma cervix | chose C: IIIC1 | correct D: IIIC2 | WRONG" data-tag="Q2-02 OBG: FIGO 2018 staging of carcinoma cervix"><label class="opt" for="a2_2"><span class="l">C</span><span class="t">IIIC1</span><span class="m"></span></label>
 <input type="radio" class="ans c s2" name="Q2-02" id="a2_3" value="Q2-02 | OBG | FIGO 2018 staging of carcinoma cervix | chose D: IIIC2 | correct D: IIIC2 | RIGHT" data-tag="Q2-02 OBG: FIGO 2018 staging of carcinoma cervix"><label class="opt" for="a2_3"><span class="l">D</span><span class="t">IIIC2</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. IIIC2</div>
-<div class="expl"><h4>Explanation</h4><p>FIGO 2018 added lymph-node status to staging. Correct: para-aortic node involvement = IIIC2 (with an &#x27;r&#x27; for radiology or &#x27;p&#x27; for pathology). Why the others are wrong: IIIC1 = PELVIC lymph nodes only. IVA = spread to the mucosa of the bladder or rectum. IVB = distant metastasis (for example lung, liver, bone, or inguinal and supraclavicular nodes). Para-aortic nodes are regional, so the stage is IIIC2, not IVB – a commonly forgotten update.</p><div class="one"><b>One-liner to remember: FIGO 2018 cervix: pelvic nodes IIIC1, para-aortic IIIC2, bladder/rectal mucosa IVA, distant IVB.</b></div><div class="credit">Concept: FIGO 2018 staging of carcinoma cervix</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>FIGO 2018 added lymph-node status to staging. Correct: para-aortic node involvement = IIIC2 (with an &#x27;r&#x27; for radiology or &#x27;p&#x27; for pathology). Why the others are wrong: IIIC1 = PELVIC lymph nodes only. IVA = spread to the mucosa of the bladder or rectum. IVB = distant metastasis (for example lung, liver, bone, or inguinal and supraclavicular nodes). Para-aortic nodes are regional, so the stage is IIIC2, not IVB – a commonly forgotten update.</p><div class="one"><b>One-liner to remember: FIGO 2018 cervix: pelvic nodes IIIC1, para-aortic IIIC2, bladder/rectal mucosa IVA, distant IVB.</b></div><div class="credit">Concept: FIGO 2018 staging of carcinoma cervix</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q2" aria-label="Doubt about question 2"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p1">‹ Prev</label><label class="btn primary" for="p3">Next ›</label></div>
 </section>
@@ -198,7 +233,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s10" name="Q2-03" id="a3_2" value="Q2-03 | Surgery | Gallstone pancreatitis – timing of cholecystectomy | chose C: Emergency cholecystectomy within 24 hours of admission | correct B: During the same admission, once the pancreatitis has settled | WRONG" data-tag="Q2-03 Surgery: Gallstone pancreatitis – timing of cholecystectomy"><label class="opt" for="a3_2"><span class="l">C</span><span class="t">Emergency cholecystectomy within 24 hours of admission</span><span class="m"></span></label>
 <input type="radio" class="ans w s10" name="Q2-03" id="a3_3" value="Q2-03 | Surgery | Gallstone pancreatitis – timing of cholecystectomy | chose D: Only if a second attack of pancreatitis occurs | correct B: During the same admission, once the pancreatitis has settled | WRONG" data-tag="Q2-03 Surgery: Gallstone pancreatitis – timing of cholecystectomy"><label class="opt" for="a3_3"><span class="l">D</span><span class="t">Only if a second attack of pancreatitis occurs</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. During the same admission, once the pancreatitis has settled</div>
-<div class="expl"><h4>Explanation</h4><p>Correct: after MILD gallstone pancreatitis, laparoscopic cholecystectomy should be done during the SAME admission (or within about 2 weeks). Delaying it leads to recurrent pancreatitis, cholangitis or cholecystitis in up to 25–30% of patients. Why the others are wrong: delaying 6–8 weeks is for SEVERE pancreatitis with peripancreatic collections or necrosis. Waiting for a second attack is unsafe. Very early surgery in the acute phase is not recommended; urgent ERCP within 24–72 h is reserved for co-existing CHOLANGITIS or persistent biliary obstruction.</p><div class="one"><b>One-liner to remember: Mild biliary pancreatitis → cholecystectomy same admission; severe with collections → delay ~6 weeks; ERCP only for cholangitis/obstruction.</b></div><div class="credit">Concept: Gallstone pancreatitis – timing of cholecystectomy</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Correct: after MILD gallstone pancreatitis, laparoscopic cholecystectomy should be done during the SAME admission (or within about 2 weeks). Delaying it leads to recurrent pancreatitis, cholangitis or cholecystitis in up to 25–30% of patients. Why the others are wrong: delaying 6–8 weeks is for SEVERE pancreatitis with peripancreatic collections or necrosis. Waiting for a second attack is unsafe. Very early surgery in the acute phase is not recommended; urgent ERCP within 24–72 h is reserved for co-existing CHOLANGITIS or persistent biliary obstruction.</p><div class="one"><b>One-liner to remember: Mild biliary pancreatitis → cholecystectomy same admission; severe with collections → delay ~6 weeks; ERCP only for cholangitis/obstruction.</b></div><div class="credit">Concept: Gallstone pancreatitis – timing of cholecystectomy</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q3" aria-label="Doubt about question 3"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p2">‹ Prev</label><label class="btn primary" for="p4">Next ›</label></div>
 </section>
@@ -210,7 +252,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s4" name="Q2-04" id="a4_2" value="Q2-04 | PSM / Community Medicine | Attributable risk (percent) | chose C: 30% | correct A: 75% | WRONG" data-tag="Q2-04 PSM / Community Medicine: Attributable risk (percent)"><label class="opt" for="a4_2"><span class="l">C</span><span class="t">30%</span><span class="m"></span></label>
 <input type="radio" class="ans w s4" name="Q2-04" id="a4_3" value="Q2-04 | PSM / Community Medicine | Attributable risk (percent) | chose D: 25% | correct A: 75% | WRONG" data-tag="Q2-04 PSM / Community Medicine: Attributable risk (percent)"><label class="opt" for="a4_3"><span class="l">D</span><span class="t">25%</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. 75%</div>
-<div class="expl"><h4>Explanation</h4><p>Attributable risk % = (incidence in exposed − incidence in non-exposed) ÷ incidence in exposed × 100 = (40 − 10) ÷ 40 × 100 = 75%. This means 75% of lung cancer among smokers is due to smoking and could be prevented by stopping. Why the others are wrong: &#x27;30%&#x27; confuses the absolute risk difference (30 per 1000) with a percentage. 25% is the non-exposed incidence as a fraction of the exposed (10 ÷ 40). 4 is the RELATIVE RISK (40 ÷ 10), which measures the strength of association, not attributable risk.</p><div class="one"><b>One-liner to remember: RR = Ie/Iu (strength of association); AR% = (Ie − Iu)/Ie × 100 (preventable fraction).</b></div><div class="credit">Concept: Attributable risk (percent)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Attributable risk % = (incidence in exposed − incidence in non-exposed) ÷ incidence in exposed × 100 = (40 − 10) ÷ 40 × 100 = 75%. This means 75% of lung cancer among smokers is due to smoking and could be prevented by stopping. Why the others are wrong: &#x27;30%&#x27; confuses the absolute risk difference (30 per 1000) with a percentage. 25% is the non-exposed incidence as a fraction of the exposed (10 ÷ 40). 4 is the RELATIVE RISK (40 ÷ 10), which measures the strength of association, not attributable risk.</p><div class="one"><b>One-liner to remember: RR = Ie/Iu (strength of association); AR% = (Ie − Iu)/Ie × 100 (preventable fraction).</b></div><div class="credit">Concept: Attributable risk (percent)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q4" aria-label="Doubt about question 4"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p3">‹ Prev</label><label class="btn primary" for="p5">Next ›</label></div>
 </section>
@@ -222,7 +271,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s2" name="Q2-05" id="a5_2" value="Q2-05 | OBG | Anti-D immunoglobulin dosing | chose C: 5 mL of fetal whole blood | correct B: 30 mL of fetal whole blood (about 15 mL fetal red cells) | WRONG" data-tag="Q2-05 OBG: Anti-D immunoglobulin dosing"><label class="opt" for="a5_2"><span class="l">C</span><span class="t">5 mL of fetal whole blood</span><span class="m"></span></label>
 <input type="radio" class="ans w s2" name="Q2-05" id="a5_3" value="Q2-05 | OBG | Anti-D immunoglobulin dosing | chose D: 15 mL of fetal whole blood | correct B: 30 mL of fetal whole blood (about 15 mL fetal red cells) | WRONG" data-tag="Q2-05 OBG: Anti-D immunoglobulin dosing"><label class="opt" for="a5_3"><span class="l">D</span><span class="t">15 mL of fetal whole blood</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. 30 mL of fetal whole blood (about 15 mL fetal red cells)</div>
-<div class="expl"><h4>Explanation</h4><p>Correct: 300 µg anti-D neutralises about 30 mL of fetal WHOLE blood, equal to roughly 15 mL of fetal RED CELLS (Williams). Give it within 72 hours of delivery. If the Kleihauer–Betke test (or flow cytometry) shows a larger bleed, give an extra dose for each additional 30 mL. Why the others are wrong: &#x27;15 mL&#x27; confuses whole blood with packed red cells – the classic trap. 5 mL is too low, and 300 mL is a confusion with the µg dose figure. In the first trimester 50 µg is enough because the fetal blood volume is small.</p><div class="one"><b>One-liner to remember: 300 µg anti-D = 30 mL fetal whole blood = 15 mL fetal RBCs; give within 72 h.</b></div><div class="credit">Concept: Anti-D immunoglobulin dosing</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Correct: 300 µg anti-D neutralises about 30 mL of fetal WHOLE blood, equal to roughly 15 mL of fetal RED CELLS (Williams). Give it within 72 hours of delivery. If the Kleihauer–Betke test (or flow cytometry) shows a larger bleed, give an extra dose for each additional 30 mL. Why the others are wrong: &#x27;15 mL&#x27; confuses whole blood with packed red cells – the classic trap. 5 mL is too low, and 300 mL is a confusion with the µg dose figure. In the first trimester 50 µg is enough because the fetal blood volume is small.</p><div class="one"><b>One-liner to remember: 300 µg anti-D = 30 mL fetal whole blood = 15 mL fetal RBCs; give within 72 h.</b></div><div class="credit">Concept: Anti-D immunoglobulin dosing</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q5" aria-label="Doubt about question 5"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p4">‹ Prev</label><label class="btn primary" for="p6">Next ›</label></div>
 </section>
@@ -234,7 +290,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s6" name="Q2-06" id="a6_2" value="Q2-06 | Pediatrics | Measles – infectivity, Koplik spots, vitamin A | chose C: Vitamin A is indicated only if the child has signs of xerophthalmia | correct D: The child is infectious from about 4 days before to 4 days after the rash appears | WRONG" data-tag="Q2-06 Pediatrics: Measles – infectivity, Koplik spots, vitamin A"><label class="opt" for="a6_2"><span class="l">C</span><span class="t">Vitamin A is indicated only if the child has signs of xerophthalmia</span><span class="m"></span></label>
 <input type="radio" class="ans c s6" name="Q2-06" id="a6_3" value="Q2-06 | Pediatrics | Measles – infectivity, Koplik spots, vitamin A | chose D: The child is infectious from about 4 days before to 4 days after the rash appears | correct D: The child is infectious from about 4 days before to 4 days after the rash appears | RIGHT" data-tag="Q2-06 Pediatrics: Measles – infectivity, Koplik spots, vitamin A"><label class="opt" for="a6_3"><span class="l">D</span><span class="t">The child is infectious from about 4 days before to 4 days after the rash appears</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. The child is infectious from about 4 days before to 4 days after the rash appears</div>
-<div class="expl"><h4>Explanation</h4><p>The image shows Koplik spots (tiny grey-white &#x27;grains of salt&#x27; on a red base) – pathognomonic of measles in the prodrome. Correct: measles is infectious from ~4 days before to ~4 days after rash onset (Park), so isolate till day 4 of rash. Why the others are wrong: Koplik spots appear 1–2 days BEFORE the rash and fade within 2–3 days after it appears – they are not a late sign. The commonest cause of death is PNEUMONIA (viral or secondary bacterial); SSPE is rare and appears 7–10 years later. Vitamin A is given to EVERY child with measles (WHO: 2 doses 24 h apart, age-appropriate dose; a 3rd dose a few weeks later if there are eye signs) because it cuts mortality and blindness.</p><div class="one"><b>One-liner to remember: Koplik spots precede rash; infectious 4 days before → 4 days after rash; death = pneumonia; vitamin A to ALL measles cases.</b></div><div class="credit">Concept: Measles – infectivity, Koplik spots, vitamin A</div><div class="credit">Image: Koplik spots – CDC / Wikimedia Commons, public domain (<a href="https://commons.wikimedia.org/wiki/File:Koplik_spots,_measles_6111_lores.jpg" target="_blank" rel="noopener">source</a>)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>The image shows Koplik spots (tiny grey-white &#x27;grains of salt&#x27; on a red base) – pathognomonic of measles in the prodrome. Correct: measles is infectious from ~4 days before to ~4 days after rash onset (Park), so isolate till day 4 of rash. Why the others are wrong: Koplik spots appear 1–2 days BEFORE the rash and fade within 2–3 days after it appears – they are not a late sign. The commonest cause of death is PNEUMONIA (viral or secondary bacterial); SSPE is rare and appears 7–10 years later. Vitamin A is given to EVERY child with measles (WHO: 2 doses 24 h apart, age-appropriate dose; a 3rd dose a few weeks later if there are eye signs) because it cuts mortality and blindness.</p><div class="one"><b>One-liner to remember: Koplik spots precede rash; infectious 4 days before → 4 days after rash; death = pneumonia; vitamin A to ALL measles cases.</b></div><div class="credit">Concept: Measles – infectivity, Koplik spots, vitamin A</div><div class="credit">Image: Koplik spots – CDC / Wikimedia Commons, public domain (<a href="https://commons.wikimedia.org/wiki/File:Koplik_spots,_measles_6111_lores.jpg" target="_blank" rel="noopener">source</a>)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q6" aria-label="Doubt about question 6"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p5">‹ Prev</label><label class="btn primary" for="p7">Next ›</label></div>
 </section>
@@ -246,7 +309,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s0" name="Q2-07" id="a7_2" value="Q2-07 | Medicine | Heparin-induced thrombocytopenia – management | chose C: Transfuse platelets | correct D: Stop all heparin and start a non-heparin anticoagulant (e.g. argatroban or fondaparinux) | WRONG" data-tag="Q2-07 Medicine: Heparin-induced thrombocytopenia – management"><label class="opt" for="a7_2"><span class="l">C</span><span class="t">Transfuse platelets</span><span class="m"></span></label>
 <input type="radio" class="ans c s0" name="Q2-07" id="a7_3" value="Q2-07 | Medicine | Heparin-induced thrombocytopenia – management | chose D: Stop all heparin and start a non-heparin anticoagulant (e.g. argatroban or fondaparinux) | correct D: Stop all heparin and start a non-heparin anticoagulant (e.g. argatroban or fondaparinux) | RIGHT" data-tag="Q2-07 Medicine: Heparin-induced thrombocytopenia – management"><label class="opt" for="a7_3"><span class="l">D</span><span class="t">Stop all heparin and start a non-heparin anticoagulant (e.g. argatroban or fondaparinux)</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. Stop all heparin and start a non-heparin anticoagulant (e.g. argatroban or fondaparinux)</div>
-<div class="expl"><h4>Explanation</h4><p>This is type II HIT: IgG antibodies against the heparin–PF4 complex activate platelets, causing thrombocytopenia with paradoxical THROMBOSIS, typically 5–10 days after starting heparin (4T score). Correct: stop ALL heparin (including flushes) and start a non-heparin anticoagulant – argatroban, bivalirudin, fondaparinux or a DOAC. Why the others are wrong: LMWH cross-reacts with the antibodies. Starting warfarin acutely lowers protein C quickly and can cause venous limb gangrene or skin necrosis – start it only once platelets recover (≥150 × 10⁹/L), overlapping with another agent. Platelet transfusion can fuel thrombosis and is avoided unless there is bleeding.</p><div class="one"><b>One-liner to remember: HIT = thrombosis, not bleeding: stop all heparin, give argatroban/fondaparinux; no LMWH, no early warfarin, no platelets.</b></div><div class="credit">Concept: Heparin-induced thrombocytopenia – management</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>This is type II HIT: IgG antibodies against the heparin–PF4 complex activate platelets, causing thrombocytopenia with paradoxical THROMBOSIS, typically 5–10 days after starting heparin (4T score). Correct: stop ALL heparin (including flushes) and start a non-heparin anticoagulant – argatroban, bivalirudin, fondaparinux or a DOAC. Why the others are wrong: LMWH cross-reacts with the antibodies. Starting warfarin acutely lowers protein C quickly and can cause venous limb gangrene or skin necrosis – start it only once platelets recover (≥150 × 10⁹/L), overlapping with another agent. Platelet transfusion can fuel thrombosis and is avoided unless there is bleeding.</p><div class="one"><b>One-liner to remember: HIT = thrombosis, not bleeding: stop all heparin, give argatroban/fondaparinux; no LMWH, no early warfarin, no platelets.</b></div><div class="credit">Concept: Heparin-induced thrombocytopenia – management</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q7" aria-label="Doubt about question 7"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p6">‹ Prev</label><label class="btn primary" for="p8">Next ›</label></div>
 </section>
@@ -258,7 +328,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s9" name="Q2-08" id="a8_2" value="Q2-08 | Psychiatry | Alcohol withdrawal timeline | chose C: 48–72 hours after the last drink | correct C: 48–72 hours after the last drink | RIGHT" data-tag="Q2-08 Psychiatry: Alcohol withdrawal timeline"><label class="opt" for="a8_2"><span class="l">C</span><span class="t">48–72 hours after the last drink</span><span class="m"></span></label>
 <input type="radio" class="ans w s9" name="Q2-08" id="a8_3" value="Q2-08 | Psychiatry | Alcohol withdrawal timeline | chose D: 7–10 days after the last drink | correct C: 48–72 hours after the last drink | WRONG" data-tag="Q2-08 Psychiatry: Alcohol withdrawal timeline"><label class="opt" for="a8_3"><span class="l">D</span><span class="t">7–10 days after the last drink</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. 48–72 hours after the last drink</div>
-<div class="expl"><h4>Explanation</h4><p>Know the withdrawal timeline. Correct: delirium tremens (confusion, coarse tremor, visual hallucinations, autonomic hyperactivity) usually starts 48–72 hours after the last drink, peaks around day 3 and lasts 3–5 days; untreated mortality can reach 5–15%. Why the others are wrong: 6–12 h is minor withdrawal (tremor, anxiety, sweating). 12–48 h is when withdrawal SEIZURES (rum fits) and alcoholic hallucinosis (auditory hallucinations with a clear sensorium) occur. Symptoms starting after 7–10 days suggest another cause. Treatment: benzodiazepines (chlordiazepoxide, or lorazepam/oxazepam if the liver is diseased) plus thiamine BEFORE glucose.</p><div class="one"><b>One-liner to remember: Withdrawal: tremor 6–12 h → seizures/hallucinosis 12–48 h → DT 48–72 h.</b></div><div class="credit">Concept: Alcohol withdrawal timeline</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Know the withdrawal timeline. Correct: delirium tremens (confusion, coarse tremor, visual hallucinations, autonomic hyperactivity) usually starts 48–72 hours after the last drink, peaks around day 3 and lasts 3–5 days; untreated mortality can reach 5–15%. Why the others are wrong: 6–12 h is minor withdrawal (tremor, anxiety, sweating). 12–48 h is when withdrawal SEIZURES (rum fits) and alcoholic hallucinosis (auditory hallucinations with a clear sensorium) occur. Symptoms starting after 7–10 days suggest another cause. Treatment: benzodiazepines (chlordiazepoxide, or lorazepam/oxazepam if the liver is diseased) plus thiamine BEFORE glucose.</p><div class="one"><b>One-liner to remember: Withdrawal: tremor 6–12 h → seizures/hallucinosis 12–48 h → DT 48–72 h.</b></div><div class="credit">Concept: Alcohol withdrawal timeline</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q8" aria-label="Doubt about question 8"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p7">‹ Prev</label><label class="btn primary" for="p9">Next ›</label></div>
 </section>
@@ -270,7 +347,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s1" name="Q2-09" id="a9_2" value="Q2-09 | Microbiology | Sterilisation – prions resist autoclaving | chose C: Hepatitis B virus | correct A: Prions | WRONG" data-tag="Q2-09 Microbiology: Sterilisation – prions resist autoclaving"><label class="opt" for="a9_2"><span class="l">C</span><span class="t">Hepatitis B virus</span><span class="m"></span></label>
 <input type="radio" class="ans w s1" name="Q2-09" id="a9_3" value="Q2-09 | Microbiology | Sterilisation – prions resist autoclaving | chose D: Spores of Geobacillus stearothermophilus | correct A: Prions | WRONG" data-tag="Q2-09 Microbiology: Sterilisation – prions resist autoclaving"><label class="opt" for="a9_3"><span class="l">D</span><span class="t">Spores of Geobacillus stearothermophilus</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. Prions</div>
-<div class="expl"><h4>Explanation</h4><p>Correct: prions are highly resistant to heat, formalin, radiation and UV. They need extended autoclaving (134 °C for at least 18 minutes, porous load) or 1N NaOH / sodium hypochlorite treatment followed by autoclaving, and instruments are often discarded. Why the others are wrong: Geobacillus (Bacillus) stearothermophilus spores are among the most heat-resistant spores, which is exactly why they are the BIOLOGICAL INDICATOR for autoclaves – a proper cycle kills them. HBV and Clostridium tetani spores are also killed by a standard cycle.</p><div class="one"><b>One-liner to remember: Autoclave indicator = Geobacillus stearothermophilus; prions need 134 °C ≥18 min ± NaOH.</b></div><div class="credit">Concept: Sterilisation – prions resist autoclaving</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Correct: prions are highly resistant to heat, formalin, radiation and UV. They need extended autoclaving (134 °C for at least 18 minutes, porous load) or 1N NaOH / sodium hypochlorite treatment followed by autoclaving, and instruments are often discarded. Why the others are wrong: Geobacillus (Bacillus) stearothermophilus spores are among the most heat-resistant spores, which is exactly why they are the BIOLOGICAL INDICATOR for autoclaves – a proper cycle kills them. HBV and Clostridium tetani spores are also killed by a standard cycle.</p><div class="one"><b>One-liner to remember: Autoclave indicator = Geobacillus stearothermophilus; prions need 134 °C ≥18 min ± NaOH.</b></div><div class="credit">Concept: Sterilisation – prions resist autoclaving</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q9" aria-label="Doubt about question 9"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p8">‹ Prev</label><label class="btn primary" for="p10">Next ›</label></div>
 </section>
@@ -282,7 +366,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s5" name="Q2-10" id="a10_2" value="Q2-10 | Pathology | Reversible vs irreversible cell injury (EM) | chose C: Plasma membrane blebbing | correct D: Large, flocculent, amorphous densities in mitochondria | WRONG" data-tag="Q2-10 Pathology: Reversible vs irreversible cell injury (EM)"><label class="opt" for="a10_2"><span class="l">C</span><span class="t">Plasma membrane blebbing</span><span class="m"></span></label>
 <input type="radio" class="ans c s5" name="Q2-10" id="a10_3" value="Q2-10 | Pathology | Reversible vs irreversible cell injury (EM) | chose D: Large, flocculent, amorphous densities in mitochondria | correct D: Large, flocculent, amorphous densities in mitochondria | RIGHT" data-tag="Q2-10 Pathology: Reversible vs irreversible cell injury (EM)"><label class="opt" for="a10_3"><span class="l">D</span><span class="t">Large, flocculent, amorphous densities in mitochondria</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. Large, flocculent, amorphous densities in mitochondria</div>
-<div class="expl"><h4>Explanation</h4><p>Robbins: the two hallmarks of irreversibility are the inability to restore MITOCHONDRIAL function and severe damage to MEMBRANES. Correct: large flocculent (amorphous) densities in mitochondria, together with nuclear changes (pyknosis, karyorrhexis, karyolysis) and membrane rupture, mean the cell will die. Why the others are wrong: cellular swelling (the earliest change), plasma membrane blebbing, ER dilatation, detachment of ribosomes and myelin figures are all features of REVERSIBLE injury in Robbins.</p><div class="one"><b>One-liner to remember: Irreversible = mitochondrial flocculent densities + membrane rupture + nuclear changes; swelling = earliest reversible change.</b></div><div class="credit">Concept: Reversible vs irreversible cell injury (EM)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Robbins: the two hallmarks of irreversibility are the inability to restore MITOCHONDRIAL function and severe damage to MEMBRANES. Correct: large flocculent (amorphous) densities in mitochondria, together with nuclear changes (pyknosis, karyorrhexis, karyolysis) and membrane rupture, mean the cell will die. Why the others are wrong: cellular swelling (the earliest change), plasma membrane blebbing, ER dilatation, detachment of ribosomes and myelin figures are all features of REVERSIBLE injury in Robbins.</p><div class="one"><b>One-liner to remember: Irreversible = mitochondrial flocculent densities + membrane rupture + nuclear changes; swelling = earliest reversible change.</b></div><div class="credit">Concept: Reversible vs irreversible cell injury (EM)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q10" aria-label="Doubt about question 10"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p9">‹ Prev</label><label class="btn primary" for="p11">Next ›</label></div>
 </section>
@@ -294,7 +385,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s1" name="Q2-11" id="a11_2" value="Q2-11 | Microbiology | Dengue – test according to day of illness | chose C: NS1 antigen ELISA | correct C: NS1 antigen ELISA | RIGHT" data-tag="Q2-11 Microbiology: Dengue – test according to day of illness"><label class="opt" for="a11_2"><span class="l">C</span><span class="t">NS1 antigen ELISA</span><span class="m"></span></label>
 <input type="radio" class="ans w s1" name="Q2-11" id="a11_3" value="Q2-11 | Microbiology | Dengue – test according to day of illness | chose D: IgM capture ELISA | correct C: NS1 antigen ELISA | WRONG" data-tag="Q2-11 Microbiology: Dengue – test according to day of illness"><label class="opt" for="a11_3"><span class="l">D</span><span class="t">IgM capture ELISA</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. NS1 antigen ELISA</div>
-<div class="expl"><h4>Explanation</h4><p>Correct: NS1 antigen (or RT-PCR) is positive from day 1 to about day 5 of fever, so it is the test of choice early. Why the others are wrong: IgM becomes detectable only after about day 5, so it can be falsely negative on day 2. IgG rises late in primary infection (early and high in secondary infection) and does not confirm acute illness early. The tourniquet test shows capillary fragility, is non-specific and does not confirm dengue.</p><div class="one"><b>One-liner to remember: Dengue: day 1–5 → NS1/RT-PCR; after day 5 → IgM ELISA.</b></div><div class="credit">Concept: Dengue – test according to day of illness</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Correct: NS1 antigen (or RT-PCR) is positive from day 1 to about day 5 of fever, so it is the test of choice early. Why the others are wrong: IgM becomes detectable only after about day 5, so it can be falsely negative on day 2. IgG rises late in primary infection (early and high in secondary infection) and does not confirm acute illness early. The tourniquet test shows capillary fragility, is non-specific and does not confirm dengue.</p><div class="one"><b>One-liner to remember: Dengue: day 1–5 → NS1/RT-PCR; after day 5 → IgM ELISA.</b></div><div class="credit">Concept: Dengue – test according to day of illness</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q11" aria-label="Doubt about question 11"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p10">‹ Prev</label><label class="btn primary" for="p12">Next ›</label></div>
 </section>
@@ -306,7 +404,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s2" name="Q2-12" id="a12_2" value="Q2-12 | OBG | Ovarian tumour most prone to torsion | chose C: Mature cystic teratoma (dermoid cyst) | correct C: Mature cystic teratoma (dermoid cyst) | RIGHT" data-tag="Q2-12 OBG: Ovarian tumour most prone to torsion"><label class="opt" for="a12_2"><span class="l">C</span><span class="t">Mature cystic teratoma (dermoid cyst)</span><span class="m"></span></label>
 <input type="radio" class="ans w s2" name="Q2-12" id="a12_3" value="Q2-12 | OBG | Ovarian tumour most prone to torsion | chose D: Serous cystadenoma | correct C: Mature cystic teratoma (dermoid cyst) | WRONG" data-tag="Q2-12 OBG: Ovarian tumour most prone to torsion"><label class="opt" for="a12_3"><span class="l">D</span><span class="t">Serous cystadenoma</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. Mature cystic teratoma (dermoid cyst)</div>
-<div class="expl"><h4>Explanation</h4><p>Correct: the dermoid cyst is the ovarian tumour most prone to torsion (DC Dutta) – it is moderate-sized, has a long pedicle and is heavy because of its fat, hair and teeth, and it is common in young women and pregnancy. Why the others are wrong: serous cystadenoma is the commonest benign EPITHELIAL tumour but tortes less often. Mucinous cystadenomas grow very large and fill the pelvis, which limits their movement. Fibromas are solid and are better known for Meigs syndrome.</p><div class="one"><b>One-liner to remember: Commonest ovarian tumour to tort = dermoid (also the commonest ovarian tumour in pregnancy).</b></div><div class="credit">Concept: Ovarian tumour most prone to torsion</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Correct: the dermoid cyst is the ovarian tumour most prone to torsion (DC Dutta) – it is moderate-sized, has a long pedicle and is heavy because of its fat, hair and teeth, and it is common in young women and pregnancy. Why the others are wrong: serous cystadenoma is the commonest benign EPITHELIAL tumour but tortes less often. Mucinous cystadenomas grow very large and fill the pelvis, which limits their movement. Fibromas are solid and are better known for Meigs syndrome.</p><div class="one"><b>One-liner to remember: Commonest ovarian tumour to tort = dermoid (also the commonest ovarian tumour in pregnancy).</b></div><div class="credit">Concept: Ovarian tumour most prone to torsion</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q12" aria-label="Doubt about question 12"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p11">‹ Prev</label><label class="btn primary" for="p13">Next ›</label></div>
 </section>
@@ -318,7 +423,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s3" name="Q2-13" id="a13_2" value="Q2-13 | Orthopedics | Monteggia fracture-dislocation – nerve injury | chose C: Posterior interosseous nerve | correct C: Posterior interosseous nerve | RIGHT" data-tag="Q2-13 Orthopedics: Monteggia fracture-dislocation – nerve injury"><label class="opt" for="a13_2"><span class="l">C</span><span class="t">Posterior interosseous nerve</span><span class="m"></span></label>
 <input type="radio" class="ans w s3" name="Q2-13" id="a13_3" value="Q2-13 | Orthopedics | Monteggia fracture-dislocation – nerve injury | chose D: Ulnar nerve | correct C: Posterior interosseous nerve | WRONG" data-tag="Q2-13 Orthopedics: Monteggia fracture-dislocation – nerve injury"><label class="opt" for="a13_3"><span class="l">D</span><span class="t">Ulnar nerve</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. Posterior interosseous nerve</div>
-<div class="expl"><h4>Explanation</h4><p>This is a Monteggia fracture-dislocation (Bado type I, the commonest type, has the radial head dislocated anteriorly). Correct: the posterior interosseous nerve (deep branch of the radial nerve) winds round the radial neck through the supinator and is stretched by the dislocated radial head. The result is finger and thumb drop WITHOUT wrist drop and without sensory loss. Why the others are wrong: the ulnar nerve is classically injured with medial epicondyle fractures. The anterior interosseous nerve is classically injured in supracondylar humerus fractures. The median nerve is not typically injured in Monteggia. Compare GALEAZZI: fracture of the distal radius with dislocation of the distal radio-ulnar joint (DRUJ).</p><div class="one"><b>One-liner to remember: Monteggia = ulna fracture + radial head dislocation → PIN palsy; Galeazzi = radius fracture + DRUJ dislocation.</b></div><div class="credit">Concept: Monteggia fracture-dislocation – nerve injury</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>This is a Monteggia fracture-dislocation (Bado type I, the commonest type, has the radial head dislocated anteriorly). Correct: the posterior interosseous nerve (deep branch of the radial nerve) winds round the radial neck through the supinator and is stretched by the dislocated radial head. The result is finger and thumb drop WITHOUT wrist drop and without sensory loss. Why the others are wrong: the ulnar nerve is classically injured with medial epicondyle fractures. The anterior interosseous nerve is classically injured in supracondylar humerus fractures. The median nerve is not typically injured in Monteggia. Compare GALEAZZI: fracture of the distal radius with dislocation of the distal radio-ulnar joint (DRUJ).</p><div class="one"><b>One-liner to remember: Monteggia = ulna fracture + radial head dislocation → PIN palsy; Galeazzi = radius fracture + DRUJ dislocation.</b></div><div class="credit">Concept: Monteggia fracture-dislocation – nerve injury</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q13" aria-label="Doubt about question 13"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p12">‹ Prev</label><label class="btn primary" for="p14">Next ›</label></div>
 </section>
@@ -330,7 +442,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s1" name="Q2-14" id="a14_2" value="Q2-14 | Microbiology | Hepatitis B serology – window period | chose C: Chronic hepatitis B carrier | correct B: Window period of acute hepatitis B | WRONG" data-tag="Q2-14 Microbiology: Hepatitis B serology – window period"><label class="opt" for="a14_2"><span class="l">C</span><span class="t">Chronic hepatitis B carrier</span><span class="m"></span></label>
 <input type="radio" class="ans w s1" name="Q2-14" id="a14_3" value="Q2-14 | Microbiology | Hepatitis B serology – window period | chose D: Past infection with recovery | correct B: Window period of acute hepatitis B | WRONG" data-tag="Q2-14 Microbiology: Hepatitis B serology – window period"><label class="opt" for="a14_3"><span class="l">D</span><span class="t">Past infection with recovery</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. Window period of acute hepatitis B</div>
-<div class="expl"><h4>Explanation</h4><p>Correct: in the WINDOW PERIOD, HBsAg has disappeared but anti-HBs has not yet appeared, so IgM anti-HBc is the ONLY marker of acute infection. Why the others are wrong: vaccination produces ONLY anti-HBs (anti-HBc is negative, because the vaccine contains surface antigen only). A chronic carrier is HBsAg-positive for more than 6 months, with IgG anti-HBc. Past infection with recovery shows anti-HBs plus IgG (total) anti-HBc, with HBsAg negative.</p><div class="one"><b>One-liner to remember: Only IgM anti-HBc positive = window period; only anti-HBs = vaccinated.</b></div><div class="credit">Concept: Hepatitis B serology – window period</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Correct: in the WINDOW PERIOD, HBsAg has disappeared but anti-HBs has not yet appeared, so IgM anti-HBc is the ONLY marker of acute infection. Why the others are wrong: vaccination produces ONLY anti-HBs (anti-HBc is negative, because the vaccine contains surface antigen only). A chronic carrier is HBsAg-positive for more than 6 months, with IgG anti-HBc. Past infection with recovery shows anti-HBs plus IgG (total) anti-HBc, with HBsAg negative.</p><div class="one"><b>One-liner to remember: Only IgM anti-HBc positive = window period; only anti-HBs = vaccinated.</b></div><div class="credit">Concept: Hepatitis B serology – window period</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q14" aria-label="Doubt about question 14"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p13">‹ Prev</label><label class="btn primary" for="p15">Next ›</label></div>
 </section>
@@ -342,7 +461,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s6" name="Q2-15" id="a15_2" value="Q2-15 | Pediatrics | Physiological vs pathological neonatal jaundice | chose C: Jaundice persisting till day 10 in a well preterm baby | correct A: Clinically visible jaundice appearing within the first 24 hours of life | WRONG" data-tag="Q2-15 Pediatrics: Physiological vs pathological neonatal jaundice"><label class="opt" for="a15_2"><span class="l">C</span><span class="t">Jaundice persisting till day 10 in a well preterm baby</span><span class="m"></span></label>
 <input type="radio" class="ans w s6" name="Q2-15" id="a15_3" value="Q2-15 | Pediatrics | Physiological vs pathological neonatal jaundice | chose D: Jaundice first visible on day 3 in a well term baby | correct A: Clinically visible jaundice appearing within the first 24 hours of life | WRONG" data-tag="Q2-15 Pediatrics: Physiological vs pathological neonatal jaundice"><label class="opt" for="a15_3"><span class="l">D</span><span class="t">Jaundice first visible on day 3 in a well term baby</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. Clinically visible jaundice appearing within the first 24 hours of life</div>
-<div class="expl"><h4>Explanation</h4><p>Correct: jaundice in the first 24 hours is ALWAYS pathological – think haemolysis (Rh/ABO incompatibility, G6PD deficiency), sepsis or TORCH; check bilirubin urgently. Why the others are wrong: physiological jaundice appears after 24 h (usually day 2–3) in term babies and is normal. In preterm babies physiological jaundice peaks later (day 5–7) and can last up to about 2 weeks, so day 10 is still acceptable. Breast-milk jaundice (late onset, after day 5–7) can last 3–12 weeks in a thriving baby and is benign – continue breastfeeding, though prolonged jaundice still needs a check for conjugated bilirubin and hypothyroidism.</p><div class="one"><b>One-liner to remember: Jaundice &lt;24 h = always pathological (haemolysis first).</b></div><div class="credit">Concept: Physiological vs pathological neonatal jaundice</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Correct: jaundice in the first 24 hours is ALWAYS pathological – think haemolysis (Rh/ABO incompatibility, G6PD deficiency), sepsis or TORCH; check bilirubin urgently. Why the others are wrong: physiological jaundice appears after 24 h (usually day 2–3) in term babies and is normal. In preterm babies physiological jaundice peaks later (day 5–7) and can last up to about 2 weeks, so day 10 is still acceptable. Breast-milk jaundice (late onset, after day 5–7) can last 3–12 weeks in a thriving baby and is benign – continue breastfeeding, though prolonged jaundice still needs a check for conjugated bilirubin and hypothyroidism.</p><div class="one"><b>One-liner to remember: Jaundice &lt;24 h = always pathological (haemolysis first).</b></div><div class="credit">Concept: Physiological vs pathological neonatal jaundice</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q15" aria-label="Doubt about question 15"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p14">‹ Prev</label><label class="btn primary" for="p16">Next ›</label></div>
 </section>
@@ -354,7 +480,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s0" name="Q2-16" id="a16_2" value="Q2-16 | Medicine | Sick euthyroid (non-thyroidal illness) syndrome | chose C: Low total and free T3 with raised reverse T3 | correct C: Low total and free T3 with raised reverse T3 | RIGHT" data-tag="Q2-16 Medicine: Sick euthyroid (non-thyroidal illness) syndrome"><label class="opt" for="a16_2"><span class="l">C</span><span class="t">Low total and free T3 with raised reverse T3</span><span class="m"></span></label>
 <input type="radio" class="ans w s0" name="Q2-16" id="a16_3" value="Q2-16 | Medicine | Sick euthyroid (non-thyroidal illness) syndrome | chose D: Raised TSH with low free T4 | correct C: Low total and free T3 with raised reverse T3 | WRONG" data-tag="Q2-16 Medicine: Sick euthyroid (non-thyroidal illness) syndrome"><label class="opt" for="a16_3"><span class="l">D</span><span class="t">Raised TSH with low free T4</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. Low total and free T3 with raised reverse T3</div>
-<div class="expl"><h4>Explanation</h4><p>In non-thyroidal illness (sick euthyroid syndrome), cytokines and fasting reduce peripheral 5′-deiodinase, so less T4 is converted to T3 and more to reverse T3. Correct: low T3 with raised rT3 is the earliest and commonest change; TSH is usually normal, and in severe illness T4 also falls (a sign of poor prognosis). Why the others are wrong: raised TSH with low T4 is primary hypothyroidism (TSH can rise transiently during RECOVERY, which is a trap). Low TSH with high free T4 is thyrotoxicosis. Reverse T3 RISES, not falls. Do not treat with thyroid hormone.</p><div class="one"><b>One-liner to remember: Sick euthyroid: ↓T3, ↑rT3, normal TSH; ↓T4 = severe illness/poor prognosis.</b></div><div class="credit">Concept: Sick euthyroid (non-thyroidal illness) syndrome</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>In non-thyroidal illness (sick euthyroid syndrome), cytokines and fasting reduce peripheral 5′-deiodinase, so less T4 is converted to T3 and more to reverse T3. Correct: low T3 with raised rT3 is the earliest and commonest change; TSH is usually normal, and in severe illness T4 also falls (a sign of poor prognosis). Why the others are wrong: raised TSH with low T4 is primary hypothyroidism (TSH can rise transiently during RECOVERY, which is a trap). Low TSH with high free T4 is thyrotoxicosis. Reverse T3 RISES, not falls. Do not treat with thyroid hormone.</p><div class="one"><b>One-liner to remember: Sick euthyroid: ↓T3, ↑rT3, normal TSH; ↓T4 = severe illness/poor prognosis.</b></div><div class="credit">Concept: Sick euthyroid (non-thyroidal illness) syndrome</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q16" aria-label="Doubt about question 16"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p15">‹ Prev</label><label class="btn primary" for="p17">Next ›</label></div>
 </section>
@@ -366,7 +499,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s6" name="Q2-17" id="a17_2" value="Q2-17 | Pediatrics | Tetralogy of Fallot – hypercyanotic (Tet) spell | chose C: Phenylephrine | correct A: Isoprenaline (isoproterenol) infusion | WRONG" data-tag="Q2-17 Pediatrics: Tetralogy of Fallot – hypercyanotic (Tet) spell"><label class="opt" for="a17_2"><span class="l">C</span><span class="t">Phenylephrine</span><span class="m"></span></label>
 <input type="radio" class="ans w s6" name="Q2-17" id="a17_3" value="Q2-17 | Pediatrics | Tetralogy of Fallot – hypercyanotic (Tet) spell | chose D: Propranolol | correct A: Isoprenaline (isoproterenol) infusion | WRONG" data-tag="Q2-17 Pediatrics: Tetralogy of Fallot – hypercyanotic (Tet) spell"><label class="opt" for="a17_3"><span class="l">D</span><span class="t">Propranolol</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. Isoprenaline (isoproterenol) infusion</div>
-<div class="expl"><h4>Explanation</h4><p>This is a hypercyanotic (Tet) spell: infundibular spasm increases right-to-left shunt, so less blood crosses the pulmonary valve and the murmur SOFTENS. Correct: inotropes such as isoprenaline (and digoxin) increase contractility, worsen infundibular spasm and deepen cyanosis – they are contraindicated. Why the others are useful: phenylephrine raises systemic vascular resistance, pushing blood into the lungs. Morphine reduces hyperpnoea and catecholamine drive. Propranolol relaxes the infundibulum and slows the heart. Also used: knee-chest position, oxygen and sodium bicarbonate for acidosis.</p><div class="one"><b>One-liner to remember: Tet spell: knee-chest, O₂, morphine, propranolol, phenylephrine, NaHCO₃ – NO inotropes; murmur softens during spell.</b></div><div class="credit">Concept: Tetralogy of Fallot – hypercyanotic (Tet) spell</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>This is a hypercyanotic (Tet) spell: infundibular spasm increases right-to-left shunt, so less blood crosses the pulmonary valve and the murmur SOFTENS. Correct: inotropes such as isoprenaline (and digoxin) increase contractility, worsen infundibular spasm and deepen cyanosis – they are contraindicated. Why the others are useful: phenylephrine raises systemic vascular resistance, pushing blood into the lungs. Morphine reduces hyperpnoea and catecholamine drive. Propranolol relaxes the infundibulum and slows the heart. Also used: knee-chest position, oxygen and sodium bicarbonate for acidosis.</p><div class="one"><b>One-liner to remember: Tet spell: knee-chest, O₂, morphine, propranolol, phenylephrine, NaHCO₃ – NO inotropes; murmur softens during spell.</b></div><div class="credit">Concept: Tetralogy of Fallot – hypercyanotic (Tet) spell</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q17" aria-label="Doubt about question 17"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p16">‹ Prev</label><label class="btn primary" for="p18">Next ›</label></div>
 </section>
@@ -378,7 +518,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s1" name="Q2-18" id="a18_2" value="Q2-18 | Microbiology | Cryptococcal meningitis – diagnosis | chose C: Mucicarmine stain of CSF | correct B: Cryptococcal antigen (CrAg) lateral flow assay | WRONG" data-tag="Q2-18 Microbiology: Cryptococcal meningitis – diagnosis"><label class="opt" for="a18_2"><span class="l">C</span><span class="t">Mucicarmine stain of CSF</span><span class="m"></span></label>
 <input type="radio" class="ans w s1" name="Q2-18" id="a18_3" value="Q2-18 | Microbiology | Cryptococcal meningitis – diagnosis | chose D: Germ tube test | correct B: Cryptococcal antigen (CrAg) lateral flow assay | WRONG" data-tag="Q2-18 Microbiology: Cryptococcal meningitis – diagnosis"><label class="opt" for="a18_3"><span class="l">D</span><span class="t">Germ tube test</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. Cryptococcal antigen (CrAg) lateral flow assay</div>
-<div class="expl"><h4>Explanation</h4><p>The India ink preparation shows round budding yeasts with a wide clear halo – the polysaccharide CAPSULE of Cryptococcus neoformans. Correct: the CrAg lateral flow assay (or latex agglutination) on CSF or serum is &gt;95–99% sensitive and specific and is now the test of choice. Why the others are wrong: India ink is quick but only about 70–80% sensitive (less in HIV-negative patients). The germ tube test identifies CANDIDA albicans. Mucicarmine stains the capsule in TISSUE sections, not as a rapid CSF test. Treatment: amphotericin B + flucytosine induction, then fluconazole; measure opening pressure.</p><div class="one"><b>One-liner to remember: Crypto: India ink shows capsule, but CrAg is the most sensitive test; treat with amphotericin B + flucytosine.</b></div><div class="credit">Concept: Cryptococcal meningitis – diagnosis</div><div class="credit">Image: India ink preparation – CDC/Dr. Leanor Haley / Wikimedia Commons, public domain (<a href="https://commons.wikimedia.org/wiki/File:Cryptococcus_neoformans_using_a_light_India_ink_staining_preparation_PHIL_3771_lores.jpg" target="_blank" rel="noopener">source</a>)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>The India ink preparation shows round budding yeasts with a wide clear halo – the polysaccharide CAPSULE of Cryptococcus neoformans. Correct: the CrAg lateral flow assay (or latex agglutination) on CSF or serum is &gt;95–99% sensitive and specific and is now the test of choice. Why the others are wrong: India ink is quick but only about 70–80% sensitive (less in HIV-negative patients). The germ tube test identifies CANDIDA albicans. Mucicarmine stains the capsule in TISSUE sections, not as a rapid CSF test. Treatment: amphotericin B + flucytosine induction, then fluconazole; measure opening pressure.</p><div class="one"><b>One-liner to remember: Crypto: India ink shows capsule, but CrAg is the most sensitive test; treat with amphotericin B + flucytosine.</b></div><div class="credit">Concept: Cryptococcal meningitis – diagnosis</div><div class="credit">Image: India ink preparation – CDC/Dr. Leanor Haley / Wikimedia Commons, public domain (<a href="https://commons.wikimedia.org/wiki/File:Cryptococcus_neoformans_using_a_light_India_ink_staining_preparation_PHIL_3771_lores.jpg" target="_blank" rel="noopener">source</a>)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q18" aria-label="Doubt about question 18"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p17">‹ Prev</label><label class="btn primary" for="p19">Next ›</label></div>
 </section>
@@ -390,7 +537,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s7" name="Q2-19" id="a19_2" value="Q2-19 | Pharmacology | Absence seizures – drug of choice | chose C: Phenytoin | correct A: Ethosuximide | WRONG" data-tag="Q2-19 Pharmacology: Absence seizures – drug of choice"><label class="opt" for="a19_2"><span class="l">C</span><span class="t">Phenytoin</span><span class="m"></span></label>
 <input type="radio" class="ans w s7" name="Q2-19" id="a19_3" value="Q2-19 | Pharmacology | Absence seizures – drug of choice | chose D: Sodium valproate | correct A: Ethosuximide | WRONG" data-tag="Q2-19 Pharmacology: Absence seizures – drug of choice"><label class="opt" for="a19_3"><span class="l">D</span><span class="t">Sodium valproate</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. Ethosuximide</div>
-<div class="expl"><h4>Explanation</h4><p>This is childhood absence epilepsy. Correct: ethosuximide (a T-type Ca²⁺ channel blocker in thalamic neurons) is the drug of choice for PURE absence seizures – as effective as valproate with fewer side effects and without valproate&#x27;s teratogenic and metabolic risks, which matters for a girl. Why the others are wrong: carbamazepine and phenytoin can WORSEN absence (and myoclonic) seizures. Valproate works, but is preferred when absence occurs WITH generalised tonic-clonic or myoclonic seizures, and it is avoided where possible in girls because of teratogenicity, weight gain and PCOS.</p><div class="one"><b>One-liner to remember: Pure absence: ethosuximide; absence + GTCS: valproate; carbamazepine/phenytoin worsen absence.</b></div><div class="credit">Concept: Absence seizures – drug of choice</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>This is childhood absence epilepsy. Correct: ethosuximide (a T-type Ca²⁺ channel blocker in thalamic neurons) is the drug of choice for PURE absence seizures – as effective as valproate with fewer side effects and without valproate&#x27;s teratogenic and metabolic risks, which matters for a girl. Why the others are wrong: carbamazepine and phenytoin can WORSEN absence (and myoclonic) seizures. Valproate works, but is preferred when absence occurs WITH generalised tonic-clonic or myoclonic seizures, and it is avoided where possible in girls because of teratogenicity, weight gain and PCOS.</p><div class="one"><b>One-liner to remember: Pure absence: ethosuximide; absence + GTCS: valproate; carbamazepine/phenytoin worsen absence.</b></div><div class="credit">Concept: Absence seizures – drug of choice</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q19" aria-label="Doubt about question 19"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p18">‹ Prev</label><label class="btn primary" for="p20">Next ›</label></div>
 </section>
@@ -402,7 +556,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s2" name="Q2-20" id="a20_2" value="Q2-20 | OBG | Complete vs partial hydatidiform mole | chose C: Hysterectomy is the treatment of choice in a young woman who wants children | correct A: A complete mole is usually 46,XX with all chromosomes of paternal origin | WRONG" data-tag="Q2-20 OBG: Complete vs partial hydatidiform mole"><label class="opt" for="a20_2"><span class="l">C</span><span class="t">Hysterectomy is the treatment of choice in a young woman who wants children</span><span class="m"></span></label>
 <input type="radio" class="ans w s2" name="Q2-20" id="a20_3" value="Q2-20 | OBG | Complete vs partial hydatidiform mole | chose D: A partial mole is diploid and has no fetal parts | correct A: A complete mole is usually 46,XX with all chromosomes of paternal origin | WRONG" data-tag="Q2-20 OBG: Complete vs partial hydatidiform mole"><label class="opt" for="a20_3"><span class="l">D</span><span class="t">A partial mole is diploid and has no fetal parts</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. A complete mole is usually 46,XX with all chromosomes of paternal origin</div>
-<div class="expl"><h4>Explanation</h4><p>The scan shows the &#x27;snowstorm&#x27; / &#x27;bunch of grapes&#x27; pattern of a hydatidiform mole. Correct: a complete mole is androgenetic – usually 46,XX (an empty ovum fertilised by one sperm that duplicates), all paternal; p57 immunostain is negative. Why the others are wrong: a PARTIAL mole is TRIPLOID (69,XXY / XXX) and usually HAS fetal parts. Risk of persistent GTN is HIGHER after a complete mole (~15–20%) than after a partial mole (~0.5–5%). Treatment of choice is suction evacuation, followed by serial β-hCG; hysterectomy is only for women who have completed their family.</p><div class="one"><b>One-liner to remember: Complete mole = 46,XX paternal, no fetus, p57 negative, GTN 15–20%; partial = triploid, fetal parts, GTN &lt;5%.</b></div><div class="credit">Concept: Complete vs partial hydatidiform mole</div><div class="credit">Image: Molar pregnancy ultrasound – Mikael Häggström / Wikimedia Commons, CC0 (<a href="https://commons.wikimedia.org/wiki/File:Molar_pregnancy.jpg" target="_blank" rel="noopener">source</a>)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>The scan shows the &#x27;snowstorm&#x27; / &#x27;bunch of grapes&#x27; pattern of a hydatidiform mole. Correct: a complete mole is androgenetic – usually 46,XX (an empty ovum fertilised by one sperm that duplicates), all paternal; p57 immunostain is negative. Why the others are wrong: a PARTIAL mole is TRIPLOID (69,XXY / XXX) and usually HAS fetal parts. Risk of persistent GTN is HIGHER after a complete mole (~15–20%) than after a partial mole (~0.5–5%). Treatment of choice is suction evacuation, followed by serial β-hCG; hysterectomy is only for women who have completed their family.</p><div class="one"><b>One-liner to remember: Complete mole = 46,XX paternal, no fetus, p57 negative, GTN 15–20%; partial = triploid, fetal parts, GTN &lt;5%.</b></div><div class="credit">Concept: Complete vs partial hydatidiform mole</div><div class="credit">Image: Molar pregnancy ultrasound – Mikael Häggström / Wikimedia Commons, CC0 (<a href="https://commons.wikimedia.org/wiki/File:Molar_pregnancy.jpg" target="_blank" rel="noopener">source</a>)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q20" aria-label="Doubt about question 20"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p19">‹ Prev</label><label class="btn primary" for="p21">Next ›</label></div>
 </section>
@@ -414,7 +575,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s9" name="Q2-21" id="a21_2" value="Q2-21 | Psychiatry | Serotonin syndrome vs NMS | chose C: Markedly raised creatine kinase | correct A: Inducible clonus and hyperreflexia, with onset within 24 hours | WRONG" data-tag="Q2-21 Psychiatry: Serotonin syndrome vs NMS"><label class="opt" for="a21_2"><span class="l">C</span><span class="t">Markedly raised creatine kinase</span><span class="m"></span></label>
 <input type="radio" class="ans w s9" name="Q2-21" id="a21_3" value="Q2-21 | Psychiatry | Serotonin syndrome vs NMS | chose D: Lead-pipe rigidity | correct A: Inducible clonus and hyperreflexia, with onset within 24 hours | WRONG" data-tag="Q2-21 Psychiatry: Serotonin syndrome vs NMS"><label class="opt" for="a21_3"><span class="l">D</span><span class="t">Lead-pipe rigidity</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. Inducible clonus and hyperreflexia, with onset within 24 hours</div>
-<div class="expl"><h4>Explanation</h4><p>Correct: serotonin syndrome (from SSRIs, MAOIs, linezolid, tramadol, triptans) begins quickly, within hours to 24 h, with neuromuscular HYPERactivity – clonus (especially of the lower limbs), hyperreflexia, myoclonus, mydriasis and diarrhoea. Treat with cyproheptadine. Why the others are wrong: lead-pipe rigidity with bradyreflexia and slow onset over days is NMS (from dopamine blockers; treat with dantrolene or bromocriptine). Raised CK is usually higher in NMS. Fever and autonomic instability occur in BOTH, so they do not distinguish them.</p><div class="one"><b>One-liner to remember: Serotonin syndrome = fast onset, clonus, hyperreflexia; NMS = slow onset, lead-pipe rigidity, bradyreflexia, very high CK.</b></div><div class="credit">Concept: Serotonin syndrome vs NMS</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Correct: serotonin syndrome (from SSRIs, MAOIs, linezolid, tramadol, triptans) begins quickly, within hours to 24 h, with neuromuscular HYPERactivity – clonus (especially of the lower limbs), hyperreflexia, myoclonus, mydriasis and diarrhoea. Treat with cyproheptadine. Why the others are wrong: lead-pipe rigidity with bradyreflexia and slow onset over days is NMS (from dopamine blockers; treat with dantrolene or bromocriptine). Raised CK is usually higher in NMS. Fever and autonomic instability occur in BOTH, so they do not distinguish them.</p><div class="one"><b>One-liner to remember: Serotonin syndrome = fast onset, clonus, hyperreflexia; NMS = slow onset, lead-pipe rigidity, bradyreflexia, very high CK.</b></div><div class="credit">Concept: Serotonin syndrome vs NMS</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q21" aria-label="Doubt about question 21"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p20">‹ Prev</label><label class="btn primary" for="p22">Next ›</label></div>
 </section>
@@ -426,7 +594,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s4" name="Q2-22" id="a22_2" value="Q2-22 | PSM / Community Medicine | Open vial policy (India) | chose C: Measles–rubella (MR) | correct A: Oral polio vaccine (OPV) | WRONG" data-tag="Q2-22 PSM / Community Medicine: Open vial policy (India)"><label class="opt" for="a22_2"><span class="l">C</span><span class="t">Measles–rubella (MR)</span><span class="m"></span></label>
 <input type="radio" class="ans w s4" name="Q2-22" id="a22_3" value="Q2-22 | PSM / Community Medicine | Open vial policy (India) | chose D: JE vaccine | correct A: Oral polio vaccine (OPV) | WRONG" data-tag="Q2-22 PSM / Community Medicine: Open vial policy (India)"><label class="opt" for="a22_3"><span class="l">D</span><span class="t">JE vaccine</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. Oral polio vaccine (OPV)</div>
-<div class="expl"><h4>Explanation</h4><p>Correct: the open vial policy applies to LIQUID vaccines – OPV, DPT, Td/TT, Hepatitis B, Pentavalent, PCV and IPV. An opened vial can be reused for up to 4 weeks (28 days) if it is within its expiry date, kept in the cold chain, the VVM has not reached the discard point, it is not contaminated, and the date and time of opening are written on it. Why the others are wrong: BCG, measles/MR and JE are freeze-dried vaccines that are reconstituted before use, so the policy does NOT cover them. Reconstituted (lyophilised) vaccines must be discarded 4 hours after reconstitution or at the end of the session, whichever is earlier.</p><div class="one"><b>One-liner to remember: Open vial policy: liquid vaccines (OPV, DPT, Td, HepB, Penta, PCV, IPV) up to 28 days; reconstituted (BCG, MR, JE) discard after 4 h/session end.</b></div><div class="credit">Concept: Open vial policy (India)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Correct: the open vial policy applies to LIQUID vaccines – OPV, DPT, Td/TT, Hepatitis B, Pentavalent, PCV and IPV. An opened vial can be reused for up to 4 weeks (28 days) if it is within its expiry date, kept in the cold chain, the VVM has not reached the discard point, it is not contaminated, and the date and time of opening are written on it. Why the others are wrong: BCG, measles/MR and JE are freeze-dried vaccines that are reconstituted before use, so the policy does NOT cover them. Reconstituted (lyophilised) vaccines must be discarded 4 hours after reconstitution or at the end of the session, whichever is earlier.</p><div class="one"><b>One-liner to remember: Open vial policy: liquid vaccines (OPV, DPT, Td, HepB, Penta, PCV, IPV) up to 28 days; reconstituted (BCG, MR, JE) discard after 4 h/session end.</b></div><div class="credit">Concept: Open vial policy (India)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q22" aria-label="Doubt about question 22"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p21">‹ Prev</label><label class="btn primary" for="p23">Next ›</label></div>
 </section>
@@ -438,7 +613,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s6" name="Q2-23" id="a23_2" value="Q2-23 | Pediatrics | Croup – steeple sign and management | chose C: IV ceftriaxone, because the steeple sign indicates a bacterial cause | correct D: Single dose of dexamethasone plus nebulised adrenaline (epinephrine) | WRONG" data-tag="Q2-23 Pediatrics: Croup – steeple sign and management"><label class="opt" for="a23_2"><span class="l">C</span><span class="t">IV ceftriaxone, because the steeple sign indicates a bacterial cause</span><span class="m"></span></label>
 <input type="radio" class="ans c s6" name="Q2-23" id="a23_3" value="Q2-23 | Pediatrics | Croup – steeple sign and management | chose D: Single dose of dexamethasone plus nebulised adrenaline (epinephrine) | correct D: Single dose of dexamethasone plus nebulised adrenaline (epinephrine) | RIGHT" data-tag="Q2-23 Pediatrics: Croup – steeple sign and management"><label class="opt" for="a23_3"><span class="l">D</span><span class="t">Single dose of dexamethasone plus nebulised adrenaline (epinephrine)</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. Single dose of dexamethasone plus nebulised adrenaline (epinephrine)</div>
-<div class="expl"><h4>Explanation</h4><p>The X-ray shows the STEEPLE (pencil-tip) sign – symmetric subglottic narrowing – of croup (laryngotracheobronchitis), most often due to parainfluenza virus type 1. Correct: corticosteroids (dexamethasone 0.15–0.6 mg/kg, single dose) for all grades, plus nebulised adrenaline when there is stridor at rest; observe 2–4 h after adrenaline for rebound. Why the others are wrong: croup is VIRAL, so antibiotics have no role (the thumb sign on a LATERAL film suggests epiglottitis, which is bacterial). Forcing a tongue depressor is dangerous in suspected EPIGLOTTITIS and is not part of croup management. The obstruction is subglottic (upper airway), not bronchospasm, so salbutamol does not help.</p><div class="one"><b>One-liner to remember: Steeple sign (AP) = croup → dexamethasone ± nebulised adrenaline; thumb sign (lateral) = epiglottitis.</b></div><div class="credit">Concept: Croup – steeple sign and management</div><div class="credit">Image: Croup neck X-ray – Frank Gaillard / Wikimedia Commons, CC BY-SA 3.0 (<a href="https://commons.wikimedia.org/wiki/File:Croup_steeple_sign.jpg" target="_blank" rel="noopener">source</a>)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>The X-ray shows the STEEPLE (pencil-tip) sign – symmetric subglottic narrowing – of croup (laryngotracheobronchitis), most often due to parainfluenza virus type 1. Correct: corticosteroids (dexamethasone 0.15–0.6 mg/kg, single dose) for all grades, plus nebulised adrenaline when there is stridor at rest; observe 2–4 h after adrenaline for rebound. Why the others are wrong: croup is VIRAL, so antibiotics have no role (the thumb sign on a LATERAL film suggests epiglottitis, which is bacterial). Forcing a tongue depressor is dangerous in suspected EPIGLOTTITIS and is not part of croup management. The obstruction is subglottic (upper airway), not bronchospasm, so salbutamol does not help.</p><div class="one"><b>One-liner to remember: Steeple sign (AP) = croup → dexamethasone ± nebulised adrenaline; thumb sign (lateral) = epiglottitis.</b></div><div class="credit">Concept: Croup – steeple sign and management</div><div class="credit">Image: Croup neck X-ray – Frank Gaillard / Wikimedia Commons, CC BY-SA 3.0 (<a href="https://commons.wikimedia.org/wiki/File:Croup_steeple_sign.jpg" target="_blank" rel="noopener">source</a>)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q23" aria-label="Doubt about question 23"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p22">‹ Prev</label><label class="btn primary" for="p24">Next ›</label></div>
 </section>
@@ -450,7 +632,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s10" name="Q2-24" id="a24_2" value="Q2-24 | Surgery | Tension pneumothorax – decompression site (ATLS 10) | chose C: 5th intercostal space, just anterior to the mid-axillary line | correct C: 5th intercostal space, just anterior to the mid-axillary line | RIGHT" data-tag="Q2-24 Surgery: Tension pneumothorax – decompression site (ATLS 10)"><label class="opt" for="a24_2"><span class="l">C</span><span class="t">5th intercostal space, just anterior to the mid-axillary line</span><span class="m"></span></label>
 <input type="radio" class="ans w s10" name="Q2-24" id="a24_3" value="Q2-24 | Surgery | Tension pneumothorax – decompression site (ATLS 10) | chose D: 2nd intercostal space, mid-clavicular line | correct C: 5th intercostal space, just anterior to the mid-axillary line | WRONG" data-tag="Q2-24 Surgery: Tension pneumothorax – decompression site (ATLS 10)"><label class="opt" for="a24_3"><span class="l">D</span><span class="t">2nd intercostal space, mid-clavicular line</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. 5th intercostal space, just anterior to the mid-axillary line</div>
-<div class="expl"><h4>Explanation</h4><p>Correct: ATLS 10th edition moved adult needle decompression to the 4th/5th intercostal space just ANTERIOR to the mid-axillary line, because the chest wall is thinner there and a standard needle is more likely to reach the pleural space. Why the others are wrong: the 2nd ICS mid-clavicular line is the OLD site and is still used in CHILDREN. The 7th ICS posterior axillary line risks injuring the diaphragm and abdominal organs. The parasternal 4th ICS risks the internal thoracic (mammary) vessels and the heart. Tension pneumothorax is a clinical diagnosis – decompress before taking an X-ray, then insert a chest drain.</p><div class="one"><b>One-liner to remember: ATLS 10: adult needle decompression 4th/5th ICS anterior to MAL; children 2nd ICS MCL.</b></div><div class="credit">Concept: Tension pneumothorax – decompression site (ATLS 10)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Correct: ATLS 10th edition moved adult needle decompression to the 4th/5th intercostal space just ANTERIOR to the mid-axillary line, because the chest wall is thinner there and a standard needle is more likely to reach the pleural space. Why the others are wrong: the 2nd ICS mid-clavicular line is the OLD site and is still used in CHILDREN. The 7th ICS posterior axillary line risks injuring the diaphragm and abdominal organs. The parasternal 4th ICS risks the internal thoracic (mammary) vessels and the heart. Tension pneumothorax is a clinical diagnosis – decompress before taking an X-ray, then insert a chest drain.</p><div class="one"><b>One-liner to remember: ATLS 10: adult needle decompression 4th/5th ICS anterior to MAL; children 2nd ICS MCL.</b></div><div class="credit">Concept: Tension pneumothorax – decompression site (ATLS 10)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q24" aria-label="Doubt about question 24"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p23">‹ Prev</label><label class="btn primary" for="p25">Next ›</label></div>
 </section>
@@ -462,7 +651,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s6" name="Q2-25" id="a25_2" value="Q2-25 | Pediatrics | Nephrotic syndrome – spontaneous peritonitis organism | chose C: Mycobacterium tuberculosis | correct B: Streptococcus pneumoniae | WRONG" data-tag="Q2-25 Pediatrics: Nephrotic syndrome – spontaneous peritonitis organism"><label class="opt" for="a25_2"><span class="l">C</span><span class="t">Mycobacterium tuberculosis</span><span class="m"></span></label>
 <input type="radio" class="ans w s6" name="Q2-25" id="a25_3" value="Q2-25 | Pediatrics | Nephrotic syndrome – spontaneous peritonitis organism | chose D: Staphylococcus aureus | correct B: Streptococcus pneumoniae | WRONG" data-tag="Q2-25 Pediatrics: Nephrotic syndrome – spontaneous peritonitis organism"><label class="opt" for="a25_3"><span class="l">D</span><span class="t">Staphylococcus aureus</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. Streptococcus pneumoniae</div>
-<div class="expl"><h4>Explanation</h4><p>Children with nephrotic syndrome lose immunoglobulins (IgG) and factor B in urine, which reduces opsonisation of encapsulated bacteria. Correct: the commonest cause of spontaneous bacterial peritonitis in nephrotic children is Streptococcus pneumoniae (Nelson, Ghai), which is why pneumococcal vaccination is advised. Why the others are wrong: E. coli is the commonest cause of SBP in ADULT cirrhotics (gram-negative organisms are the second commonest in nephrotic children). Staph aureus is more typical of cellulitis or line infections. TB peritonitis is subacute, not an acute peritonitis during a relapse.</p><div class="one"><b>One-liner to remember: Peritonitis in nephrotic child = pneumococcus; SBP in cirrhosis = E. coli.</b></div><div class="credit">Concept: Nephrotic syndrome – spontaneous peritonitis organism</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Children with nephrotic syndrome lose immunoglobulins (IgG) and factor B in urine, which reduces opsonisation of encapsulated bacteria. Correct: the commonest cause of spontaneous bacterial peritonitis in nephrotic children is Streptococcus pneumoniae (Nelson, Ghai), which is why pneumococcal vaccination is advised. Why the others are wrong: E. coli is the commonest cause of SBP in ADULT cirrhotics (gram-negative organisms are the second commonest in nephrotic children). Staph aureus is more typical of cellulitis or line infections. TB peritonitis is subacute, not an acute peritonitis during a relapse.</p><div class="one"><b>One-liner to remember: Peritonitis in nephrotic child = pneumococcus; SBP in cirrhosis = E. coli.</b></div><div class="credit">Concept: Nephrotic syndrome – spontaneous peritonitis organism</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q25" aria-label="Doubt about question 25"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p24">‹ Prev</label><label class="btn primary" for="p26">Next ›</label></div>
 </section>
@@ -474,7 +670,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s2" name="Q2-26" id="a26_2" value="Q2-26 | OBG | PPH – uterotonic contraindications | chose C: Misoprostol | correct B: Methylergometrine | WRONG" data-tag="Q2-26 OBG: PPH – uterotonic contraindications"><label class="opt" for="a26_2"><span class="l">C</span><span class="t">Misoprostol</span><span class="m"></span></label>
 <input type="radio" class="ans w s2" name="Q2-26" id="a26_3" value="Q2-26 | OBG | PPH – uterotonic contraindications | chose D: Carboprost (15-methyl PGF2α) | correct B: Methylergometrine | WRONG" data-tag="Q2-26 OBG: PPH – uterotonic contraindications"><label class="opt" for="a26_3"><span class="l">D</span><span class="t">Carboprost (15-methyl PGF2α)</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. Methylergometrine</div>
-<div class="expl"><h4>Explanation</h4><p>Correct: methylergometrine (an ergot) causes vasoconstriction and can precipitate a hypertensive crisis, eclampsia or stroke, so it is contraindicated in hypertension, pre-eclampsia and heart disease. Why the others are safe here: oxytocin is the first-line uterotonic for everyone. Carboprost is contraindicated mainly in BRONCHIAL ASTHMA (it causes bronchospasm), not in hypertension. Misoprostol can be used, though it may cause fever and shivering. Tranexamic acid within 3 hours of birth is also recommended.</p><div class="one"><b>One-liner to remember: Avoid ergometrine in hypertension/pre-eclampsia/heart disease; avoid carboprost in asthma.</b></div><div class="credit">Concept: PPH – uterotonic contraindications</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Correct: methylergometrine (an ergot) causes vasoconstriction and can precipitate a hypertensive crisis, eclampsia or stroke, so it is contraindicated in hypertension, pre-eclampsia and heart disease. Why the others are safe here: oxytocin is the first-line uterotonic for everyone. Carboprost is contraindicated mainly in BRONCHIAL ASTHMA (it causes bronchospasm), not in hypertension. Misoprostol can be used, though it may cause fever and shivering. Tranexamic acid within 3 hours of birth is also recommended.</p><div class="one"><b>One-liner to remember: Avoid ergometrine in hypertension/pre-eclampsia/heart disease; avoid carboprost in asthma.</b></div><div class="credit">Concept: PPH – uterotonic contraindications</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q26" aria-label="Doubt about question 26"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p25">‹ Prev</label><label class="btn primary" for="p27">Next ›</label></div>
 </section>
@@ -486,7 +689,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s10" name="Q2-27" id="a27_2" value="Q2-27 | Surgery | MEN 2 – sequence of surgery | chose C: Pituitary adenoma | correct B: Phaeochromocytoma | WRONG" data-tag="Q2-27 Surgery: MEN 2 – sequence of surgery"><label class="opt" for="a27_2"><span class="l">C</span><span class="t">Pituitary adenoma</span><span class="m"></span></label>
 <input type="radio" class="ans w s10" name="Q2-27" id="a27_3" value="Q2-27 | Surgery | MEN 2 – sequence of surgery | chose D: Primary hyperparathyroidism | correct B: Phaeochromocytoma | WRONG" data-tag="Q2-27 Surgery: MEN 2 – sequence of surgery"><label class="opt" for="a27_3"><span class="l">D</span><span class="t">Primary hyperparathyroidism</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. Phaeochromocytoma</div>
-<div class="expl"><h4>Explanation</h4><p>Correct: every patient with MTC/MEN 2 must have plasma or urinary metanephrines checked before surgery. If a phaeochromocytoma is present, it is removed FIRST (after α-blockade, then β-blockade); otherwise induction of anaesthesia can trigger a fatal hypertensive crisis. Why the others are wrong: primary hyperparathyroidism in MEN 2A is usually dealt with DURING the neck operation, not before it. Pituitary adenomas and pancreatic NETs belong to MEN 1, not MEN 2.</p><div class="one"><b>One-liner to remember: MEN 2 + MTC: rule out and remove phaeochromocytoma first (α-blocker before β-blocker).</b></div><div class="credit">Concept: MEN 2 – sequence of surgery</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Correct: every patient with MTC/MEN 2 must have plasma or urinary metanephrines checked before surgery. If a phaeochromocytoma is present, it is removed FIRST (after α-blockade, then β-blockade); otherwise induction of anaesthesia can trigger a fatal hypertensive crisis. Why the others are wrong: primary hyperparathyroidism in MEN 2A is usually dealt with DURING the neck operation, not before it. Pituitary adenomas and pancreatic NETs belong to MEN 1, not MEN 2.</p><div class="one"><b>One-liner to remember: MEN 2 + MTC: rule out and remove phaeochromocytoma first (α-blocker before β-blocker).</b></div><div class="credit">Concept: MEN 2 – sequence of surgery</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q27" aria-label="Doubt about question 27"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p26">‹ Prev</label><label class="btn primary" for="p28">Next ›</label></div>
 </section>
@@ -498,7 +708,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s4" name="Q2-28" id="a28_2" value="Q2-28 | PSM / Community Medicine | Vitamin A prophylaxis schedule | chose C: 9 doses (total 17 lakh IU) | correct C: 9 doses (total 17 lakh IU) | RIGHT" data-tag="Q2-28 PSM / Community Medicine: Vitamin A prophylaxis schedule"><label class="opt" for="a28_2"><span class="l">C</span><span class="t">9 doses (total 17 lakh IU)</span><span class="m"></span></label>
 <input type="radio" class="ans w s4" name="Q2-28" id="a28_3" value="Q2-28 | PSM / Community Medicine | Vitamin A prophylaxis schedule | chose D: 8 doses (total 16 lakh IU) | correct C: 9 doses (total 17 lakh IU) | WRONG" data-tag="Q2-28 PSM / Community Medicine: Vitamin A prophylaxis schedule"><label class="opt" for="a28_3"><span class="l">D</span><span class="t">8 doses (total 16 lakh IU)</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. 9 doses (total 17 lakh IU)</div>
-<div class="expl"><h4>Explanation</h4><p>Correct: the first dose of 1 lakh IU is given at 9 months with MR-1. Then 2 lakh IU is given at 16–18 months (with DPT booster/MR-2) and every 6 months until 5 years: 8 doses of 2 lakh IU. In total that is 9 doses = 1 + 16 = 17 lakh IU (Park). Why the others are wrong: they either miscount the 6-monthly doses or assume every dose is 2 lakh IU (the first dose is only 1 lakh IU because the infant is under 1 year).</p><div class="one"><b>One-liner to remember: Vitamin A: 9 doses from 9 months to 5 years = 17 lakh IU (first dose 1 lakh, then 2 lakh every 6 months).</b></div><div class="credit">Concept: Vitamin A prophylaxis schedule</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Correct: the first dose of 1 lakh IU is given at 9 months with MR-1. Then 2 lakh IU is given at 16–18 months (with DPT booster/MR-2) and every 6 months until 5 years: 8 doses of 2 lakh IU. In total that is 9 doses = 1 + 16 = 17 lakh IU (Park). Why the others are wrong: they either miscount the 6-monthly doses or assume every dose is 2 lakh IU (the first dose is only 1 lakh IU because the infant is under 1 year).</p><div class="one"><b>One-liner to remember: Vitamin A: 9 doses from 9 months to 5 years = 17 lakh IU (first dose 1 lakh, then 2 lakh every 6 months).</b></div><div class="credit">Concept: Vitamin A prophylaxis schedule</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q28" aria-label="Doubt about question 28"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p27">‹ Prev</label><label class="btn primary" for="p29">Next ›</label></div>
 </section>
@@ -510,7 +727,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s3" name="Q2-29" id="a29_2" value="Q2-29 | Orthopedics | Slipped capital femoral epiphysis | chose C: Klein&#x27;s (Trethowan&#x27;s) line cuts a larger part of the epiphysis than on the normal side | correct D: Treatment is in-situ fixation with a single cannulated screw, without forceful reduction | WRONG" data-tag="Q2-29 Orthopedics: Slipped capital femoral epiphysis"><label class="opt" for="a29_2"><span class="l">C</span><span class="t">Klein&#x27;s (Trethowan&#x27;s) line cuts a larger part of the epiphysis than on the normal side</span><span class="m"></span></label>
 <input type="radio" class="ans c s3" name="Q2-29" id="a29_3" value="Q2-29 | Orthopedics | Slipped capital femoral epiphysis | chose D: Treatment is in-situ fixation with a single cannulated screw, without forceful reduction | correct D: Treatment is in-situ fixation with a single cannulated screw, without forceful reduction | RIGHT" data-tag="Q2-29 Orthopedics: Slipped capital femoral epiphysis"><label class="opt" for="a29_3"><span class="l">D</span><span class="t">Treatment is in-situ fixation with a single cannulated screw, without forceful reduction</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. Treatment is in-situ fixation with a single cannulated screw, without forceful reduction</div>
-<div class="expl"><h4>Explanation</h4><p>The image shows a slipped capital femoral epiphysis (SCFE): the epiphysis has slipped posteriorly and medially off the metaphysis. Knee pain is referred via the obturator nerve – always examine the hip in a child with knee pain. Correct: pin IN SITU with a single cannulated screw; forced reduction risks avascular necrosis. Why the others are wrong: on hip flexion the thigh goes into obligatory EXTERNAL rotation (Drehmann sign). Klein&#x27;s line along the superior neck cuts LESS of the epiphysis, or misses it completely (Trethowan sign). SCFE typically affects obese adolescent BOYS aged 10–16; age 4–8 years fits Perthes disease.</p><div class="one"><b>One-liner to remember: SCFE: obese adolescent boy, knee pain, obligatory external rotation, Trethowan sign; pin in situ.</b></div><div class="credit">Concept: Slipped capital femoral epiphysis</div><div class="credit">Image: Hip X-ray – Dr. Jochen Lengerke / Wikimedia Commons, CC0 (<a href="https://commons.wikimedia.org/wiki/File:Slipped_capital_femoral_epiphysis.jpg" target="_blank" rel="noopener">source</a>)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>The image shows a slipped capital femoral epiphysis (SCFE): the epiphysis has slipped posteriorly and medially off the metaphysis. Knee pain is referred via the obturator nerve – always examine the hip in a child with knee pain. Correct: pin IN SITU with a single cannulated screw; forced reduction risks avascular necrosis. Why the others are wrong: on hip flexion the thigh goes into obligatory EXTERNAL rotation (Drehmann sign). Klein&#x27;s line along the superior neck cuts LESS of the epiphysis, or misses it completely (Trethowan sign). SCFE typically affects obese adolescent BOYS aged 10–16; age 4–8 years fits Perthes disease.</p><div class="one"><b>One-liner to remember: SCFE: obese adolescent boy, knee pain, obligatory external rotation, Trethowan sign; pin in situ.</b></div><div class="credit">Concept: Slipped capital femoral epiphysis</div><div class="credit">Image: Hip X-ray – Dr. Jochen Lengerke / Wikimedia Commons, CC0 (<a href="https://commons.wikimedia.org/wiki/File:Slipped_capital_femoral_epiphysis.jpg" target="_blank" rel="noopener">source</a>)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q29" aria-label="Doubt about question 29"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p28">‹ Prev</label><label class="btn primary" for="p30">Next ›</label></div>
 </section>
@@ -522,7 +746,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s8" name="Q2-30" id="a30_2" value="Q2-30 | Physiology | Hormone receptor signalling – JAK-STAT | chose C: Aldosterone | correct A: Growth hormone | WRONG" data-tag="Q2-30 Physiology: Hormone receptor signalling – JAK-STAT"><label class="opt" for="a30_2"><span class="l">C</span><span class="t">Aldosterone</span><span class="m"></span></label>
 <input type="radio" class="ans w s8" name="Q2-30" id="a30_3" value="Q2-30 | Physiology | Hormone receptor signalling – JAK-STAT | chose D: Insulin | correct A: Growth hormone | WRONG" data-tag="Q2-30 Physiology: Hormone receptor signalling – JAK-STAT"><label class="opt" for="a30_3"><span class="l">D</span><span class="t">Insulin</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. Growth hormone</div>
-<div class="expl"><h4>Explanation</h4><p>Correct: growth hormone acts through a cytokine-type receptor with no intrinsic kinase activity; it recruits JAK2 tyrosine kinase, which phosphorylates STAT proteins. Prolactin, erythropoietin, leptin, G-CSF and the interleukins work the same way. Why the others are wrong: the insulin receptor (like IGF-1, EGF and PDGF receptors) is a receptor tyrosine kinase with its OWN intrinsic kinase. Glucagon acts through a Gs-coupled receptor that raises cAMP. Aldosterone is a steroid acting on an intracellular (nuclear) receptor.</p><div class="one"><b>One-liner to remember: JAK-STAT: GH, prolactin, EPO, leptin, cytokines; intrinsic tyrosine kinase: insulin, IGF-1, growth factors.</b></div><div class="credit">Concept: Hormone receptor signalling – JAK-STAT</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Correct: growth hormone acts through a cytokine-type receptor with no intrinsic kinase activity; it recruits JAK2 tyrosine kinase, which phosphorylates STAT proteins. Prolactin, erythropoietin, leptin, G-CSF and the interleukins work the same way. Why the others are wrong: the insulin receptor (like IGF-1, EGF and PDGF receptors) is a receptor tyrosine kinase with its OWN intrinsic kinase. Glucagon acts through a Gs-coupled receptor that raises cAMP. Aldosterone is a steroid acting on an intracellular (nuclear) receptor.</p><div class="one"><b>One-liner to remember: JAK-STAT: GH, prolactin, EPO, leptin, cytokines; intrinsic tyrosine kinase: insulin, IGF-1, growth factors.</b></div><div class="credit">Concept: Hormone receptor signalling – JAK-STAT</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q30" aria-label="Doubt about question 30"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p29">‹ Prev</label><label class="btn primary" for="p31">Next ›</label></div>
 </section>
@@ -534,7 +765,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s3" name="Q2-31" id="a31_2" value="Q2-31 | Orthopedics | Epiphyseal bone tumours – age of physis | chose C: Osteosarcoma | correct B: Giant cell tumour (osteoclastoma) | WRONG" data-tag="Q2-31 Orthopedics: Epiphyseal bone tumours – age of physis"><label class="opt" for="a31_2"><span class="l">C</span><span class="t">Osteosarcoma</span><span class="m"></span></label>
 <input type="radio" class="ans w s3" name="Q2-31" id="a31_3" value="Q2-31 | Orthopedics | Epiphyseal bone tumours – age of physis | chose D: Ewing sarcoma | correct B: Giant cell tumour (osteoclastoma) | WRONG" data-tag="Q2-31 Orthopedics: Epiphyseal bone tumours – age of physis"><label class="opt" for="a31_3"><span class="l">D</span><span class="t">Ewing sarcoma</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. Giant cell tumour (osteoclastoma)</div>
-<div class="expl"><h4>Explanation</h4><p>Location plus skeletal maturity is the key. Correct: giant cell tumour arises in the EPIPHYSIS (extending to the metaphysis and subchondral bone) AFTER the growth plate has FUSED, typically at age 20–40. It is eccentric and lytic with a soap-bubble look, and is locally aggressive. Why the others are wrong: chondroblastoma is also epiphyseal but occurs BEFORE physeal closure (skeletally immature, age 10–20) and often shows chondroid calcification. Ewing sarcoma involves the DIAPHYSIS with an onion-peel periosteal reaction. Osteosarcoma involves the METAPHYSIS with a sunburst pattern and Codman triangle.</p><div class="one"><b>One-liner to remember: Epiphysis: open physis → chondroblastoma; fused physis → GCT. Metaphysis → osteosarcoma; diaphysis → Ewing.</b></div><div class="credit">Concept: Epiphyseal bone tumours – age of physis</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Location plus skeletal maturity is the key. Correct: giant cell tumour arises in the EPIPHYSIS (extending to the metaphysis and subchondral bone) AFTER the growth plate has FUSED, typically at age 20–40. It is eccentric and lytic with a soap-bubble look, and is locally aggressive. Why the others are wrong: chondroblastoma is also epiphyseal but occurs BEFORE physeal closure (skeletally immature, age 10–20) and often shows chondroid calcification. Ewing sarcoma involves the DIAPHYSIS with an onion-peel periosteal reaction. Osteosarcoma involves the METAPHYSIS with a sunburst pattern and Codman triangle.</p><div class="one"><b>One-liner to remember: Epiphysis: open physis → chondroblastoma; fused physis → GCT. Metaphysis → osteosarcoma; diaphysis → Ewing.</b></div><div class="credit">Concept: Epiphyseal bone tumours – age of physis</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q31" aria-label="Doubt about question 31"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p30">‹ Prev</label><label class="btn primary" for="p32">Next ›</label></div>
 </section>
@@ -546,7 +784,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s9" name="Q2-32" id="a32_2" value="Q2-32 | Psychiatry | Rapid-cycling bipolar disorder – drug choice | chose C: Lithium carbonate | correct A: Sodium valproate | WRONG" data-tag="Q2-32 Psychiatry: Rapid-cycling bipolar disorder – drug choice"><label class="opt" for="a32_2"><span class="l">C</span><span class="t">Lithium carbonate</span><span class="m"></span></label>
 <input type="radio" class="ans w s9" name="Q2-32" id="a32_3" value="Q2-32 | Psychiatry | Rapid-cycling bipolar disorder – drug choice | chose D: Imipramine | correct A: Sodium valproate | WRONG" data-tag="Q2-32 Psychiatry: Rapid-cycling bipolar disorder – drug choice"><label class="opt" for="a32_3"><span class="l">D</span><span class="t">Imipramine</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: A. Sodium valproate</div>
-<div class="expl"><h4>Explanation</h4><p>Four or more mood episodes in 12 months = RAPID CYCLING. Correct: valproate (and other anticonvulsant mood stabilisers such as lamotrigine) works better than lithium in rapid cycling. Why the others are wrong: lithium is the classic mood stabiliser but responds POORLY in rapid cycling (it works best in classic euphoric mania). Antidepressants such as imipramine and venlafaxine can INDUCE switching and rapid cycling, so they should be tapered off. Also check thyroid function, because hypothyroidism is linked to rapid cycling.</p><div class="one"><b>One-liner to remember: Rapid cycling (≥4 episodes/yr): valproate &gt; lithium; stop antidepressants; check TSH.</b></div><div class="credit">Concept: Rapid-cycling bipolar disorder – drug choice</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Four or more mood episodes in 12 months = RAPID CYCLING. Correct: valproate (and other anticonvulsant mood stabilisers such as lamotrigine) works better than lithium in rapid cycling. Why the others are wrong: lithium is the classic mood stabiliser but responds POORLY in rapid cycling (it works best in classic euphoric mania). Antidepressants such as imipramine and venlafaxine can INDUCE switching and rapid cycling, so they should be tapered off. Also check thyroid function, because hypothyroidism is linked to rapid cycling.</p><div class="one"><b>One-liner to remember: Rapid cycling (≥4 episodes/yr): valproate &gt; lithium; stop antidepressants; check TSH.</b></div><div class="credit">Concept: Rapid-cycling bipolar disorder – drug choice</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q32" aria-label="Doubt about question 32"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p31">‹ Prev</label><label class="btn primary" for="p33">Next ›</label></div>
 </section>
@@ -558,7 +803,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s0" name="Q2-33" id="a33_2" value="Q2-33 | Medicine | Metabolic alkalosis – chloride-responsive vs resistant | chose C: Post-hypercapnic alkalosis | correct D: Primary hyperaldosteronism (Conn syndrome) | WRONG" data-tag="Q2-33 Medicine: Metabolic alkalosis – chloride-responsive vs resistant"><label class="opt" for="a33_2"><span class="l">C</span><span class="t">Post-hypercapnic alkalosis</span><span class="m"></span></label>
 <input type="radio" class="ans c s0" name="Q2-33" id="a33_3" value="Q2-33 | Medicine | Metabolic alkalosis – chloride-responsive vs resistant | chose D: Primary hyperaldosteronism (Conn syndrome) | correct D: Primary hyperaldosteronism (Conn syndrome) | RIGHT" data-tag="Q2-33 Medicine: Metabolic alkalosis – chloride-responsive vs resistant"><label class="opt" for="a33_3"><span class="l">D</span><span class="t">Primary hyperaldosteronism (Conn syndrome)</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. Primary hyperaldosteronism (Conn syndrome)</div>
-<div class="expl"><h4>Explanation</h4><p>First split metabolic alkalosis by URINE CHLORIDE. Below about 20 mEq/L it is saline-responsive (vomiting, nasogastric suction, past diuretic use, post-hypercapnia). Above 20 mEq/L it is saline-resistant – then look at the BP. Correct: saline-resistant + HYPERTENSION = mineralocorticoid excess (Conn syndrome, Cushing, Liddle, renal artery stenosis). Why the others are wrong: vomiting causes a LOW urine chloride (&lt;10–20). Bartter (and Gitelman) are saline-resistant but NORMOTENSIVE. Post-hypercapnic alkalosis is chloride-responsive.</p><div class="one"><b>One-liner to remember: Metabolic alkalosis: urine Cl &lt;20 = vomiting (saline-responsive); Cl &gt;20 + high BP = Conn/Liddle; Cl &gt;20 + normal BP = Bartter/Gitelman/diuretics.</b></div><div class="credit">Concept: Metabolic alkalosis – chloride-responsive vs resistant</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>First split metabolic alkalosis by URINE CHLORIDE. Below about 20 mEq/L it is saline-responsive (vomiting, nasogastric suction, past diuretic use, post-hypercapnia). Above 20 mEq/L it is saline-resistant – then look at the BP. Correct: saline-resistant + HYPERTENSION = mineralocorticoid excess (Conn syndrome, Cushing, Liddle, renal artery stenosis). Why the others are wrong: vomiting causes a LOW urine chloride (&lt;10–20). Bartter (and Gitelman) are saline-resistant but NORMOTENSIVE. Post-hypercapnic alkalosis is chloride-responsive.</p><div class="one"><b>One-liner to remember: Metabolic alkalosis: urine Cl &lt;20 = vomiting (saline-responsive); Cl &gt;20 + high BP = Conn/Liddle; Cl &gt;20 + normal BP = Bartter/Gitelman/diuretics.</b></div><div class="credit">Concept: Metabolic alkalosis – chloride-responsive vs resistant</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q33" aria-label="Doubt about question 33"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p32">‹ Prev</label><label class="btn primary" for="p34">Next ›</label></div>
 </section>
@@ -570,7 +822,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s3" name="Q2-34" id="a34_2" value="Q2-34 | Orthopedics | Acute compartment syndrome – earliest sign | chose C: Absent dorsalis pedis pulse | correct D: Pain on passive stretching of the muscles of the compartment | WRONG" data-tag="Q2-34 Orthopedics: Acute compartment syndrome – earliest sign"><label class="opt" for="a34_2"><span class="l">C</span><span class="t">Absent dorsalis pedis pulse</span><span class="m"></span></label>
 <input type="radio" class="ans c s3" name="Q2-34" id="a34_3" value="Q2-34 | Orthopedics | Acute compartment syndrome – earliest sign | chose D: Pain on passive stretching of the muscles of the compartment | correct D: Pain on passive stretching of the muscles of the compartment | RIGHT" data-tag="Q2-34 Orthopedics: Acute compartment syndrome – earliest sign"><label class="opt" for="a34_3"><span class="l">D</span><span class="t">Pain on passive stretching of the muscles of the compartment</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. Pain on passive stretching of the muscles of the compartment</div>
-<div class="expl"><h4>Explanation</h4><p>Correct: pain out of proportion to the injury, especially pain on PASSIVE STRETCH of the involved muscles, is the earliest and most sensitive sign. Why the others are wrong: compartment pressure rarely exceeds ARTERIAL pressure, so distal pulses usually stay PRESENT, and waiting for them to disappear is a dangerous trap. Pallor, pulselessness and paralysis are LATE signs, appearing when muscle or nerve damage is already happening. Management: split or remove the cast down to the skin; if the pressure difference (diastolic BP minus compartment pressure) is under 30 mmHg, do an urgent fasciotomy.</p><div class="one"><b>One-liner to remember: Compartment syndrome: earliest = pain on passive stretch; pulses usually present; ΔP &lt;30 mmHg → fasciotomy.</b></div><div class="credit">Concept: Acute compartment syndrome – earliest sign</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Correct: pain out of proportion to the injury, especially pain on PASSIVE STRETCH of the involved muscles, is the earliest and most sensitive sign. Why the others are wrong: compartment pressure rarely exceeds ARTERIAL pressure, so distal pulses usually stay PRESENT, and waiting for them to disappear is a dangerous trap. Pallor, pulselessness and paralysis are LATE signs, appearing when muscle or nerve damage is already happening. Management: split or remove the cast down to the skin; if the pressure difference (diastolic BP minus compartment pressure) is under 30 mmHg, do an urgent fasciotomy.</p><div class="one"><b>One-liner to remember: Compartment syndrome: earliest = pain on passive stretch; pulses usually present; ΔP &lt;30 mmHg → fasciotomy.</b></div><div class="credit">Concept: Acute compartment syndrome – earliest sign</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q34" aria-label="Doubt about question 34"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p33">‹ Prev</label><label class="btn primary" for="p35">Next ›</label></div>
 </section>
@@ -582,7 +841,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s2" name="Q2-35" id="a35_2" value="Q2-35 | OBG | GDM screening – DIPSI (Govt of India) | chose C: 75 g oral glucose irrespective of the last meal; 2-hour plasma glucose ≥140 mg/dL | correct C: 75 g oral glucose irrespective of the last meal; 2-hour plasma glucose ≥140 mg/dL | RIGHT" data-tag="Q2-35 OBG: GDM screening – DIPSI (Govt of India)"><label class="opt" for="a35_2"><span class="l">C</span><span class="t">75 g oral glucose irrespective of the last meal; 2-hour plasma glucose ≥140 mg/dL</span><span class="m"></span></label>
 <input type="radio" class="ans w s2" name="Q2-35" id="a35_3" value="Q2-35 | OBG | GDM screening – DIPSI (Govt of India) | chose D: 75 g OGTT after fasting; 2-hour plasma glucose ≥200 mg/dL | correct C: 75 g oral glucose irrespective of the last meal; 2-hour plasma glucose ≥140 mg/dL | WRONG" data-tag="Q2-35 OBG: GDM screening – DIPSI (Govt of India)"><label class="opt" for="a35_3"><span class="l">D</span><span class="t">75 g OGTT after fasting; 2-hour plasma glucose ≥200 mg/dL</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. 75 g oral glucose irrespective of the last meal; 2-hour plasma glucose ≥140 mg/dL</div>
-<div class="expl"><h4>Explanation</h4><p>Correct: the DIPSI &#x27;single-step&#x27; test – 75 g oral glucose given WITHOUT regard to fasting or last meal, with a 2-hour venous plasma glucose ≥140 mg/dL diagnosing GDM. It is done at the first antenatal visit and repeated at 24–28 weeks if negative. Why the others are wrong: the 100 g 3-hour OGTT (Carpenter–Coustan / NDDG) is the second step of the US two-step method. The 50 g challenge test is only a SCREEN – a value ≥140 mg/dL needs a confirmatory OGTT. A 2-hour value ≥200 mg/dL is the cut-off for overt diabetes, not GDM.</p><div class="one"><b>One-liner to remember: DIPSI: 75 g, non-fasting, 2-h plasma glucose ≥140 mg/dL = GDM.</b></div><div class="credit">Concept: GDM screening – DIPSI (Govt of India)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Correct: the DIPSI &#x27;single-step&#x27; test – 75 g oral glucose given WITHOUT regard to fasting or last meal, with a 2-hour venous plasma glucose ≥140 mg/dL diagnosing GDM. It is done at the first antenatal visit and repeated at 24–28 weeks if negative. Why the others are wrong: the 100 g 3-hour OGTT (Carpenter–Coustan / NDDG) is the second step of the US two-step method. The 50 g challenge test is only a SCREEN – a value ≥140 mg/dL needs a confirmatory OGTT. A 2-hour value ≥200 mg/dL is the cut-off for overt diabetes, not GDM.</p><div class="one"><b>One-liner to remember: DIPSI: 75 g, non-fasting, 2-h plasma glucose ≥140 mg/dL = GDM.</b></div><div class="credit">Concept: GDM screening – DIPSI (Govt of India)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q35" aria-label="Doubt about question 35"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p34">‹ Prev</label><label class="btn primary" for="p36">Next ›</label></div>
 </section>
@@ -594,7 +860,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s0" name="Q2-36" id="a36_2" value="Q2-36 | Medicine | WPW – pre-excited AF, drugs to avoid | chose C: IV ibutilide | correct D: IV verapamil | WRONG" data-tag="Q2-36 Medicine: WPW – pre-excited AF, drugs to avoid"><label class="opt" for="a36_2"><span class="l">C</span><span class="t">IV ibutilide</span><span class="m"></span></label>
 <input type="radio" class="ans c s0" name="Q2-36" id="a36_3" value="Q2-36 | Medicine | WPW – pre-excited AF, drugs to avoid | chose D: IV verapamil | correct D: IV verapamil | RIGHT" data-tag="Q2-36 Medicine: WPW – pre-excited AF, drugs to avoid"><label class="opt" for="a36_3"><span class="l">D</span><span class="t">IV verapamil</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. IV verapamil</div>
-<div class="expl"><h4>Explanation</h4><p>The ECG shows a short PR interval with slurred upstrokes of the QRS (delta waves) – Wolff–Parkinson–White pattern. In pre-excited AF, blocking the AV node pushes more impulses down the accessory pathway, which can cause ventricular fibrillation. Correct: AV-nodal blockers – verapamil, diltiazem, digoxin, adenosine and β-blockers – are contraindicated. Why the others are wrong: procainamide or ibutilide slow conduction in the accessory pathway and are the drugs of choice when the patient is stable. Synchronised DC cardioversion is the treatment of choice if the patient is unstable and is never &#x27;contraindicated&#x27;. Definitive treatment is catheter ablation of the pathway.</p><div class="one"><b>One-liner to remember: Pre-excited AF in WPW: procainamide/ibutilide or DC shock; NEVER AV-nodal blockers (verapamil, digoxin, adenosine).</b></div><div class="credit">Concept: WPW – pre-excited AF, drugs to avoid</div><div class="credit">Image: 12-lead ECG – Ksheka / Wikimedia Commons, CC BY-SA 3.0 (<a href="https://commons.wikimedia.org/wiki/File:Wolff-Parkinson-White_syndrome_12_lead_EKG.png" target="_blank" rel="noopener">source</a>)</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>The ECG shows a short PR interval with slurred upstrokes of the QRS (delta waves) – Wolff–Parkinson–White pattern. In pre-excited AF, blocking the AV node pushes more impulses down the accessory pathway, which can cause ventricular fibrillation. Correct: AV-nodal blockers – verapamil, diltiazem, digoxin, adenosine and β-blockers – are contraindicated. Why the others are wrong: procainamide or ibutilide slow conduction in the accessory pathway and are the drugs of choice when the patient is stable. Synchronised DC cardioversion is the treatment of choice if the patient is unstable and is never &#x27;contraindicated&#x27;. Definitive treatment is catheter ablation of the pathway.</p><div class="one"><b>One-liner to remember: Pre-excited AF in WPW: procainamide/ibutilide or DC shock; NEVER AV-nodal blockers (verapamil, digoxin, adenosine).</b></div><div class="credit">Concept: WPW – pre-excited AF, drugs to avoid</div><div class="credit">Image: 12-lead ECG – Ksheka / Wikimedia Commons, CC BY-SA 3.0 (<a href="https://commons.wikimedia.org/wiki/File:Wolff-Parkinson-White_syndrome_12_lead_EKG.png" target="_blank" rel="noopener">source</a>)</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q36" aria-label="Doubt about question 36"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p35">‹ Prev</label><label class="btn primary" for="p37">Next ›</label></div>
 </section>
@@ -606,7 +879,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans c s4" name="Q2-37" id="a37_2" value="Q2-37 | PSM / Community Medicine | Effect of prevalence on predictive values | chose C: PPV increases; sensitivity and specificity remain unchanged | correct C: PPV increases; sensitivity and specificity remain unchanged | RIGHT" data-tag="Q2-37 PSM / Community Medicine: Effect of prevalence on predictive values"><label class="opt" for="a37_2"><span class="l">C</span><span class="t">PPV increases; sensitivity and specificity remain unchanged</span><span class="m"></span></label>
 <input type="radio" class="ans w s4" name="Q2-37" id="a37_3" value="Q2-37 | PSM / Community Medicine | Effect of prevalence on predictive values | chose D: Sensitivity increases | correct C: PPV increases; sensitivity and specificity remain unchanged | WRONG" data-tag="Q2-37 PSM / Community Medicine: Effect of prevalence on predictive values"><label class="opt" for="a37_3"><span class="l">D</span><span class="t">Sensitivity increases</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: C. PPV increases; sensitivity and specificity remain unchanged</div>
-<div class="expl"><h4>Explanation</h4><p>Correct: sensitivity and specificity are properties of the TEST and do not change with prevalence. Predictive values depend on prevalence: as prevalence rises, the positive predictive value RISES (more of the positives are true positives) and the negative predictive value FALLS. Why the others are wrong: sensitivity and specificity do not change with prevalence (they change only if the cut-off is changed). NPV moves in the OPPOSITE direction, so it decreases.</p><div class="one"><b>One-liner to remember: ↑Prevalence → ↑PPV, ↓NPV; sensitivity and specificity unchanged.</b></div><div class="credit">Concept: Effect of prevalence on predictive values</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Correct: sensitivity and specificity are properties of the TEST and do not change with prevalence. Predictive values depend on prevalence: as prevalence rises, the positive predictive value RISES (more of the positives are true positives) and the negative predictive value FALLS. Why the others are wrong: sensitivity and specificity do not change with prevalence (they change only if the cut-off is changed). NPV moves in the OPPOSITE direction, so it decreases.</p><div class="one"><b>One-liner to remember: ↑Prevalence → ↑PPV, ↓NPV; sensitivity and specificity unchanged.</b></div><div class="credit">Concept: Effect of prevalence on predictive values</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q37" aria-label="Doubt about question 37"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p36">‹ Prev</label><label class="btn primary" for="p38">Next ›</label></div>
 </section>
@@ -618,7 +898,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s0" name="Q2-38" id="a38_2" value="Q2-38 | Medicine | Cerebral salt wasting vs SIADH | chose C: Demeclocycline | correct D: Volume and sodium replacement with isotonic/hypertonic saline (± fludrocortisone) | WRONG" data-tag="Q2-38 Medicine: Cerebral salt wasting vs SIADH"><label class="opt" for="a38_2"><span class="l">C</span><span class="t">Demeclocycline</span><span class="m"></span></label>
 <input type="radio" class="ans c s0" name="Q2-38" id="a38_3" value="Q2-38 | Medicine | Cerebral salt wasting vs SIADH | chose D: Volume and sodium replacement with isotonic/hypertonic saline (± fludrocortisone) | correct D: Volume and sodium replacement with isotonic/hypertonic saline (± fludrocortisone) | RIGHT" data-tag="Q2-38 Medicine: Cerebral salt wasting vs SIADH"><label class="opt" for="a38_3"><span class="l">D</span><span class="t">Volume and sodium replacement with isotonic/hypertonic saline (± fludrocortisone)</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: D. Volume and sodium replacement with isotonic/hypertonic saline (± fludrocortisone)</div>
-<div class="expl"><h4>Explanation</h4><p>Both SIADH and cerebral salt wasting (CSW) cause hyponatraemia with a high urine Na⁺; the KEY difference is volume status. Here there are signs of HYPOVOLAEMIA (postural drop, high haematocrit, weight loss), so this is CSW. Correct: replace salt and volume (0.9% or 3% saline, ± fludrocortisone). Why the others are wrong: fluid restriction, tolvaptan and demeclocycline all treat SIADH (euvolaemic). In CSW they worsen hypovolaemia and can precipitate cerebral vasospasm and infarction after SAH.</p><div class="one"><b>One-liner to remember: Hyponatraemia + high urine Na: euvolaemic = SIADH (restrict); hypovolaemic = CSW (give saline).</b></div><div class="credit">Concept: Cerebral salt wasting vs SIADH</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Both SIADH and cerebral salt wasting (CSW) cause hyponatraemia with a high urine Na⁺; the KEY difference is volume status. Here there are signs of HYPOVOLAEMIA (postural drop, high haematocrit, weight loss), so this is CSW. Correct: replace salt and volume (0.9% or 3% saline, ± fludrocortisone). Why the others are wrong: fluid restriction, tolvaptan and demeclocycline all treat SIADH (euvolaemic). In CSW they worsen hypovolaemia and can precipitate cerebral vasospasm and infarction after SAH.</p><div class="one"><b>One-liner to remember: Hyponatraemia + high urine Na: euvolaemic = SIADH (restrict); hypovolaemic = CSW (give saline).</b></div><div class="credit">Concept: Cerebral salt wasting vs SIADH</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q38" aria-label="Doubt about question 38"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p37">‹ Prev</label><label class="btn primary" for="p39">Next ›</label></div>
 </section>
@@ -630,7 +917,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s6" name="Q2-39" id="a39_2" value="Q2-39 | Pediatrics | WHO Plan C – severe dehydration rate by age | chose C: 20 mL/kg boluses over 15 minutes, repeated up to 60 mL/kg | correct B: 30 mL/kg in 1 hour, then 70 mL/kg in the next 5 hours | WRONG" data-tag="Q2-39 Pediatrics: WHO Plan C – severe dehydration rate by age"><label class="opt" for="a39_2"><span class="l">C</span><span class="t">20 mL/kg boluses over 15 minutes, repeated up to 60 mL/kg</span><span class="m"></span></label>
 <input type="radio" class="ans w s6" name="Q2-39" id="a39_3" value="Q2-39 | Pediatrics | WHO Plan C – severe dehydration rate by age | chose D: 30 mL/kg in 30 minutes, then 70 mL/kg in the next 2½ hours | correct B: 30 mL/kg in 1 hour, then 70 mL/kg in the next 5 hours | WRONG" data-tag="Q2-39 Pediatrics: WHO Plan C – severe dehydration rate by age"><label class="opt" for="a39_3"><span class="l">D</span><span class="t">30 mL/kg in 30 minutes, then 70 mL/kg in the next 2½ hours</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. 30 mL/kg in 1 hour, then 70 mL/kg in the next 5 hours</div>
-<div class="expl"><h4>Explanation</h4><p>WHO Plan C for severe dehydration uses 100 mL/kg Ringer lactate (or normal saline) in two parts, and the SPEED depends on age. Correct: infants UNDER 12 months get 30 mL/kg in 1 hour, then 70 mL/kg in 5 hours (total 6 h). Why the others are wrong: &#x27;30 mL/kg in 30 min, then 70 mL/kg in 2½ h&#x27; (total 3 h) is for children aged 12 months to 5 years – the classic trap. Repeated 20 mL/kg boluses are the shock-resuscitation protocol, not Plan C rehydration. 75 mL/kg ORS over 4 hours is Plan B (some dehydration).</p><div class="one"><b>One-liner to remember: Plan C: &lt;12 months = 1 h + 5 h; ≥12 months = 30 min + 2½ h (30 then 70 mL/kg).</b></div><div class="credit">Concept: WHO Plan C – severe dehydration rate by age</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>WHO Plan C for severe dehydration uses 100 mL/kg Ringer lactate (or normal saline) in two parts, and the SPEED depends on age. Correct: infants UNDER 12 months get 30 mL/kg in 1 hour, then 70 mL/kg in 5 hours (total 6 h). Why the others are wrong: &#x27;30 mL/kg in 30 min, then 70 mL/kg in 2½ h&#x27; (total 3 h) is for children aged 12 months to 5 years – the classic trap. Repeated 20 mL/kg boluses are the shock-resuscitation protocol, not Plan C rehydration. 75 mL/kg ORS over 4 hours is Plan B (some dehydration).</p><div class="one"><b>One-liner to remember: Plan C: &lt;12 months = 1 h + 5 h; ≥12 months = 30 min + 2½ h (30 then 70 mL/kg).</b></div><div class="credit">Concept: WHO Plan C – severe dehydration rate by age</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q39" aria-label="Doubt about question 39"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p38">‹ Prev</label><label class="btn primary" for="p40">Next ›</label></div>
 </section>
@@ -642,7 +936,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 <input type="radio" class="ans w s9" name="Q2-40" id="a40_2" value="Q2-40 | Psychiatry | Lithium – drug interactions raising levels | chose C: Mannitol | correct B: Hydrochlorothiazide | WRONG" data-tag="Q2-40 Psychiatry: Lithium – drug interactions raising levels"><label class="opt" for="a40_2"><span class="l">C</span><span class="t">Mannitol</span><span class="m"></span></label>
 <input type="radio" class="ans w s9" name="Q2-40" id="a40_3" value="Q2-40 | Psychiatry | Lithium – drug interactions raising levels | chose D: Acetazolamide | correct B: Hydrochlorothiazide | WRONG" data-tag="Q2-40 Psychiatry: Lithium – drug interactions raising levels"><label class="opt" for="a40_3"><span class="l">D</span><span class="t">Acetazolamide</span><span class="m"></span></label>
 <div class="res"><div class="verdict okv">✓ Correct!</div><div class="verdict badv">✗ Incorrect. Correct answer: B. Hydrochlorothiazide</div>
-<div class="expl"><h4>Explanation</h4><p>Lithium is handled like sodium in the proximal tubule. Correct: thiazides cause mild sodium depletion, so the proximal tubule reabsorbs more sodium and lithium, raising lithium levels by 25–40% and causing toxicity. ACE inhibitors, ARBs and most NSAIDs do the same. Why the others are wrong: theophylline, acetazolamide (a carbonic anhydrase inhibitor) and osmotic diuretics such as mannitol INCREASE lithium excretion and LOWER its levels. Coarse tremor, vomiting, ataxia and confusion suggest toxicity (usually &gt;1.5 mEq/L); fine tremor is a common side effect at therapeutic levels.</p><div class="one"><b>One-liner to remember: Lithium ↑ by thiazides, ACEi/ARB, NSAIDs; ↓ by theophylline, acetazolamide, osmotic diuretics.</b></div><div class="credit">Concept: Lithium – drug interactions raising levels</div></div></div>
+<div class="expl"><h4>Explanation</h4><p>Lithium is handled like sodium in the proximal tubule. Correct: thiazides cause mild sodium depletion, so the proximal tubule reabsorbs more sodium and lithium, raising lithium levels by 25–40% and causing toxicity. ACE inhibitors, ARBs and most NSAIDs do the same. Why the others are wrong: theophylline, acetazolamide (a carbonic anhydrase inhibitor) and osmotic diuretics such as mannitol INCREASE lithium excretion and LOWER its levels. Coarse tremor, vomiting, ataxia and confusion suggest toxicity (usually &gt;1.5 mEq/L); fine tremor is a common side effect at therapeutic levels.</p><div class="one"><b>One-liner to remember: Lithium ↑ by thiazides, ACEi/ARB, NSAIDs; ↓ by theophylline, acetazolamide, osmotic diuretics.</b></div><div class="credit">Concept: Lithium – drug interactions raising levels</div></div>
+<div class="doubt">
+  <div class="doubt-title">Have a doubt about this question?</div>
+  <textarea class="doubt-ta" rows="3" placeholder="Type your doubt about this question or explanation..." data-qid="q40" aria-label="Doubt about question 40"></textarea>
+  <button type="button" class="btn primary doubt-copy">Copy doubt for Grok Bot</button>
+  <div class="doubt-fb" aria-live="polite"></div>
+</div>
+</div>
 </div>
 <div class="qnav"><label class="btn" for="p39">‹ Prev</label><label class="btn primary" for="p41">Finish › Summary</label></div>
 </section>
@@ -657,10 +958,14 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
  </div>
  <div class="rcbox card"><b>Reset all answers and start again?</b>
   <div class="row"><button type="reset" class="btn danger" id="resetYes">Yes, reset</button><label class="btn" for="rc">Cancel</label></div></div>
- <div class="send card"><b>Send my results to Grok Bot</b><div style="font-size:13px;color:var(--muted);margin:4px 0 8px">Sends every answer (subject, concept, your option, correct option) so your weak concepts can be analysed. You can send again any time; your progress here is kept.</div>
+  <div class="send card"><b>Send my results to Grok Bot</b><div style="font-size:13px;color:var(--muted);margin:4px 0 8px">Sends every answer (subject, concept, your option, correct option) and any doubts you typed, so your weak concepts can be analysed. You can send again any time; your progress here is kept.</div>
   <button type="submit" class="btn primary" id="sendBtn">📤 Send my results</button>
-  <div class="sent-ok" id="sentOk">✓ Results sent. Grok Bot can now see them.</div>
-  <div class="sent-err" id="sentErr">Couldn't send – check your internet and tap again.</div></div>
+  <div class="sent-ok" id="sentOk">Sent! Tell Grok Bot to check your results.</div>
+  <div class="sent-err" id="sentErr">Couldn't send – check your internet and tap again, or copy your results below.</div>
+  <div id="copyResWrap" class="copy-res-wrap">
+    <button type="button" class="btn" id="copyResBtn">Copy results to paste in Grok Bot</button>
+    <div class="doubt-fb" id="copyResFb" aria-live="polite"></div>
+  </div></div>
  <table><thead><tr><th>Subject</th><th class="n">Correct</th><th class="n">Wrong</th><th class="n">Total</th></tr></thead><tbody><tr><td>Medicine</td><td class="n ok"><span class="c-s0r"></span></td><td class="n bad"><span class="c-s0w"></span></td><td class="n">5</td></tr><tr><td>Microbiology</td><td class="n ok"><span class="c-s1r"></span></td><td class="n bad"><span class="c-s1w"></span></td><td class="n">4</td></tr><tr><td>OBG</td><td class="n ok"><span class="c-s2r"></span></td><td class="n bad"><span class="c-s2w"></span></td><td class="n">6</td></tr><tr><td>Orthopedics</td><td class="n ok"><span class="c-s3r"></span></td><td class="n bad"><span class="c-s3w"></span></td><td class="n">4</td></tr><tr><td>PSM / Community Medicine</td><td class="n ok"><span class="c-s4r"></span></td><td class="n bad"><span class="c-s4w"></span></td><td class="n">4</td></tr><tr><td>Pathology</td><td class="n ok"><span class="c-s5r"></span></td><td class="n bad"><span class="c-s5w"></span></td><td class="n">1</td></tr><tr><td>Pediatrics</td><td class="n ok"><span class="c-s6r"></span></td><td class="n bad"><span class="c-s6w"></span></td><td class="n">6</td></tr><tr><td>Pharmacology</td><td class="n ok"><span class="c-s7r"></span></td><td class="n bad"><span class="c-s7w"></span></td><td class="n">1</td></tr><tr><td>Physiology</td><td class="n ok"><span class="c-s8r"></span></td><td class="n bad"><span class="c-s8w"></span></td><td class="n">1</td></tr><tr><td>Psychiatry</td><td class="n ok"><span class="c-s9r"></span></td><td class="n bad"><span class="c-s9w"></span></td><td class="n">4</td></tr><tr><td>Surgery</td><td class="n ok"><span class="c-s10r"></span></td><td class="n bad"><span class="c-s10w"></span></td><td class="n">4</td></tr></tbody></table>
  <p class="note">If "Review wrong answers" shows nothing, you have no wrong answers yet. Questions are on high-yield, frequently tested NEET PG topics (2020–2026 trends), not verbatim previous-year questions. Facts follow standard textbooks (Harrison, Robbins, KDT, Park, Bailey &amp; Love, Williams/DC Dutta, Nelson/Ghai, Khurana, Dhingra).</p><p class="note">Image credits: Q6: Koplik spots – CDC / Wikimedia Commons, public domain; Q18: India ink preparation – CDC/Dr. Leanor Haley / Wikimedia Commons, public domain; Q20: Molar pregnancy ultrasound – Mikael Häggström / Wikimedia Commons, CC0; Q23: Croup neck X-ray – Frank Gaillard / Wikimedia Commons, CC BY-SA 3.0; Q29: Hip X-ray – Dr. Jochen Lengerke / Wikimedia Commons, CC0; Q36: 12-lead ECG – Ksheka / Wikimedia Commons, CC BY-SA 3.0. Images are used under their stated licences.</p>
 </section>
@@ -669,36 +974,160 @@ form:has(input[name="Q2-01"].w:checked) .pal label[for="p1"],form:has(input[name
 </form>
 <script>
 /* Optional enhancement. The quiz works without this script (pure HTML/CSS).
-   Saves answers + current question + review/palette state on every action and restores them on load. */
+   Saves answers + current question + review/palette state on every action and restores them on load.
+   Doubts are stored in a sibling localStorage key (resume key is never wiped). */
 (function(){try{
- var f=document.getElementById("quiz"),K="neetpg_weak40_quiz2_v1",S=null;
+ var f=document.getElementById("quiz"),K="neetpg_weak40_quiz2_v1",DK=K+"_doubts",S=null;
  try{S=window.localStorage;S.setItem(K+"_t","1");S.removeItem(K+"_t")}catch(e){S=null}
+ function quizName(){var el=f.querySelector('input[name="quiz"]');return el&&el.value?el.value:document.title}
+ function measureChrome(){
+  var live=document.querySelector(".live"),hd=document.querySelector(".hd");
+  if(live) document.documentElement.style.setProperty("--live-h",live.offsetHeight+"px");
+  if(hd) document.documentElement.style.setProperty("--hd-h",hd.offsetHeight+"px");
+ }
+ measureChrome();
+ window.addEventListener("resize",measureChrome);
+ if(window.visualViewport){window.visualViewport.addEventListener("resize",measureChrome);window.visualViewport.addEventListener("scroll",measureChrome)}
+ /* iOS Safari scrolls a focused hidden radio into view and desyncs the visual
+    viewport, so the header/nav can be seen but not tapped. Blur those controls. */
+ document.addEventListener("focusin",function(e){
+  var t=e.target;
+  if(t&&(t.classList.contains("pg")||t.classList.contains("tg")||t.classList.contains("ans"))){try{t.blur()}catch(x){}}
+ },true);
  function state(){var a={};f.querySelectorAll("input.ans:checked").forEach(function(i){var s=i.id.split("_");a[s[0]]=s[1]});
   var p=f.querySelector("input.pg:checked");return {a:a,p:p?p.id:"p1",rv:document.getElementById("rv").checked,y:window.scrollY||0,ts:Date.now()}}
  function save(){if(!S)return;try{S.setItem(K,JSON.stringify(state()))}catch(e){}}
+ function loadDoubts(){if(!S)return {};try{return JSON.parse(S.getItem(DK)||"{}")||{}}catch(e){return {}}}
+ function saveDoubts(d){if(!S)return;try{S.setItem(DK,JSON.stringify(d))}catch(e){}}
+ function collectDoubts(){var d=loadDoubts();f.querySelectorAll("textarea.doubt-ta").forEach(function(ta){var id=ta.getAttribute("data-qid");if(!id)return;var v=(ta.value||"").trim();if(v)d[id]=v;else delete d[id]});return d}
+ function persistDoubts(){saveDoubts(collectDoubts())}
  var d=null;if(S){try{d=JSON.parse(S.getItem(K)||"null")}catch(e){d=null}}
  if(d&&d.a){for(var n in d.a){var el=document.getElementById(n+"_"+d.a[n]);if(el)el.checked=true}
   var pg=document.getElementById(d.p);if(pg)pg.checked=true;
-  document.getElementById("rv").checked=!!d.rv;
-  var y=d.y||0;requestAnimationFrame(function(){window.scrollTo(0,y)})}
+  var rvEl=document.getElementById("rv");if(rvEl)rvEl.checked=!!d.rv;
+  var y=d.y||0;requestAnimationFrame(function(){window.scrollTo(0,y);measureChrome()})}
  window.__resume={key:K,storage:!!S,restored:!!(d&&d.a)};
+ (function(){var db=loadDoubts();f.querySelectorAll("textarea.doubt-ta").forEach(function(ta){var id=ta.getAttribute("data-qid");if(id&&db[id])ta.value=db[id]})})();
+ function scrollTopSafe(){
+  try{if(document.activeElement&&document.activeElement.blur)document.activeElement.blur()}catch(x){}
+  window.scrollTo(0,0);
+  requestAnimationFrame(function(){window.scrollTo(0,0);measureChrome()});
+ }
+ function scrollResIntoView(r){
+  if(!r)return;
+  var hd=document.querySelector(".hd");
+  var topPad=(hd?hd.getBoundingClientRect().bottom:0)+8;
+  var sec=r.closest("section");
+  var qnav=sec?sec.querySelector(".qnav"):null;
+  var live=document.querySelector(".live");
+  var botPad=(live?live.getBoundingClientRect().height:50)+(qnav?qnav.getBoundingClientRect().height:60)+8;
+  var vh=window.visualViewport?window.visualViewport.height:window.innerHeight;
+  var rect=r.getBoundingClientRect();
+  if(rect.top<topPad||rect.bottom>vh-botPad){
+   var y=window.scrollY+rect.top-topPad;
+   try{window.scrollTo({top:Math.max(0,y),behavior:"smooth"})}catch(x){window.scrollTo(0,Math.max(0,y))}
+  }
+ }
  f.addEventListener("change",function(e){var t=e.target;
-  if(t.classList.contains("pg")){window.scrollTo(0,0);var tp=document.getElementById("tp");if(tp)tp.checked=false}
+  if(t.classList.contains("pg")){var tp=document.getElementById("tp");if(tp)tp.checked=false;scrollTopSafe()}
+  if(t.id==="tp"){requestAnimationFrame(function(){measureChrome();if(t.checked){var hd=document.querySelector(".hd");if(hd)hd.scrollIntoView({block:"start"})}})}
   save();
-  if(t.classList.contains("ans")){var r=t.parentNode.querySelector(".res");setTimeout(function(){try{r.scrollIntoView({behavior:"smooth",block:"nearest"})}catch(x){}},60)}});
- f.addEventListener("reset",function(){setTimeout(function(){window.scrollTo(0,0);save()},0)});
+  if(t.classList.contains("ans")){var r=t.parentNode.querySelector(".res");setTimeout(function(){scrollResIntoView(r)},60)}});
+ f.addEventListener("reset",function(){setTimeout(function(){f.querySelectorAll("textarea.doubt-ta").forEach(function(ta){ta.value=""});if(S)try{S.removeItem(DK)}catch(e){}scrollTopSafe();save()},0)});
  var st=null;window.addEventListener("scroll",function(){clearTimeout(st);st=setTimeout(save,300)},{passive:true});
- function fill(){var all=f.querySelectorAll("section.q"),r=0,w=0,na=[],wc=[];all.forEach(function(s){var c=s.querySelector("input.ans:checked");if(!c){na.push(s.id.replace("q","Q"));return}
-  if(c.classList.contains("c"))r++;else{w++;wc.push(c.getAttribute("data-tag"))}});
-  var dt=new Date(),ist="";try{ist=dt.toLocaleString("en-IN",{timeZone:"Asia/Kolkata"})+" IST | "}catch(x){}document.getElementById("f_ts").value=ist+dt.toISOString();document.getElementById("f_score").value=r+" correct, "+w+" wrong, "+na.length+" not attempted (of "+all.length+")";
-  document.getElementById("f_na").value=na.join(", ")||"none";document.getElementById("f_wc").value=wc.join(" || ")||"none"}
- f.addEventListener("submit",function(e){fill();if(!window.fetch||!window.FormData)return;e.preventDefault();
-  var b=document.getElementById("sendBtn"),ok=document.getElementById("sentOk"),er=document.getElementById("sentErr");b.disabled=true;b.textContent="Sending…";ok.style.display="none";er.style.display="none";
-  var fd=new FormData(f),o={};fd.forEach(function(v,k){if(k!=="pg"&&k!=="_next")o[k]=v});
-  fetch(f.action.replace("formsubmit.co/","formsubmit.co/ajax/"),{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(o)})
-  .then(function(r){return r.json()}).then(function(j){if(String(j.success)==="true"){ok.style.display="block";b.textContent="📤 Send again"}else{throw 0}})
-  .catch(function(){er.style.display="block";b.textContent="📤 Send my results"}).then(function(){b.disabled=false})});
- window.addEventListener("pagehide",save);document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")save()});
+ var dtm=null;f.addEventListener("input",function(e){if(e.target&&e.target.classList.contains("doubt-ta")){clearTimeout(dtm);dtm=setTimeout(persistDoubts,200)}});
+ function textOf(el){return (el&&el.textContent||"").replace(/\s+/g," ").trim()}
+ function qMeta(sec){
+  var chosen=sec.querySelector("input.ans:checked"),correct=sec.querySelector("input.ans.c");
+  function optLine(inp){if(!inp)return "(not answered)";var lab=inp.nextElementSibling;return (textOf(lab&&lab.querySelector(".l"))+". "+textOf(lab&&lab.querySelector(".t"))).replace(/^\. /,"")}
+  var cred=sec.querySelector(".expl .credit");
+  var concept=cred?textOf(cred).replace(/^Concept:\s*/,""):"";
+  return {id:sec.id,qno:textOf(sec.querySelector(".qno"))||sec.id,subject:sec.getAttribute("data-s")||textOf(sec.querySelector(".tag")),concept:concept,stem:textOf(sec.querySelector(".stem")),chose:optLine(chosen),correct:optLine(correct),right:!!(chosen&&chosen.classList.contains("c")),answered:!!chosen};
+ }
+ function doubtPrompt(sec,doubtText){
+  var m=qMeta(sec);
+  return ["I have a doubt from my NEET PG quiz. Please explain it clearly.","","Quiz: "+quizName(),"Question: "+m.qno,"Subject / concept: "+m.subject+(m.concept?" — "+m.concept:""),"","Question:",m.stem,"","I chose: "+m.chose,"Correct answer: "+m.correct,"","My doubt:",(doubtText||"").trim()||"(no text typed)","","Please answer this doubt in the context of this question."].join("\n");
+ }
+ function resultsText(){
+  var r=0,w=0,na=0,body=[];
+  f.querySelectorAll("section.q").forEach(function(sec){
+   var m=qMeta(sec),dv=((sec.querySelector(".doubt-ta")||{}).value||"").trim();
+   if(!m.answered){na++;body.push("","— "+m.qno+" ["+m.subject+"] NOT ATTEMPTED")}
+   else{if(m.right)r++;else w++;body.push("","— "+m.qno+" ["+m.subject+(m.concept?" / "+m.concept:"")+"] "+(m.right?"RIGHT":"WRONG"));body.push("  Stem: "+m.stem);body.push("  I chose: "+m.chose);body.push("  Correct: "+m.correct)}
+   if(dv)body.push("  Doubt: "+dv);
+  });
+  return ["NEET PG quiz results to analyse","","Quiz: "+quizName(),"Score: "+r+" correct, "+w+" wrong, "+na+" not attempted (of "+(r+w+na)+")"].concat(body).join("\n");
+ }
+ function copyText(text){
+  function fallback(){var ta=document.createElement("textarea");ta.value=text;ta.setAttribute("readonly","");ta.style.cssText="position:fixed;top:0;left:0;width:1px;height:1px;opacity:0";document.body.appendChild(ta);ta.focus();ta.select();try{ta.setSelectionRange(0,ta.value.length)}catch(x){}var ok=false;try{ok=document.execCommand("copy")}catch(x){}document.body.removeChild(ta);return ok}
+  if(navigator.clipboard&&navigator.clipboard.writeText&&window.isSecureContext){
+   return navigator.clipboard.writeText(text).then(function(){return true}).catch(function(){return fallback()});
+  }
+  return Promise.resolve(fallback());
+ }
+ function flash(el,msg,ok){if(!el)return;el.textContent=msg;el.className="doubt-fb "+(ok?"ok":"err");el.style.display="block";clearTimeout(el._t);el._t=setTimeout(function(){el.style.display="none"},2500)}
+ f.addEventListener("click",function(e){
+  var btn=e.target.closest(".doubt-copy");if(!btn)return;e.preventDefault();
+  var box=btn.closest(".doubt"),sec=btn.closest("section"),ta=box&&box.querySelector(".doubt-ta"),fb=box&&box.querySelector(".doubt-fb");
+  persistDoubts();
+  copyText(doubtPrompt(sec,ta?ta.value:"")).then(function(ok){if(ok!==false)flash(fb,"Copied! Paste it in Grok Bot chat",true);else flash(fb,"Couldn't copy — long-press and copy the text",false)});
+ });
+ function fill(){
+  var all=f.querySelectorAll("section.q"),r=0,w=0,na=[],wc=[],ds=[];
+  persistDoubts();
+  all.forEach(function(s){var c=s.querySelector("input.ans:checked"),ta=s.querySelector(".doubt-ta"),dv=ta&&ta.value.trim();if(dv)ds.push(s.id+": "+dv);if(!c){na.push(s.id.replace("q","Q"));return}if(c.classList.contains("c"))r++;else{w++;wc.push(c.getAttribute("data-tag"))}});
+  var dt=new Date(),ist="";try{ist=dt.toLocaleString("en-IN",{timeZone:"Asia/Kolkata"})+" IST | "}catch(x){}
+  var ts=document.getElementById("f_ts"),sc=document.getElementById("f_score"),fn=document.getElementById("f_na"),fw=document.getElementById("f_wc"),fd=document.getElementById("f_doubts");
+  if(ts)ts.value=ist+dt.toISOString();
+  if(sc)sc.value=r+" correct, "+w+" wrong, "+na.length+" not attempted (of "+all.length+")";
+  if(fn)fn.value=na.join(", ")||"none";
+  if(fw)fw.value=wc.join(" || ")||"none";
+  if(fd)fd.value=ds.length?ds.join(" || "):"none";
+ }
+ function showCopyFallback(on){var c=document.getElementById("copyResWrap");if(!c)return;if(on)c.classList.add("is-fallback");else c.classList.remove("is-fallback")}
+ f.addEventListener("submit",function(e){
+  try{fill()}catch(x){}
+  if(!window.fetch||!window.FormData)return;
+  e.preventDefault();
+  var b=document.getElementById("sendBtn"),ok=document.getElementById("sentOk"),er=document.getElementById("sentErr");
+  function done(success,msg){
+   if(b){b.disabled=false;b.textContent=success?"📤 Send again":"📤 Send my results"}
+   if(ok){ok.style.display=success?"block":"none";if(success&&msg)ok.textContent=msg}
+   if(er){er.style.display=success?"none":"block";if(!success&&msg)er.textContent=msg}
+   if(!success)showCopyFallback(true);
+  }
+  if(b){b.disabled=true;b.textContent="Sending…"}
+  if(ok)ok.style.display="none";if(er)er.style.display="none";
+  var ac=typeof AbortController!=="undefined"?new AbortController():null;
+  var finished=false;
+  var to=setTimeout(function(){if(finished)return;try{if(ac)ac.abort()}catch(x){}if(!ac&&!finished){finished=true;done(false,"Couldn't send (timed out or network). Copy your results below and paste them in Grok Bot.")}},15000);
+  try{
+   var fd=new FormData(f),o={};fd.forEach(function(v,k){if(k!=="pg"&&k!=="_next"&&k!=="_honey")o[k]=v});
+   var url=f.action.replace("formsubmit.co/","formsubmit.co/ajax/");
+   var opts={method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(o)};
+   if(ac)opts.signal=ac.signal;
+   fetch(url,opts).then(function(r){
+    var ct=(r.headers&&r.headers.get("content-type"))||"";
+    if(ct.indexOf("json")!==-1)return r.json();
+    return r.text().then(function(t){try{return JSON.parse(t)}catch(x){if(!r.ok)throw new Error("bad status");return {success:r.ok}}});
+   }).then(function(j){
+    var good=j&&(j.success===true||String(j.success).toLowerCase()==="true");
+    if(good){finished=true;done(true,"Sent! Tell Grok Bot to check your results.")}
+    else throw new Error("not success");
+   }).catch(function(){
+    if(finished)return;finished=true;
+    done(false,"Couldn't send (timed out or network). Copy your results below and paste them in Grok Bot.");
+   }).then(function(){clearTimeout(to)});
+  }catch(err){finished=true;clearTimeout(to);done(false,"Couldn't send. Copy your results below and paste them in Grok Bot.")}
+ });
+ var copyBtn=document.getElementById("copyResBtn");
+ if(copyBtn)copyBtn.addEventListener("click",function(){
+  try{fill()}catch(x){}
+  var fb=document.getElementById("copyResFb");
+  copyText(resultsText()).then(function(ok){if(fb){fb.style.display="block";fb.className="doubt-fb "+(ok!==false?"ok":"err");fb.textContent=ok!==false?"Copied! Paste it in Grok Bot chat":"Couldn't copy automatically — long-press and copy."}});
+ });
+ window.addEventListener("pagehide",function(){save();persistDoubts()});
+ document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden"){save();persistDoubts()}});
 }catch(e){}})();
 </script>
 </body>
