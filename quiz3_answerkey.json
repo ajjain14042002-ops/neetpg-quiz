@@ -1,0 +1,562 @@
+[
+ {
+  "id": "Q3-01",
+  "subject": "Microbiology",
+  "concept": "Cryptococcal meningitis – diagnosis",
+  "stem": "IMAGE-BASED: A man with HIV (CD4 count 40/µL) has headache and fever. This CSF preparation is shown. Which statement is CORRECT?",
+  "options": {
+   "A": "A negative India-ink preparation does not exclude the diagnosis; cryptococcal antigen (CrAg) is substantially more sensitive",
+   "B": "A mucicarmine stain of CSF is the recommended rapid bedside test",
+   "C": "India ink is >99% sensitive in HIV and is the diagnostic test of choice",
+   "D": "The organisms shown are Candida; start a mucosal-candidiasis dose of fluconazole only"
+  },
+  "correct": "A",
+  "image": "crypto3"
+ },
+ {
+  "id": "Q3-02",
+  "subject": "PSM / Community Medicine",
+  "concept": "Attributable risk (percent)",
+  "stem": "The incidence of stroke is 20 per 1000 among hypertensives and 5 per 1000 among normotensives. Which statement is CORRECT?",
+  "options": {
+   "A": "The attributable risk percent is 4",
+   "B": "Attributable risk percent is 75%, so three-quarters of the strokes among hypertensives are attributable to hypertension",
+   "C": "The attributable risk (absolute) is 15%",
+   "D": "The relative risk is 75%"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q3-03",
+  "subject": "Pathology",
+  "concept": "Reversible vs irreversible cell injury (EM)",
+  "stem": "Which of the following is NOT a feature of reversible cell injury?",
+  "options": {
+   "A": "Nuclear pyknosis, karyorrhexis and karyolysis",
+   "B": "Myelin figures formed from degenerate phospholipids",
+   "C": "Plasma-membrane blebbing and loss of microvilli",
+   "D": "Cellular (hydropic) swelling, the earliest light-microscopic change"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q3-04",
+  "subject": "Psychiatry",
+  "concept": "Rapid-cycling bipolar disorder – drug choice",
+  "stem": "A 28-year-old with bipolar disorder has had four distinct manic or depressive episodes in the last 11 months. TSH is normal. The mood stabiliser of choice is:",
+  "options": {
+   "A": "Venlafaxine",
+   "B": "Amitriptyline",
+   "C": "Lithium carbonate",
+   "D": "Sodium valproate"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q3-05",
+  "subject": "Pediatrics",
+  "concept": "WHO Plan C – severe dehydration rate by age",
+  "stem": "A 2-year-old has severe dehydration from acute diarrhoea and IV access is obtained. As per WHO Plan C, Ringer lactate should be given as:",
+  "options": {
+   "A": "75 mL/kg of ORS over 4 hours",
+   "B": "20 mL/kg boluses over 15 minutes only, without completing 100 mL/kg",
+   "C": "30 mL/kg in 30 minutes, then 70 mL/kg in the next 2½ hours",
+   "D": "30 mL/kg in 1 hour, then 70 mL/kg in the next 5 hours"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q3-06",
+  "subject": "Medicine",
+  "concept": "Sick euthyroid (non-thyroidal illness) syndrome",
+  "stem": "On day 3 of severe pneumonia, thyroid tests show low T3, high reverse T3 and a normal TSH. A week later, as the patient recovers, TSH is mildly raised and T4 is low-normal. The MOST likely explanation is:",
+  "options": {
+   "A": "A TSH-secreting pituitary adenoma",
+   "B": "New primary hypothyroidism that must be treated immediately with thyroxine",
+   "C": "Factitious thyrotoxicosis",
+   "D": "Recovery from sick euthyroid syndrome (a transient TSH rise is expected; do not label this as primary hypothyroidism yet)"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q3-07",
+  "subject": "Psychiatry",
+  "concept": "Rapid-cycling bipolar disorder – drug choice",
+  "stem": "A woman with bipolar disorder has had six mood episodes this year while taking lithium plus a recently added SNRI. TSH is normal. Besides reviewing adherence and substances, the MOST appropriate medication change is:",
+  "options": {
+   "A": "Stop lithium and start imipramine monotherapy",
+   "B": "Increase the lithium dose and add a second antidepressant",
+   "C": "Taper and stop the antidepressant, and switch the mood stabiliser to valproate (or add an anticonvulsant mood stabiliser)",
+   "D": "Continue both drugs unchanged and start empirical thyroxine even though TSH is normal"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q3-08",
+  "subject": "Orthopedics",
+  "concept": "Monteggia fracture-dislocation – nerve injury",
+  "stem": "IMAGE-BASED: A child fell on an outstretched hand. The elbow and forearm X-rays are shown. The nerve MOST likely to be injured, and the expected deficit, is:",
+  "options": {
+   "A": "Anterior interosseous nerve — inability to make the 'OK' sign, with no sensory loss",
+   "B": "Superficial radial nerve — sensory loss over the first web space only, with normal finger extension",
+   "C": "Posterior interosseous nerve — finger and thumb drop without wrist drop and without sensory loss",
+   "D": "Ulnar nerve — clawing of the ring and little fingers with palmar sensory loss"
+  },
+  "correct": "C",
+  "image": "monteggia"
+ },
+ {
+  "id": "Q3-09",
+  "subject": "Medicine",
+  "concept": "WPW – pre-excited AF, drugs to avoid",
+  "stem": "A young adult with known WPW presents with an irregular, very rapid, wide-complex tachycardia and a blood pressure of 70/40 mmHg with confusion. The MOST appropriate immediate treatment is:",
+  "options": {
+   "A": "An intravenous digoxin loading dose",
+   "B": "Intravenous verapamil to slow the ventricular rate",
+   "C": "Intravenous adenosine",
+   "D": "Immediate synchronised DC cardioversion"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q3-10",
+  "subject": "Surgery",
+  "concept": "Gallstone pancreatitis – timing of cholecystectomy",
+  "stem": "A 52-year-old is recovering from SEVERE acute gallstone pancreatitis. CT shows large peripancreatic fluid collections. He is now afebrile and tolerating oral intake. The recommended timing of cholecystectomy is:",
+  "options": {
+   "A": "Delayed until the collections have substantially resolved, typically after about 6 weeks",
+   "B": "Only if a second attack of pancreatitis occurs",
+   "C": "During the same admission, as soon as abdominal pain has settled",
+   "D": "Emergency cholecystectomy within 24 hours of the original admission"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q3-11",
+  "subject": "Pediatrics",
+  "concept": "Tetralogy of Fallot – hypercyanotic (Tet) spell",
+  "stem": "IMAGE-BASED: A 10-month-old with this chest X-ray becomes deeply cyanosed and limp after a long cry; the systolic murmur is much softer than usual. Which drug is CONTRAINDICATED in this situation?",
+  "options": {
+   "A": "Morphine",
+   "B": "Intravenous dobutamine",
+   "C": "Propranolol",
+   "D": "Phenylephrine"
+  },
+  "correct": "B",
+  "image": "tof"
+ },
+ {
+  "id": "Q3-12",
+  "subject": "Surgery",
+  "concept": "Gallstone pancreatitis – timing of cholecystectomy",
+  "stem": "A patient is admitted with mild gallstone pancreatitis plus ascending cholangitis (fever, jaundice and hypotension that responds to fluids). After resuscitation, the MOST appropriate biliary plan is:",
+  "options": {
+   "A": "Interval cholecystectomy after 6–8 weeks, and no ERCP",
+   "B": "Emergency cholecystectomy within 24 hours, without ERCP",
+   "C": "Urgent ERCP with sphincterotomy, then laparoscopic cholecystectomy during the same admission once the pancreatitis has settled",
+   "D": "Conservative treatment only; both ERCP and surgery are deferred unless a second attack occurs"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q3-13",
+  "subject": "Orthopedics",
+  "concept": "Epiphyseal bone tumours – age of physis",
+  "stem": "A 13-year-old has an epiphyseal lytic lesion of the proximal humerus with stippled chondroid calcification; the growth plate is still open. The MOST likely diagnosis is:",
+  "options": {
+   "A": "Chondroblastoma",
+   "B": "Giant cell tumour (osteoclastoma)",
+   "C": "Conventional osteosarcoma",
+   "D": "Ewing sarcoma"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q3-14",
+  "subject": "Microbiology",
+  "concept": "Cryptococcal meningitis – diagnosis",
+  "stem": "Cryptococcal meningitis is confirmed in a patient with advanced HIV. The preferred INDUCTION therapy is:",
+  "options": {
+   "A": "High-dose acyclovir plus corticosteroids as first-line induction",
+   "B": "Amphotericin B plus flucytosine, followed by fluconazole consolidation",
+   "C": "Fluconazole monotherapy from day 1 at a standard mucosal-candidiasis dose",
+   "D": "Albendazole plus praziquantel"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q3-15",
+  "subject": "Pediatrics",
+  "concept": "WHO Plan C – severe dehydration rate by age",
+  "stem": "A 10-month-old with severe dehydration is started on WHO Plan C. After the first 30 mL/kg of Ringer lactate has been given, the remaining 70 mL/kg should be infused over:",
+  "options": {
+   "A": "2½ hours",
+   "B": "4 hours as oral ORS (Plan B)",
+   "C": "15 minutes, as a further shock bolus",
+   "D": "5 hours"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q3-16",
+  "subject": "OBG",
+  "concept": "GDM screening – DIPSI (Govt of India)",
+  "stem": "Which statement about the Government of India (DIPSI) guideline for GDM is CORRECT?",
+  "options": {
+   "A": "75 g oral glucose is given irrespective of the last meal, and a 2-hour venous plasma glucose ≥140 mg/dL diagnoses GDM",
+   "B": "Screening is done only once, at 24–28 weeks, and never at the first antenatal visit",
+   "C": "A 50 g glucose-challenge 1-hour value ≥140 mg/dL is itself diagnostic of GDM",
+   "D": "The diagnostic 2-hour cut-off is ≥200 mg/dL, as used for overt diabetes in non-pregnant adults"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q3-17",
+  "subject": "Medicine",
+  "concept": "Sick euthyroid (non-thyroidal illness) syndrome",
+  "stem": "A septic ICU patient with no prior thyroid disease has low T3, low-normal T4, normal TSH and a raised reverse T3. The MOST appropriate action is:",
+  "options": {
+   "A": "Diagnose primary hypothyroidism and give a high loading dose of thyroxine",
+   "B": "Start levothyroxine now, because low T3 and T4 confirm hypothyroidism",
+   "C": "Do not start thyroid hormone; treat the underlying illness (this is sick euthyroid / non-thyroidal illness)",
+   "D": "Start liothyronine (T3) replacement, because T3 is the active hormone"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q3-18",
+  "subject": "PSM / Community Medicine",
+  "concept": "Open vial policy (India)",
+  "stem": "Which of the following multi-dose vaccines MAY be used in subsequent sessions for up to 28 days if all open-vial conditions are met?",
+  "options": {
+   "A": "Measles–rubella (MR) vaccine",
+   "B": "Japanese encephalitis (JE) vaccine",
+   "C": "Pentavalent (DPT–HepB–Hib) vaccine",
+   "D": "BCG vaccine"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q3-19",
+  "subject": "Pediatrics",
+  "concept": "Measles – infectivity, Koplik spots, vitamin A",
+  "stem": "A 14-month-old with clinically confirmed measles has no eye signs of vitamin A deficiency. As per WHO, vitamin A should be given as:",
+  "options": {
+   "A": "No vitamin A, unless xerophthalmia is already present",
+   "B": "200,000 IU orally today, repeated the next day",
+   "C": "50,000 IU daily for 2 weeks",
+   "D": "100,000 IU once only, because the child is under 2 years"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q3-20",
+  "subject": "Medicine",
+  "concept": "Heparin-induced thrombocytopenia – management",
+  "stem": "HIT has been confirmed. Heparin was stopped and argatroban started. The platelet count has now risen to 160 × 10⁹/L. The appropriate plan for warfarin is:",
+  "options": {
+   "A": "Give a 5 mg warfarin loading dose plus a platelet transfusion, then stop argatroban immediately",
+   "B": "Warfarin should have been started on the day HIT was diagnosed, as soon as heparin was stopped, regardless of the platelet count",
+   "C": "Warfarin must never be used at any time after an episode of HIT",
+   "D": "Warfarin may be started now, overlapped with argatroban until a stable therapeutic INR is reached (accounting for argatroban's effect on the INR)"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q3-21",
+  "subject": "Orthopedics",
+  "concept": "Slipped capital femoral epiphysis",
+  "stem": "IMAGE-BASED: A 13-year-old obese boy has had knee pain and a limp for 6 weeks. The frog-lateral hip radiograph is shown; a line has been drawn along the superior femoral neck. Which statement is CORRECT?",
+  "options": {
+   "A": "The line missing the epiphysis means the hip is normal, so no treatment is required",
+   "B": "This is Klein's (Trethowan's) line; it misses or cuts less of the epiphysis than normal, and treatment is in-situ screw fixation without forceful reduction",
+   "C": "This appearance in a 13-year-old is typical of Perthes disease and is treated by observation only",
+   "D": "Forced closed reduction under anaesthesia is the treatment of choice to restore anatomy"
+  },
+  "correct": "B",
+  "image": "scfe_frog"
+ },
+ {
+  "id": "Q3-22",
+  "subject": "Psychiatry",
+  "concept": "Lithium – drug interactions raising levels",
+  "stem": "A patient who has been stable on lithium for years develops coarse tremor, vomiting and ataxia shortly after an over-the-counter analgesic is started for backache. The drug MOST likely to have raised the lithium level is:",
+  "options": {
+   "A": "Theophylline",
+   "B": "Ibuprofen",
+   "C": "Acetazolamide",
+   "D": "Mannitol"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q3-23",
+  "subject": "PSM / Community Medicine",
+  "concept": "Vitamin A prophylaxis schedule",
+  "stem": "Under India's national vitamin A prophylaxis programme, the FIRST dose, given at 9 months of age with MR-1, is:",
+  "options": {
+   "A": "2 lakh IU, because every prophylactic dose is 2 lakh IU",
+   "B": "2 lakh IU daily for 3 days",
+   "C": "1 lakh (100,000) IU",
+   "D": "50,000 IU as a single dose"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q3-24",
+  "subject": "Microbiology",
+  "concept": "Hepatitis B serology – window period",
+  "stem": "A jaundiced adult has the following serology: HBsAg negative, anti-HBs negative, total anti-HBc positive and IgM anti-HBc positive. The BEST interpretation is:",
+  "options": {
+   "A": "Resolved past infection with lasting immunity",
+   "B": "Inactive chronic HBsAg carrier",
+   "C": "Successful hepatitis B vaccination",
+   "D": "Window period of acute hepatitis B (IgM anti-HBc is the only marker of ongoing acute infection)"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q3-25",
+  "subject": "Pediatrics",
+  "concept": "Tetralogy of Fallot – hypercyanotic (Tet) spell",
+  "stem": "A 7-month-old known to have tetralogy of Fallot becomes irritable, deeply cyanosed and hyperpnoeic. After calling for help, the FIRST immediate manoeuvre is:",
+  "options": {
+   "A": "Start dobutamine and defer oxygen until an arterial blood gas is available",
+   "B": "Place the infant in the knee-chest position and give oxygen",
+   "C": "Start an isoprenaline infusion to raise cardiac output",
+   "D": "Give intravenous digoxin as the first drug"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q3-26",
+  "subject": "Medicine",
+  "concept": "Heparin-induced thrombocytopenia – management",
+  "stem": "On day 8 of unfractionated heparin, platelets fall from 280 to 90 × 10⁹/L and a new pulmonary embolus is diagnosed. HIT is confirmed. Which of the following is CONTRAINDICATED at this moment?",
+  "options": {
+   "A": "Starting warfarin today as the sole anticoagulant, while the platelet count is still 90 × 10⁹/L",
+   "B": "Stopping all heparin, including heparin flushes",
+   "C": "Starting intravenous argatroban",
+   "D": "Starting fondaparinux once the patient is stable"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q3-27",
+  "subject": "Pediatrics",
+  "concept": "Measles – infectivity, Koplik spots, vitamin A",
+  "stem": "IMAGE-BASED: A 2-year-old had fever, cough and red watery eyes for 3 days. This rash then began behind the ears and spread downward over the trunk. Which statement is CORRECT?",
+  "options": {
+   "A": "The child may return to daycare as soon as the fever settles, even if the rash is only 1 day old",
+   "B": "Vitamin A is withheld unless Bitot spots or xerophthalmia are already present",
+   "C": "The commonest cause of death from this illness is subacute sclerosing panencephalitis (SSPE)",
+   "D": "Vitamin A is given to this child even if there are no eye signs — two age-appropriate doses 24 hours apart"
+  },
+  "correct": "D",
+  "image": "measles_rash"
+ },
+ {
+  "id": "Q3-28",
+  "subject": "Orthopedics",
+  "concept": "Monteggia fracture-dislocation – nerve injury",
+  "stem": "Which statement about Monteggia and Galeazzi fracture-dislocations is CORRECT?",
+  "options": {
+   "A": "Monteggia is a fracture of the distal radius with DRUJ dislocation; the nerve at risk is the ulnar nerve",
+   "B": "Galeazzi is a fracture of the ulna with radial-head dislocation; the nerve at risk is the anterior interosseous nerve",
+   "C": "Monteggia is a fracture of the ulna with dislocation of the radial head; the nerve at risk is the posterior interosseous nerve",
+   "D": "Both injuries typically present with a median-nerve palsy at the carpal tunnel"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q3-29",
+  "subject": "Physiology",
+  "concept": "Hormone receptor signalling – JAK-STAT",
+  "stem": "Which of the following hormones acts through a receptor that signals via the JAK–STAT pathway?",
+  "options": {
+   "A": "Glucagon",
+   "B": "Aldosterone",
+   "C": "Insulin",
+   "D": "Erythropoietin"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q3-30",
+  "subject": "Medicine",
+  "concept": "WPW – pre-excited AF, drugs to avoid",
+  "stem": "IMAGE-BASED: A 22-year-old with palpitations has this resting ECG. He later presents with an irregular, wide-complex tachycardia at 230/min but is haemodynamically stable. Which drug is CONTRAINDICATED?",
+  "options": {
+   "A": "Intravenous ibutilide",
+   "B": "Synchronised DC cardioversion",
+   "C": "Intravenous procainamide",
+   "D": "Intravenous digoxin"
+  },
+  "correct": "D",
+  "image": "wpw3"
+ },
+ {
+  "id": "Q3-31",
+  "subject": "PSM / Community Medicine",
+  "concept": "Vitamin A prophylaxis schedule",
+  "stem": "A child starts vitamin A prophylaxis on time at 9 months (1 lakh IU) and then receives 2 lakh IU every 6 months from 16–18 months until 5 years of age, inclusive. The complete schedule is:",
+  "options": {
+   "A": "10 doses totalling 20 lakh IU",
+   "B": "5 doses totalling 10 lakh IU",
+   "C": "8 doses totalling 16 lakh IU",
+   "D": "9 doses totalling 17 lakh IU"
+  },
+  "correct": "D",
+  "image": null
+ },
+ {
+  "id": "Q3-32",
+  "subject": "Psychiatry",
+  "concept": "Lithium – drug interactions raising levels",
+  "stem": "A patient stable on lithium needs an additional drug. Which of the following is LEAST likely to raise the serum lithium concentration?",
+  "options": {
+   "A": "Hydrochlorothiazide",
+   "B": "Theophylline",
+   "C": "Enalapril",
+   "D": "Ibuprofen"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q3-33",
+  "subject": "PSM / Community Medicine",
+  "concept": "Open vial policy (India)",
+  "stem": "Under India's open vial policy, which opened vaccine must be discarded at the end of the immunisation session (or within 4 hours of reconstitution) and cannot be kept for 28 days?",
+  "options": {
+   "A": "Measles–rubella (MR) vaccine",
+   "B": "Hepatitis B vaccine",
+   "C": "Pentavalent (DPT–HepB–Hib) vaccine",
+   "D": "Oral polio vaccine (OPV)"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q3-34",
+  "subject": "Orthopedics",
+  "concept": "Slipped capital femoral epiphysis",
+  "stem": "A 14-year-old obese boy has isolated left knee pain; the knee examination and knee X-ray are normal. On flexing the ipsilateral hip, the thigh rolls into obligatory external rotation (Drehmann sign). The MOST appropriate next step is:",
+  "options": {
+   "A": "Obtain urgent hip radiographs (AP and frog-lateral) and plan in-situ fixation if SCFE is confirmed; do not forcefully reduce",
+   "B": "Start high-dose steroids for presumed transient synovitis and review in 6 weeks",
+   "C": "Manipulate the hip into internal rotation under sedation to 'relocate' the epiphysis",
+   "D": "Reassure and discharge, because a normal knee X-ray excludes hip pathology"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q3-35",
+  "subject": "Medicine",
+  "concept": "Metabolic alkalosis – chloride-responsive vs resistant",
+  "stem": "A 19-year-old has recurrent cramps, BP 110/70 mmHg, K⁺ 2.6 mEq/L, metabolic alkalosis, urine chloride 50 mEq/L, low serum magnesium and low urinary calcium. He is not on diuretics. The MOST likely diagnosis is:",
+  "options": {
+   "A": "Gitelman syndrome",
+   "B": "Primary hyperaldosteronism (Conn syndrome)",
+   "C": "Bartter syndrome",
+   "D": "Repeated self-induced vomiting"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q3-36",
+  "subject": "Orthopedics",
+  "concept": "Epiphyseal bone tumours – age of physis",
+  "stem": "IMAGE-BASED: A 32-year-old has knee pain. The radiograph shows an eccentric lytic lesion in the distal femoral epiphysis reaching the subchondral bone. The physis is fused. The MOST likely diagnosis is:",
+  "options": {
+   "A": "Chondroblastoma",
+   "B": "Giant cell tumour (osteoclastoma)",
+   "C": "Conventional osteosarcoma",
+   "D": "Ewing sarcoma"
+  },
+  "correct": "B",
+  "image": "gct"
+ },
+ {
+  "id": "Q3-37",
+  "subject": "Medicine",
+  "concept": "Metabolic alkalosis – chloride-responsive vs resistant",
+  "stem": "A patient with prolonged vomiting has metabolic alkalosis, K⁺ 3.0 mEq/L and a urine chloride of 8 mEq/L. This alkalosis is BEST described as:",
+  "options": {
+   "A": "Chloride-resistant alkalosis due to Conn syndrome",
+   "B": "Chloride-resistant alkalosis due to Bartter syndrome",
+   "C": "Chloride-responsive (saline-responsive); the low urine chloride reflects extra-renal chloride loss",
+   "D": "A primary respiratory alkalosis from anxiety, not a metabolic disorder"
+  },
+  "correct": "C",
+  "image": null
+ },
+ {
+  "id": "Q3-38",
+  "subject": "OBG",
+  "concept": "GDM screening – DIPSI (Govt of India)",
+  "stem": "A 26-year-old at 24 weeks is given 75 g oral glucose in the antenatal clinic 1 hour after breakfast (she was not asked to fast). The 2-hour venous plasma glucose is 152 mg/dL. As per the Government of India DIPSI guideline, this is:",
+  "options": {
+   "A": "Overt (frank) diabetes mellitus, because the value is above 140 mg/dL",
+   "B": "Gestational diabetes mellitus (non-fasting 75 g test; 2-hour value ≥140 mg/dL)",
+   "C": "An incomplete test; a 100 g 3-hour OGTT is required before any diagnosis can be made",
+   "D": "A normal result, because the test is invalid unless it is performed fasting"
+  },
+  "correct": "B",
+  "image": null
+ },
+ {
+  "id": "Q3-39",
+  "subject": "Microbiology",
+  "concept": "Hepatitis B serology – window period",
+  "stem": "A healthcare worker's hepatitis B serology is: HBsAg negative, anti-HBs 180 mIU/mL, anti-HBc negative. This pattern indicates:",
+  "options": {
+   "A": "Immunity due to hepatitis B vaccination",
+   "B": "Past infection with recovery",
+   "C": "The window period of acute hepatitis B",
+   "D": "Chronic hepatitis B with an HBsAg escape mutant"
+  },
+  "correct": "A",
+  "image": null
+ },
+ {
+  "id": "Q3-40",
+  "subject": "PSM / Community Medicine",
+  "concept": "Attributable risk (percent)",
+  "stem": "In a cohort study, the incidence of coronary events is 36 per 1000 among smokers and 12 per 1000 among non-smokers. The attributable risk percent (AR%) is:",
+  "options": {
+   "A": "24%",
+   "B": "33.3%",
+   "C": "66.7%",
+   "D": "3"
+  },
+  "correct": "C",
+  "image": null
+ }
+]
